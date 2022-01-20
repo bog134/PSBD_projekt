@@ -13,9 +13,7 @@ CREATE TABLE IF NOT EXISTS PRACOWNIK
 	Numer_telefonu VARCHAR(45) NOT NULL,	
 	Adres_Kod VARCHAR(45) NOT NULL, 
 	Adres_Miasto VARCHAR(45) NOT NULL,		
-	Adres_Ulica VARCHAR(45) NOT NULL,
-	Login VARCHAR(45) NOT NULL,
-	Haslo VARCHAR(45) NOT NULL,
+	Adres_Ulica VARCHAR(45) NOT NULL,	
 
 	PRIMARY KEY (IdPracownika),
 	UNIQUE KEY (Numer_konta_bankowego),
@@ -132,6 +130,141 @@ CREATE TABLE IF NOT EXISTS POLPRODUKT
 	FOREIGN KEY (IdProj_polprod) REFERENCES PROJEKT_POLPRODUKTU(IdProj_polprod)
 );
 
+CREATE TABLE IF NOT EXISTS dostawcy
+(
+  	Id_Dostawcy int(11) NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(20) NOT NULL,
+  	E-mail varchar(50) NOT NULL,
+  	Numer_konta_bankowego varchar(26) NOT NULL,
+  	Adres_AdresPocztowy varchar(200) NOT NULL,
+  	Adres_Miejscowosc varchar(100) NOT NULL,
+  	Adres_Ulica varchar(100) NOT NULL,
+  	Adres_Numer varchar(10) NOT NULL,
+	
+	PRIMARY KEY (Id_Dostawcy)
+);
 
+CREATE TABLE IF NOT EXISTS klienci 
+(
+  	Id_Klienta int(11) NOT NULL AUTO_INCREMENT,
+  	Imie varchar(20) NOT NULL,
+  	Nazwisko varchar(20) NOT NULL,
+  	Numer_telefonu varchar(10) NOT NULL,
+  	E-mail varchar(50) NOT NULL,
+  	Adres_AdresPocztowy varchar(200) NOT NULL,
+  	Adres_Miejscowosc varchar(100) NOT NULL,
+  	Adres_Ulica varchar(100) NOT NULL,
+  	Adres_NumerDomu varchar(10) NOT NULL,
+	
+	PRIMARY KEY (Id_Klienta)
+);
+
+CREATE TABLE IF NOT EXISTS laczenie 
+(
+  	Id_Laczenia int(11) NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(20) NOT NULL,
+	
+	PRIMARY KEY (Id_Laczenia)
+);
+
+
+CREATE TABLE IF NOT EXISTS material 
+(
+  	Id_Materialu int(11) NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(20) NOT NULL,
+  	Cena float NOT NULL,
+  	Kolor varchar(20) NOT NULL,
+  	Klasa varchar(1) NOT NULL,
+  	Wzor varchar(40) DEFAULT NULL,
+  	Rodzaj varchar(40) NOT NULL,
+  	Rozmiar int(11) NOT NULL,
+	
+	PRIMARY KEY (Id_Materialu)
+);
+
+CREATE TABLE IF NOT EXISTS material_mebel 
+(
+  	Id_Mat_mebel int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Materialu int(11) NOT NULL,
+  	Id_Mebla int(11) NOT NULL
+	
+	PRIMARY KEY (Id_Mat_mebel)
+);
+
+CREATE TABLE IF NOT EXISTS mebel 
+(
+  	Id_Mebla int(11) NOT NULL AUTO_INCREMENT,
+  	Numer_zamowienia int(11) NOT NULL,
+  	Id_Proj_klient int(11) DEFAULT NULL,
+  	Id_Proj_katalog int(11) DEFAULT NULL
+	
+	PRIMARY KEY (Id_Mebla)
+);
+
+CREATE TABLE IF NOT EXISTS projekt_klienta 
+(
+  	Id_Proj_klient int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Ceny int(11) NOT NULL,
+  	Id_Typu_mebla int(11) NOT NULL,
+  	Id_Laczenia int(11) NOT NULL,
+  	Wymiary_Szerokosc int(11) NOT NULL,
+  	Wymiary_Wysokosc int(11) NOT NULL,
+  	Wymiary_Glebokosc int(11) NOT NULL,
+  	Nazwa_pliku_rysunku varchar(40) NOT NULL,
+	
+	PRIMARY KEY (ID_Proj_klient)
+);
+
+CREATE TABLE IF NOT EXISTS projekt_z_katalogu 
+(
+  	Id_Proj_katalog int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Typu_mebla int(11) NOT NULL,
+  	Id_Laczenia int(11) NOT NULL,
+  	Nazwa varchar(20) NOT NULL,
+  	Opcjonalne_czesci enum('x','','','') NOT NULL,
+  	Wykonywalny tinyint(1) NOT NULL,
+  	Marza float NOT NULL,
+  	Wymiary_Szerokosc int(11) NOT NULL,
+  	Wymiary_Wysokosc int(11) NOT NULL,
+  	Wymiary_Glebokosc int(11) NOT NULL,
+	
+	PRIMARY KEY (Id_Proj_katalog)
+);
+
+CREATE TABLE IF NOT EXISTS stan_realizacji 
+(
+  	Id_Stanu_realizacji int(11) NOT NULL AUTO_INCREMENT,
+ 	 Nazwa_Stanu varchar(50) NOT NULL,
+	
+	PRIMARY KEY (Id_Stanu_realizacji)
+);
+
+CREATE TABLE IF NOT EXISTS typ_mebla
+(
+  	Id_Typu_mebla int(11) NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(50) NOT NULL,
+	
+	PRIMARY KEY (Id_Typu_mebla)
+);
+
+CREATE TABLE IF NOT EXISTS zadanie 
+(
+  	Id_Zadania int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Def_zadania int(11) NOT NULL,
+  	Czas_wykonania time NOT NULL,
+	
+	PRIMARY KEY (Id_Zadania)
+);
+
+CREATE TABLE IF NOT EXISTS zamowienie_na_meble (
+  	Numer_zamowienia` int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Klienta` int(11) NOT NULL,
+  	Koszt` float NOT NULL,
+  	Id_Stanu_Realizacji` int(11) NOT NULL,
+  	Czas_realizacji_Data_rozpoczecia` date NOT NULL,
+  	Czas_Realizacji_Data_zakonczenia` date NOT NULL,
+	
+	PRIMARY KEY (Numer_zamowienia)
+);
 
 
