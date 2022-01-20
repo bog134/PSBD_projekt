@@ -188,7 +188,9 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
   	Id_Materialu int(11) NOT NULL,
   	Id_Mebla int(11) NOT NULL
 	
-	PRIMARY KEY (Id_Mat_mebel)
+	PRIMARY KEY (Id_Mat_mebel),
+	FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
+	FOREIGN KEY (Id_Mebla) REFERENCES MEBEL(Id_Mebla)
 );
 
 CREATE TABLE IF NOT EXISTS MEBEL
@@ -198,7 +200,10 @@ CREATE TABLE IF NOT EXISTS MEBEL
   	Id_Proj_klient int(11) DEFAULT NULL,
   	Id_Proj_katalog int(11) DEFAULT NULL
 	
-	PRIMARY KEY (Id_Mebla)
+	PRIMARY KEY (Id_Mebla),
+	FOREIGN KEY (Numer_zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Numer_zamowienia),
+	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
+	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog)
 );
 
 CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
@@ -212,7 +217,8 @@ CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
   	Wymiary_Glebokosc int(11) NOT NULL,
   	Nazwa_pliku_rysunku varchar(40) NOT NULL,
 	
-	PRIMARY KEY (ID_Proj_klient)
+	PRIMARY KEY (Id_Proj_klient),
+	FOREIGN KEY (Id_Ceny) REFERENCES CENA(Id_Ceny)
 );
 
 CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
@@ -253,7 +259,8 @@ CREATE TABLE IF NOT EXISTS ZADANIE
   	Id_Def_zadania int(11) NOT NULL,
   	Czas_wykonania time NOT NULL,
 	
-	PRIMARY KEY (Id_Zadania)
+	PRIMARY KEY (Id_Zadania),
+	FOREIGN KEY (Id_Def_zadania) REFERENCES DEFINICJA_ZADANIA(IdDef_zadania)
 );
 
 CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_MEBLE
@@ -265,7 +272,8 @@ CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_MEBLE
   	Czas_realizacji_Data_rozpoczecia date NOT NULL,
   	Czas_Realizacji_Data_zakonczenia date NOT NULL,
 	
-	PRIMARY KEY (Numer_zamowienia)
+	PRIMARY KEY (Numer_zamowienia),
+	FOREIGN KEY (Id_Klienta) REFERENCES KLIENCI(Id_Klienta)
 );
 
 
