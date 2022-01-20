@@ -57,12 +57,12 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog)
 );
 
-CREATE TABLE IF NOT EXISTS RODZAJ
+CREATE TABLE IF NOT EXISTS RODZAJ_POLPRODUKTU
 ( 
-	IdRodzaju INT NOT NULL AUTO_INCREMENT, 
+	Id_Rodzaju_polproduktu INT NOT NULL AUTO_INCREMENT, 
 	Nazwa VARCHAR(45) NOT NULL, 
 
-	PRIMARY KEY (Id_Rodzaju),
+	PRIMARY KEY (Id_Rodzaju_polproduktu),
 	UNIQUE KEY (Nazwa)
 );
 
@@ -104,13 +104,13 @@ CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 	Id_Proj_polprod INT NOT NULL AUTO_INCREMENT,
 	Id_Proj_klient INT NOT NULL,
 	Id_Proj_katalog INT NOT NULL,
-	Id_Rodzaju INT NOT NULL,
+	Id_Rodzaju_polproduktu INT NOT NULL,
 	Nazwa VARCHAR(45) NOT NULL,
 	Rozmiar_Wysokosc DOUBLE NOT NULL,
 	Rozmiar_Szerokosc DOUBLE NOT NULL,
 	Rozmiar_Dlugosc DOUBLE NOT NULL, 
 	Cena DOUBLE NOT NULL,
-	Nazwa_pliku_rysunku VARCHAR(45) NOT NULL,
+	Nazwa_pliku_rysunku VARCHAR(45) NULL,
 
 	PRIMARY KEY (Id_Proj_polprod),
 	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS DOSTAWCY
 (
   	Id_Dostawcy int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
-  	E-mail varchar(50) NOT NULL,
+  	Email varchar(50) NOT NULL,
   	Numer_konta_bankowego varchar(26) NOT NULL,
   	Adres_AdresPocztowy varchar(200) NOT NULL,
   	Adres_Miejscowosc varchar(100) NOT NULL,
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS KLIENCI
   	Imie varchar(20) NOT NULL,
   	Nazwisko varchar(20) NOT NULL,
   	Numer_telefonu varchar(10) NOT NULL,
-  	E-mail varchar(50) NOT NULL,
+  	Email varchar(50) NOT NULL,
   	Adres_AdresPocztowy varchar(200) NOT NULL,
   	Adres_Miejscowosc varchar(100) NOT NULL,
   	Adres_Ulica varchar(100) NOT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
 (
   	Id_Mat_mebel int(11) NOT NULL AUTO_INCREMENT,
   	Id_Materialu int(11) NOT NULL,
-  	Id_Mebla int(11) NOT NULL
+  	Id_Mebla int(11) NOT NULL,
 	
 	PRIMARY KEY (Id_Mat_mebel),
 	FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
@@ -221,12 +221,12 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
 CREATE TABLE IF NOT EXISTS MEBEL
 (
   	Id_Mebla int(11) NOT NULL AUTO_INCREMENT,
-  	Numer_zamowienia int(11) NOT NULL,
+  	Id_Zamowienia int(11) NOT NULL,
   	Id_Proj_klient int(11) DEFAULT NULL,
-  	Id_Proj_katalog int(11) DEFAULT NULL
+  	Id_Proj_katalog int(11) DEFAULT NULL,
 	
 	PRIMARY KEY (Id_Mebla),
-	FOREIGN KEY (Numer_zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Numer_zamowienia),
+	FOREIGN KEY (Id_Zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Id_Zamowienia),
 	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
 	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog)
 );
@@ -252,7 +252,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
   	Id_Typu_mebla int(11) NOT NULL,
   	Id_Laczenia int(11) NOT NULL,
   	Nazwa varchar(20) NOT NULL,
-  	Opcjonalne_czesci enum('x','','','') NOT NULL,
+  	Opcjonalne_czesci enum('x','y','z','a') NOT NULL,
   	Wykonywalny tinyint(1) NOT NULL,
   	Marza float NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
 CREATE TABLE IF NOT EXISTS STAN_REALIZACJI
 (
   	Id_Stanu_realizacji int(11) NOT NULL AUTO_INCREMENT,
- 	 Nazwa_Stanu varchar(50) NOT NULL,
+ 	Nazwa_Stanu varchar(50) NOT NULL,
 	
 	PRIMARY KEY (Id_Stanu_realizacji)
 );
