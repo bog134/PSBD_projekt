@@ -1,5 +1,13 @@
 USE FIRMA;
 
+INSERT INTO RODZAJ_POLPRODUKTU (Id_Rodzaju_polproduktu, Nazwa) VALUES
+(1, 'Stelaz'),
+(2, 'Rama'),
+(3, 'Front'),
+(4, 'Materac'),
+(5, 'Dekory'),
+(6, 'Klienta');
+
 INSERT INTO STANOWISKO (IdStanowiska, Nazwa_Stanowiska) VALUES
 (1, 'Pracownik fizyczny'),
 (2, 'Technolog'),
@@ -18,7 +26,6 @@ INSERT INTO PRACOWNIK (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisk
 (9, 2, '1998-10-10', 'Faustyna', 'Sadowska', '57249010579142041118217285', 3500, '175-855-865', '59-202', 'Legnica', 'Nowy Świat 58', 'Faustyna89', 'cm4y3wawz0'),
 (10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34', 'Julita76', 'zvgx12g2pp');
 
-INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail','Adres_Kraj', 'Adres_AdresPocztowy', 'Adres_Miejscowosc', 'Adres_Ulica', 'Adres_NumerDomu', 'Adres_NumerMieszkania') VALUES
 INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, E-mail, Adres_Kraj, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania) VALUES
 (1, 'Marcelina', 'Woźniak', '690793569', 'paulbont@adaov.com', 'Polska', '10-182', 'Bielsko-Biała', 'Akacjowa', 15, 38),
 (2, 'Bogumił', 'Łukasik', '212994545', 'stumptown@gmailya.com', 'Polska', '62-875', 'Poznań', 'Niedzielna', 512, 43),
@@ -63,7 +70,6 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (23, 11, NULL, 5, '2015-06-03', NULL),
 (24, 12, NULL, 3, '2022-01-31', NULL),
 (25, 3, 7814, 4, '2022-01-01', NULL),
-(26, 10, 8712, 4, '2022-01-22', NULL),
 (26, 10, 8712, 4, '2022-01-22', NULL);
 
 INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku') VALUES
@@ -94,8 +100,15 @@ INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow
 (11, 9, 460, 410, 200);
 
 
+INSERT INTO ('Id_Laczenia', 'Nazwa') LACZENIA VALUES
+(1, 'wkręty'),
+(2, 'klej'),
+(3, 'wciskowe'),
+(4, 'kołki'),
+(5, 'mimośrody i trzpienie'),
+(6, 'gwintowe');
 
-INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
+INSERT INTO DOSTAWCY (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
 (2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
 (3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
