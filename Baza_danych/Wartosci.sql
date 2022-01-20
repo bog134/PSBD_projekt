@@ -30,7 +30,7 @@ INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail
 (14, 'Justyna', 'Jastrzębska', '599952162', 'samirainterfarm@taikz.com', 'Polska', '52-233', 'Lublin', 'Okopowa', 100, 101),
 (15, 'Oliwia', 'Dąbrowska', '179095786', 'aleksandrcypin@rstoremail.ml', 'Polska', '74-284', 'Wałbrzych', 'Kujawska', 15, 1);
 
-INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
+INSERT INTO dostawcy (Id_Dostawcy, Nazwa, E-mail, Numer_konta_bankowego, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_Numer) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
 (2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
 (3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
@@ -38,7 +38,7 @@ INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego
 (5, 'NTN', 'ntn@onet.pl', '94187099089534543073777450', '10-682', 'Gdynia', 'Okopowa', '56'),
 (6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
 
-INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
+INSERT INTO stan_realizacji (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
 (1, 'Nowe'),
 (2, 'W realizacji'),
 (3, 'Gotowe do odebrania'),
@@ -47,7 +47,7 @@ INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
 (6, 'Odrzucono'),
 (7, 'Odebrano');
 
-INSERT INTO `typ_mebla` (`Id_Typu_mebla`, `Nazwa`) VALUES
+INSERT INTO typ_mebla (Id_Typu_mebla, Nazwa) VALUES
 (1, 'Stół'),
 (2, 'Krzesło'),
 (3, 'Fotel'),
