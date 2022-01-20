@@ -1,0 +1,135 @@
+CREATE SCHEMA IF NOT EXISTS FIRMA;
+USE FIRMA;
+
+CREATE TABLE IF NOT EXISTS PRACOWNIK
+( 
+	IdPracownika INT NOT NULL AUTO_INCREMENT, 
+	IdStanowiska INT NOT NULL, 
+	Data_urodzenia DATE NOT NULL, 
+	Imie VARCHAR(45) NOT NULL, 
+	Nazwisko VARCHAR(45) NOT NULL, 
+	Numer_konta_bankowego VARCHAR(45) NOT NULL, 
+	Zarobki DOUBLE NOT NULL, 
+	Numer_telefonu VARCHAR(45) NOT NULL,	
+	Adres_Kod VARCHAR(45) NOT NULL, 
+	Adres_Miasto VARCHAR(45) NOT NULL,		
+	Adres_Ulica VARCHAR(45) NOT NULL,	
+
+	PRIMARY KEY (IdPracownika),
+	UNIQUE KEY (Numer_konta_bankowego),
+	FOREIGN KEY (IdStanowiska) REFERENCES STANOWISKO(IdStanowiska)
+);
+
+CREATE TABLE IF NOT EXISTS STANOWISKO
+( 
+	IdStanowiska INT NOT NULL AUTO_INCREMENT, 
+	Nazwa_Stanowiska VARCHAR(45) NOT NULL,
+
+	PRIMARY KEY (IdStanowiska),
+	UNIQUE KEY (Nazwa_Stanowiska)
+);
+
+CREATE TABLE IF NOT EXISTS CENA 
+(
+  IdCeny INT NOT NULL AUTO_INCREMENT,
+  IdPracownika VARCHAR(45) NOT NULL,
+  Koszt_robocizny DOUBLE NOT NULL,
+  Koszt_surowcow DOUBLE NOT NULL,
+  Marza DOUBLE NOT NULL,
+  
+  PRIMARY KEY (IdCeny),
+  FOREIGN KEY (IdPracownika) REFERENCES PRACOWNIK (IdPracownika)
+);
+
+CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
+( 
+	IdDef_zadania INT NOT NULL AUTO_INCREMENT, 
+	IdProj_klient INT NOT NULL, 
+	IdProj_katalog INT NOT NULL,
+	Opis_zadania VARCHAR(200) NOT NULL, 
+	Cena DOUBLE NOT NULL,
+
+	PRIMARY KEY (IdDef_zadania),
+	UNIQUE KEY (Opis_zadania),
+	FOREIGN KEY (IdProj_klient) REFERENCES PROJEKT_KLIENTA(IdProj_klient),
+	FOREIGN KEY (IdProj_katalog) REFERENCES PROJEKT_Z_KATALOGU(IdProj_katalog)
+);
+
+CREATE TABLE IF NOT EXISTS RODZAJ
+( 
+	IdRodzaju INT NOT NULL AUTO_INCREMENT, 
+	Nazwa VARCHAR(45) NOT NULL, 
+
+	PRIMARY KEY (IdRodzaju),
+	UNIQUE KEY (Nazwa)
+);
+
+CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY 
+( 
+	NrZamowienia INT NOT NULL AUTO_INCREMENT, 
+	Koszt INT NOT NULL, 
+	Stan_realizacji BOOLEAN NOT NULL, 
+    Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
+	Czas_realizacji_Data_zakonczenia Date NOT NULL, 
+	Adres_Miejscowosc Char(100) NOT NULL, 
+	Adres_Ulica Char(100) NOT NULL, 
+	Adres_Numer Char(10) NOT NULL, 
+	Adres_AdresPocztowy Char(200) NOT NULL, 
+
+	PRIMARY KEY (NrZamowienia)
+);
+
+CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA_DEFINICJA_ZADANIA
+( 
+	IdProj_klienta_def_zadania INT NOT NULL AUTO_INCREMENT,
+	IdProj_klient INT NOT NULL, 
+	IdDef_zadania INT NOT NULL,
+
+	PRIMARY KEY (IdProj_klienta_def_zadania),
+	FOREIGN KEY (IdProj_klient) REFERENCES PROJEKT_KLIENTA(IdProj_klient),
+	FOREIGN KEY (IdDef_zadania) REFERENCES DEFINICJA_ZADANIA(IdDef_zadania)
+);
+
+CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU_DEFINICJA_ZADANIA
+( 
+	IdProj_katalog_def_zadania INT NOT NULL AUTO_INCREMENT,
+	IdProj_katalog INT NOT NULL, 
+	IdDef_zadania INT NOT NULL,
+
+	PRIMARY KEY (IdProj_katalog_def_zadania),
+	FOREIGN KEY (IdProj_klient) REFERENCES PROJEKT_KLIENTA(IdProj_klient),
+	FOREIGN KEY (IdDef_zadania) REFERENCES DEFINICJA_ZADANIA(IdDef_zadania)
+);
+
+CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
+( 
+	IdProj_polprod INT NOT NULL AUTO_INCREMENT,
+	IdProj_klient INT NOT NULL,
+	IdProj_katalog INT NOT NULL,
+	IdRodzaju INT NOT NULL,
+	Nazwa VARCHAR(45) NOT NULL,
+	Rozmiar_Wysokosc DOUBLE NOT NULL,
+	Rozmiar_Szerokosc DOUBLE NOT NULL,
+	Rozmiar_Dlugosc DOUBLE NOT NULL, 
+	Cena DOUBLE NOT NULL,
+	Nazwa_pliku_rysunku VARCHAR(45) NOT NULL,
+
+	PRIMARY KEY (IdProj_polprod),
+	FOREIGN KEY (IdProj_klient) REFERENCES PROJEKT_KLIENTA(IdProj_klient),
+	FOREIGN KEY (IdProj_katalog) REFERENCES PROJEKT_Z_KATALOGU(IdProj_katalog),
+	FOREIGN KEY (IdRodzaju) REFERENCES RODZAJ(IdRodzaju)
+
+);
+
+CREATE TABLE IF NOT EXISTS POLPRODUKT
+( 
+	IdPolprod INT NOT NULL AUTO_INCREMENT,
+	IdProj_polprod INT NOT NULL,
+
+	PRIMARY KEY (IdPolprod),
+	FOREIGN KEY (IdProj_polprod) REFERENCES PROJEKT_POLPRODUKTU(IdProj_polprod)
+);
+
+
+
+
