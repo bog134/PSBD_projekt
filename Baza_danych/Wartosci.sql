@@ -56,8 +56,44 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (23, 11, NULL, 5, '2015-06-03', NULL),
 (24, 12, NULL, 3, '2022-01-31', NULL),
 (25, 3, 7814, 4, '2022-01-01', NULL),
-(26, 10, 8712, 4, '2022-01-22', NULL),
+(26, 10, 8712, 4, '2022-01-22', NULL);
 
+--zmienic w pliku Struktury.sql 
+INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku') VALUES
+('Id_Proj', 'Id_Ceny', 'Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku')
+(1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
+(2, 2, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
+(3, 3, 5, 1, 156, 81, 80, 'sofa.dwg'),
+(4, 4, 11, 1, 70, 1900, 20, 'regal_23.dwg'),
+(5, 5, 12, 1, 20, 20000, 1, 'mojWymazonyKredens_xd.dwg'),
+(6, 6, 10, 1, 2800, 85, 1121, 'kanapaNarozna.dwg'),
+(7, 7, 10, 1, 2800, 85, 1600, 'kanapaNarozna-trw.dwg'),
+(8, 8, 7, 1, 2500, 2400, 65, 'szafa.dwg'),
+(9, 9, 3, 1, 45, 1500, 65, 'fotel.dwg'),
+(10, 10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
+(11, 11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
+
+INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow', 'Marza') VALUES
+(1, 5, 2000, 3000, 1500),
+(2, 9, 150, 200, 100),
+(3, 9, 800, 2000, 4000),
+(4, 5, 820, 2010, 4020),
+(5, 5, 1005, 2342, 2020),
+(6, 5, 1005, 4342, 1020),
+(7, 5, 1005, 3342, 3020),
+(8, 9, 200, 551, 700),
+(9, 5, 500, 2300, 900),
+(10, 9, 400, 400, 300),
+(11, 9, 460, 410, 200);
+
+
+INSERT INTO ('Id_Laczenia', 'Nazwa') LACZENIA VALUES
+(1, 'wkręty'),
+(2, 'klej'),
+(3, 'wciskowe'),
+(4, 'kołki'),
+(5, 'mimośrody i trzpienie'),
+(6, 'gwintowe');
 
 INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
@@ -88,3 +124,4 @@ INSERT INTO typ_mebla (Id_Typu_mebla, Nazwa) VALUES
 (10, 'Narożnik'),
 (11, 'Regał'),
 (12, 'Kredens');
+
