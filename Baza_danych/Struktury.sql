@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY
 	NrZamowienia INT NOT NULL AUTO_INCREMENT, 
 	Koszt INT NOT NULL, 
 	Stan_realizacji BOOLEAN NOT NULL, 
-    Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
+   	Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
 	Czas_realizacji_Data_zakonczenia Date NOT NULL, 
 	Adres_Miejscowosc Char(100) NOT NULL, 
 	Adres_Ulica Char(100) NOT NULL, 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS POLPRODUKT
 	FOREIGN KEY (IdProj_polprod) REFERENCES PROJEKT_POLPRODUKTU(IdProj_polprod)
 );
 
-CREATE TABLE IF NOT EXISTS dostawcy
+CREATE TABLE IF NOT EXISTS DOSTAWCY
 (
   	Id_Dostawcy int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS dostawcy
 	PRIMARY KEY (Id_Dostawcy)
 );
 
-CREATE TABLE IF NOT EXISTS klienci 
+CREATE TABLE IF NOT EXISTS KLIENCI 
 (
   	Id_Klienta int(11) NOT NULL AUTO_INCREMENT,
   	Imie varchar(20) NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS klienci
 	PRIMARY KEY (Id_Klienta)
 );
 
-CREATE TABLE IF NOT EXISTS laczenie 
+CREATE TABLE IF NOT EXISTS LACZENIE 
 (
   	Id_Laczenia int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS laczenie
 );
 
 
-CREATE TABLE IF NOT EXISTS material 
+CREATE TABLE IF NOT EXISTS MATERIAL
 (
   	Id_Materialu int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS material
 	PRIMARY KEY (Id_Materialu)
 );
 
-CREATE TABLE IF NOT EXISTS material_mebel 
+CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
 (
   	Id_Mat_mebel int(11) NOT NULL AUTO_INCREMENT,
   	Id_Materialu int(11) NOT NULL,
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS material_mebel
 	PRIMARY KEY (Id_Mat_mebel)
 );
 
-CREATE TABLE IF NOT EXISTS mebel 
+CREATE TABLE IF NOT EXISTS MEBEL
 (
   	Id_Mebla int(11) NOT NULL AUTO_INCREMENT,
   	Numer_zamowienia int(11) NOT NULL,
@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS mebel
 	PRIMARY KEY (Id_Mebla)
 );
 
-CREATE TABLE IF NOT EXISTS projekt_klienta 
+CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
 (
   	Id_Proj_klient int(11) NOT NULL AUTO_INCREMENT,
   	Id_Ceny int(11) NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS projekt_klienta
 	PRIMARY KEY (ID_Proj_klient)
 );
 
-CREATE TABLE IF NOT EXISTS projekt_z_katalogu 
+CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
 (
   	Id_Proj_katalog int(11) NOT NULL AUTO_INCREMENT,
   	Id_Typu_mebla int(11) NOT NULL,
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS projekt_z_katalogu
 	PRIMARY KEY (Id_Proj_katalog)
 );
 
-CREATE TABLE IF NOT EXISTS stan_realizacji 
+CREATE TABLE IF NOT EXISTS STAN_REALIZACJI
 (
   	Id_Stanu_realizacji int(11) NOT NULL AUTO_INCREMENT,
  	 Nazwa_Stanu varchar(50) NOT NULL,
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS stan_realizacji
 	PRIMARY KEY (Id_Stanu_realizacji)
 );
 
-CREATE TABLE IF NOT EXISTS typ_mebla
+CREATE TABLE IF NOT EXISTS TYP_MEBLA
 (
   	Id_Typu_mebla int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(50) NOT NULL,
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS typ_mebla
 	PRIMARY KEY (Id_Typu_mebla)
 );
 
-CREATE TABLE IF NOT EXISTS zadanie 
+CREATE TABLE IF NOT EXISTS ZADANIE
 (
   	Id_Zadania int(11) NOT NULL AUTO_INCREMENT,
   	Id_Def_zadania int(11) NOT NULL,
@@ -256,7 +256,8 @@ CREATE TABLE IF NOT EXISTS zadanie
 	PRIMARY KEY (Id_Zadania)
 );
 
-CREATE TABLE IF NOT EXISTS zamowienie_na_meble (
+CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_MEBLE
+(
   	Numer_zamowienia int(11) NOT NULL AUTO_INCREMENT,
   	Id_Klienta int(11) NOT NULL,
   	Koszt float NOT NULL,
