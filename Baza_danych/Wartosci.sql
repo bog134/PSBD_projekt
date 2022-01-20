@@ -19,6 +19,7 @@ INSERT INTO PRACOWNIK (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisk
 (10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34', 'Julita76', 'zvgx12g2pp');
 
 INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail','Adres_Kraj', 'Adres_AdresPocztowy', 'Adres_Miejscowosc', 'Adres_Ulica', 'Adres_NumerDomu', 'Adres_NumerMieszkania') VALUES
+INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, E-mail, Adres_Kraj, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania) VALUES
 (1, 'Marcelina', 'Woźniak', '690793569', 'paulbont@adaov.com', 'Polska', '10-182', 'Bielsko-Biała', 'Akacjowa', 15, 38),
 (2, 'Bogumił', 'Łukasik', '212994545', 'stumptown@gmailya.com', 'Polska', '62-875', 'Poznań', 'Niedzielna', 512, 43),
 (3, 'Lilianna', 'Bielecka', '814536325', 'olgachernyh@fheiesit.com', 'Polska', '38-650', 'Katowice', 'Gołuńskiego', 3, 123),
@@ -63,6 +64,35 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (24, 12, NULL, 3, '2022-01-31', NULL),
 (25, 3, 7814, 4, '2022-01-01', NULL),
 (26, 10, 8712, 4, '2022-01-22', NULL),
+(26, 10, 8712, 4, '2022-01-22', NULL);
+
+INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku') VALUES
+('Id_Proj', 'Id_Ceny', 'Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku')
+(1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
+(2, 2, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
+(3, 3, 5, 1, 156, 81, 80, 'sofa.dwg'),
+(4, 4, 11, 1, 70, 1900, 20, 'regal_23.dwg'),
+(5, 5, 12, 1, 20, 20000, 1, 'mojWymazonyKredens_xd.dwg'),
+(6, 6, 10, 1, 2800, 85, 1121, 'kanapaNarozna.dwg'),
+(7, 7, 10, 1, 2800, 85, 1600, 'kanapaNarozna-trw.dwg'),
+(8, 8, 7, 1, 2500, 2400, 65, 'szafa.dwg'),
+(9, 9, 3, 1, 45, 1500, 65, 'fotel.dwg'),
+(10, 10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
+(11, 11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
+
+INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow', 'Marza') VALUES
+(1, 5, 2000, 3000, 1500),
+(2, 9, 150, 200, 100),
+(3, 9, 800, 2000, 4000),
+(4, 5, 820, 2010, 4020),
+(5, 5, 1005, 2342, 2020),
+(6, 5, 1005, 4342, 1020),
+(7, 5, 1005, 3342, 3020),
+(8, 9, 200, 551, 700),
+(9, 5, 500, 2300, 900),
+(10, 9, 400, 400, 300),
+(11, 9, 460, 410, 200);
+
 
 
 INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
