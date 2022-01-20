@@ -225,12 +225,12 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
 CREATE TABLE IF NOT EXISTS MEBEL
 (
   	Id_Mebla int(11) NOT NULL AUTO_INCREMENT,
-  	Numer_zamowienia int(11) NOT NULL,
+  	Id_Zamowienia int(11) NOT NULL,
   	Id_Proj_klient int(11) DEFAULT NULL,
   	Id_Proj_katalog int(11) DEFAULT NULL
 	
 	PRIMARY KEY (Id_Mebla),
-	FOREIGN KEY (Numer_zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Numer_zamowienia),
+	FOREIGN KEY (Id_Zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Id_Zamowienia),
 	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
 	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog)
 );
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
   	Id_Typu_mebla int(11) NOT NULL,
   	Id_Laczenia int(11) NOT NULL,
   	Nazwa varchar(20) NOT NULL,
-  	Opcjonalne_czesci enum('x','','','') NOT NULL,
+  	Opcjonalne_czesci enum('x','y','z','a') NOT NULL,
   	Wykonywalny tinyint(1) NOT NULL,
   	Marza float NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
@@ -269,7 +269,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
 CREATE TABLE IF NOT EXISTS STAN_REALIZACJI
 (
   	Id_Stanu_realizacji int(11) NOT NULL AUTO_INCREMENT,
- 	 Nazwa_Stanu varchar(50) NOT NULL,
+ 	Nazwa_Stanu varchar(50) NOT NULL,
 	
 	PRIMARY KEY (Id_Stanu_realizacji)
 );
