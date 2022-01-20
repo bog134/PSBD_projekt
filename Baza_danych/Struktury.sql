@@ -72,11 +72,7 @@ CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY
 	Koszt INT NOT NULL, 
 	Stan_realizacji BOOLEAN NOT NULL, 
    	Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
-	Czas_realizacji_Data_zakonczenia Date NOT NULL, 
-	Adres_Miejscowosc Char(100) NOT NULL, 
-	Adres_Ulica Char(100) NOT NULL, 
-	Adres_Numer Char(10) NOT NULL, 
-	Adres_AdresPocztowy Char(200) NOT NULL, 
+	Czas_realizacji_Data_zakonczenia Date, 
 
 	PRIMARY KEY (NrZamowienia)
 );
