@@ -257,12 +257,12 @@ CREATE TABLE IF NOT EXISTS zadanie
 );
 
 CREATE TABLE IF NOT EXISTS zamowienie_na_meble (
-  	Numer_zamowienia` int(11) NOT NULL AUTO_INCREMENT,
-  	Id_Klienta` int(11) NOT NULL,
-  	Koszt` float NOT NULL,
-  	Id_Stanu_Realizacji` int(11) NOT NULL,
-  	Czas_realizacji_Data_rozpoczecia` date NOT NULL,
-  	Czas_Realizacji_Data_zakonczenia` date NOT NULL,
+  	Numer_zamowienia int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Klienta int(11) NOT NULL,
+  	Koszt float NOT NULL,
+  	Id_Stanu_Realizacji int(11) NOT NULL,
+  	Czas_realizacji_Data_rozpoczecia date NOT NULL,
+  	Czas_Realizacji_Data_zakonczenia date NOT NULL,
 	
 	PRIMARY KEY (Numer_zamowienia)
 );
