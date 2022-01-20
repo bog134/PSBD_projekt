@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS PRACOWNIK
 	Numer_telefonu VARCHAR(45) NOT NULL,	
 	Adres_Kod VARCHAR(45) NOT NULL, 
 	Adres_Miasto VARCHAR(45) NOT NULL,		
-	Adres_Ulica VARCHAR(45) NOT NULL,	
+	Adres_Ulica VARCHAR(45) NOT NULL,
+	Login VARCHAR(45) NOT NULL,
+	Haslo VARCHAR(45) NOT NULL,
 
 	PRIMARY KEY (IdPracownika),
 	UNIQUE KEY (Numer_konta_bankowego),
