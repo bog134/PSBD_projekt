@@ -5,7 +5,8 @@ INSERT INTO RODZAJ_POLPRODUKTU (Id_Rodzaju_polproduktu, Nazwa) VALUES
 (2, 'Rama'),
 (3, 'Front'),
 (4, 'Materac'),
-(5, 'Dekory');
+(5, 'Dekory'),
+(6, 'Klienta');
 
 INSERT INTO STANOWISKO (IdStanowiska, Nazwa_Stanowiska) VALUES
 (1, 'Pracownik fizyczny'),
