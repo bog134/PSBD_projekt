@@ -100,7 +100,7 @@ INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow
 (11, 9, 460, 410, 200);
 
 
-INSERT INTO ('Id_Laczenia', 'Nazwa') LACZENIA VALUES
+INSERT INTO LACZENIA ('Id_Laczenia', 'Nazwa') VALUES
 (1, 'wkręty'),
 (2, 'klej'),
 (3, 'wciskowe'),
@@ -108,7 +108,7 @@ INSERT INTO ('Id_Laczenia', 'Nazwa') LACZENIA VALUES
 (5, 'mimośrody i trzpienie'),
 (6, 'gwintowe');
 
-INSERT INTO DOSTAWCY (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
+INSERT INTO DOSTAWCY (Id_Dostawcy, Nazwa, Email, Numer_konta_bankowego, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_Numer) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
 (2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
 (3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
@@ -116,7 +116,7 @@ INSERT INTO DOSTAWCY (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`,
 (5, 'NTN', 'ntn@onet.pl', '94187099089534543073777450', '10-682', 'Gdynia', 'Okopowa', '56'),
 (6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
 
-INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
+INSERT INTO STAN_REALIZACJI (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
 (1, 'W realizacji'),
 (2, 'Gotowe do odebrania'),
 (3, 'Oczekuje na zatwierdzenie'),
@@ -124,7 +124,7 @@ INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
 (5, 'Odrzucono'),
 (6, 'Odebrano');
 
-INSERT INTO typ_mebla (Id_Typu_mebla, Nazwa) VALUES
+INSERT INTO TYP_MEBLA (Id_Typu_mebla, Nazwa) VALUES
 (1, 'Stół'),
 (2, 'Krzesło'),
 (3, 'Fotel'),
