@@ -256,15 +256,15 @@ CREATE TABLE IF NOT EXISTS zadanie
 	PRIMARY KEY (Id_Zadania)
 );
 
-CREATE TABLE IF NOT EXISTS zamowienie_na_meble (
-  	Numer_zamowienia int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_MEBLE (
+  	Id_Zamowienia int(11) NOT NULL AUTO_INCREMENT,
   	Id_Klienta int(11) NOT NULL,
-  	Koszt float NOT NULL,
+  	Koszt float,
   	Id_Stanu_Realizacji int(11) NOT NULL,
-  	Czas_realizacji_Data_rozpoczecia date NOT NULL,
-  	Czas_Realizacji_Data_zakonczenia date NOT NULL,
+  	Czas_realizacji_Data_zlozenia date NOT NULL,
+  	Czas_Realizacji_Data_zakonczenia date,
 	
-	PRIMARY KEY (Numer_zamowienia)
+	PRIMARY KEY (Id_Zamowienia)
 );
 
 

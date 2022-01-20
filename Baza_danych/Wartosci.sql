@@ -12,7 +12,7 @@ INSERT INTO pracownik (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisk
 (9, 2, '1998-10-10', 'Faustyna', 'Sadowska', '57249010579142041118217285', 3500, '175-855-865', '59-202', 'Legnica', 'Nowy Świat 58'),
 (10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34');
 
-INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail','Adres_Kraj', 'Adres_AdresPocztowy', 'Adres_Miejscowosc', 'Adres_Ulica', 'Adres_NumerDomu', "Adres_NumerMieszkania") VALUES
+INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail','Adres_Kraj', 'Adres_AdresPocztowy', 'Adres_Miejscowosc', 'Adres_Ulica', 'Adres_NumerDomu', 'Adres_NumerMieszkania') VALUES
 (1, 'Marcelina', 'Woźniak', '690793569', 'paulbont@adaov.com', 'Polska', '10-182', 'Bielsko-Biała', 'Akacjowa', 15, 38),
 (2, 'Bogumił', 'Łukasik', '212994545', 'stumptown@gmailya.com', 'Polska', '62-875', 'Poznań', 'Niedzielna', 512, 43),
 (3, 'Lilianna', 'Bielecka', '814536325', 'olgachernyh@fheiesit.com', 'Polska', '38-650', 'Katowice', 'Gołuńskiego', 3, 123),
@@ -30,6 +30,35 @@ INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail
 (14, 'Justyna', 'Jastrzębska', '599952162', 'samirainterfarm@taikz.com', 'Polska', '52-233', 'Lublin', 'Okopowa', 100, 101),
 (15, 'Oliwia', 'Dąbrowska', '179095786', 'aleksandrcypin@rstoremail.ml', 'Polska', '74-284', 'Wałbrzych', 'Kujawska', 15, 1);
 
+INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Stanu_Realizacji', 'Czas_realizacji_Data_zlozenia', 'Czas_Realizacji_Data_zakonczenia') VALUES
+(1, 1, 14267, 4, '2022-01-01', NULL),
+(2, 4, NULL, 5, '2022-01-07', NULL),
+(3, 4, NULL, 3, '2022-01-20', NULL),
+(4, 7, 15000, 6, '2001-05-22', '2001-06-11'),
+(5, 7, 2000, 6, '2001-08-01', '2001-08-08'),
+(6, 7, 7261, 6, '2012-04-25', '2001-05-12'),
+(7, 1, 875, 1, '2022-01-18', NULL),
+(8, 2, 400, 2, '2021-12-29', '2022-01-04'),
+(9, 15, 2345, 6, '2015-07-21', '2015-09-09'),
+(10, 3, 2345, 6, '2018-11-27', '2018-12-10'),
+(11, 5, NULL, 3, '2021-12-01', NULL),
+(12, 6, NULL, 5, '2021-12-01', NULL),
+(13, 8, 4564, 4, '2021-11-08', NULL),
+(14, 9, 923, 6, '2019-06-14', '2019-06-28'),
+(15, 10, NULL, 5, '2015-02-10', NULL),
+(16, 11, 1235, 6, '2016-05-08', '2016-05-26'),
+(17, 12, NULL, 3, '2022-01-22', NULL),
+(18, 14, 24238, 2, '2021-09-02', '2021-11-23'),
+(19, 15, 7621, 1, '2021-09-02', NULL),
+(20, 8, 9865, 1, '2021-09-02', NULL),
+(21, 2, 1235, 6, '2020-01-02', '2020-01-02'),
+(22, 9, 1235, 6, '2002-06-03', '2002-08-07'),
+(23, 11, NULL, 5, '2015-06-03', NULL),
+(24, 12, NULL, 3, '2022-01-31', NULL),
+(25, 3, 7814, 4, '2022-01-01', NULL),
+(26, 10, 8712, 4, '2022-01-22', NULL),
+
+
 INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
 (2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
@@ -39,13 +68,12 @@ INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego
 (6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
 
 INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
-(1, 'Nowe'),
-(2, 'W realizacji'),
-(3, 'Gotowe do odebrania'),
-(4, 'Oczekuje na wycenę'),
-(5, 'Wyceniono'),
-(6, 'Odrzucono'),
-(7, 'Odebrano');
+(1, 'W realizacji'),
+(2, 'Gotowe do odebrania'),
+(3, 'Oczekuje na zatwierdzenie'),
+(4, 'Wyceniono'),
+(5, 'Odrzucono'),
+(6, 'Odebrano');
 
 INSERT INTO `typ_mebla` (`Id_Typu_mebla`, `Nazwa`) VALUES
 (1, 'Stół'),
