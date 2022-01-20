@@ -75,7 +75,7 @@ INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
 (5, 'Odrzucono'),
 (6, 'Odebrano');
 
-INSERT INTO `typ_mebla` (`Id_Typu_mebla`, `Nazwa`) VALUES
+INSERT INTO typ_mebla (Id_Typu_mebla, Nazwa) VALUES
 (1, 'Stół'),
 (2, 'Krzesło'),
 (3, 'Fotel'),
