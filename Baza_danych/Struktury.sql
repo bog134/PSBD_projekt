@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 	Rozmiar_Szerokosc DOUBLE NOT NULL,
 	Rozmiar_Dlugosc DOUBLE NOT NULL, 
 	Cena DOUBLE NOT NULL,
-	Nazwa_pliku_rysunku VARCHAR(45) NOT NULL,
+	Nazwa_pliku_rysunku VARCHAR(45) NULL,
 
 	PRIMARY KEY (Id_Proj_polprod),
 	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
