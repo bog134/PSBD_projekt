@@ -18,7 +18,7 @@ INSERT INTO PRACOWNIK (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisk
 (9, 2, '1998-10-10', 'Faustyna', 'Sadowska', '57249010579142041118217285', 3500, '175-855-865', '59-202', 'Legnica', 'Nowy Świat 58', 'Faustyna89', 'cm4y3wawz0'),
 (10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34', 'Julita76', 'zvgx12g2pp');
 
-INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail','Adres_Kraj', 'Adres_AdresPocztowy', 'Adres_Miejscowosc', 'Adres_Ulica', 'Adres_NumerDomu', 'Adres_NumerMieszkania') VALUES
+INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, E-mail, Adres_Kraj, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania) VALUES
 (1, 'Marcelina', 'Woźniak', '690793569', 'paulbont@adaov.com', 'Polska', '10-182', 'Bielsko-Biała', 'Akacjowa', 15, 38),
 (2, 'Bogumił', 'Łukasik', '212994545', 'stumptown@gmailya.com', 'Polska', '62-875', 'Poznań', 'Niedzielna', 512, 43),
 (3, 'Lilianna', 'Bielecka', '814536325', 'olgachernyh@fheiesit.com', 'Polska', '38-650', 'Katowice', 'Gołuńskiego', 3, 123),
