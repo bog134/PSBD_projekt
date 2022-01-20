@@ -72,7 +72,6 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (25, 3, 7814, 4, '2022-01-01', NULL),
 (26, 10, 8712, 4, '2022-01-22', NULL);
 
---zmienic w pliku Struktury.sql 
 INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku') VALUES
 ('Id_Proj', 'Id_Ceny', 'Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku')
 (1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
@@ -184,7 +183,6 @@ INSERT INTO MATERIAL (Id_Materialu, Nazwa, Cena, Kolor, Klasa, Wzor, Rodzaj, Roz
 (17, 'fornir naturalny', 14, 3, 'A', 0, 5, '1mb'),
 (18, 'fornir modyfikowany', 30, 7, 'A', 5, 5, '1mb'),
 (19, 'okleina PCV', 25, 8, 'A', 6, 5, '1mb');
-<<<<<<< HEAD
 
 INSERT INTO ZAMOWIENIE_NA_KOMPONENTY ('Id_zamowienia','Koszt', 'Stan_Realizacji', 'Czas_realizacji_Data_zlozenia', 'Czas_Realizacji_Data_zakonczenia') VALUES
 (1, 1, 14267, 4, '2022-01-01', NULL),
@@ -225,5 +223,3 @@ INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Koszt, Stan_realizacji, Czas
 (8, 11348, 0, '2022-01-20', NULL),
 (9, 12519, 0, '2022-01-04', NULL),
 (10, 13648, 0, '2022-01-09', NULL);
-=======
->>>>>>> 34a6297e65b3d76a2d8d3b555e682c106a25b920
