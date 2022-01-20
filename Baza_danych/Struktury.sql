@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS DOSTAWCY
 (
   	Id_Dostawcy int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
-  	E-mail varchar(50) NOT NULL,
+  	Email varchar(50) NOT NULL,
   	Numer_konta_bankowego varchar(26) NOT NULL,
   	Adres_AdresPocztowy varchar(200) NOT NULL,
   	Adres_Miejscowosc varchar(100) NOT NULL,
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS KLIENCI
   	Imie varchar(20) NOT NULL,
   	Nazwisko varchar(20) NOT NULL,
   	Numer_telefonu varchar(10) NOT NULL,
-  	E-mail varchar(50) NOT NULL,
+  	Email varchar(50) NOT NULL,
   	Adres_AdresPocztowy varchar(200) NOT NULL,
   	Adres_Miejscowosc varchar(100) NOT NULL,
   	Adres_Ulica varchar(100) NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
 (
   	Id_Mat_mebel int(11) NOT NULL AUTO_INCREMENT,
   	Id_Materialu int(11) NOT NULL,
-  	Id_Mebla int(11) NOT NULL
+  	Id_Mebla int(11) NOT NULL,
 	
 	PRIMARY KEY (Id_Mat_mebel),
 	FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS MEBEL
   	Id_Mebla int(11) NOT NULL AUTO_INCREMENT,
   	Id_Zamowienia int(11) NOT NULL,
   	Id_Proj_klient int(11) DEFAULT NULL,
-  	Id_Proj_katalog int(11) DEFAULT NULL
+  	Id_Proj_katalog int(11) DEFAULT NULL,
 	
 	PRIMARY KEY (Id_Mebla),
 	FOREIGN KEY (Id_Zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Id_Zamowienia),
