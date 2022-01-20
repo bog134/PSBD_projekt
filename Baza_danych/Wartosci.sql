@@ -65,7 +65,7 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (26, 10, 8712, 4, '2022-01-22', NULL),
 
 
-INSERT INTO `dostawcy` (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
+INSERT INTO DOSTAWCY (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
 (2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
 (3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
