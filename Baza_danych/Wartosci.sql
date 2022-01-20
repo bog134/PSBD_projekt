@@ -1,5 +1,12 @@
 USE FIRMA;
 
+INSERT INTO RODZAJ_POLPRODUKTU (Id_Rodzaju_polproduktu, Nazwa) VALUES
+(1, 'Stelaz'),
+(2, 'Rama'),
+(3, 'Front'),
+(4, 'Materac'),
+(5, 'Dekory');
+
 INSERT INTO STANOWISKO (IdStanowiska, Nazwa_Stanowiska) VALUES
 (1, 'Pracownik fizyczny'),
 (2, 'Technolog'),
