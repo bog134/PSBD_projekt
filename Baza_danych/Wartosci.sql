@@ -1,16 +1,22 @@
 USE FIRMA;
 
-INSERT INTO pracownik (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisko, Numer_konta_bankowego, Zarobki, Numer_telefonu, Adres_Kod, Adres_Miasto, Adres_Ulica) VALUES
-(1, 1, '1956-06-15', 'Borys', 'Zakrzewski', '95249010289970091125976427', 3000, '997-015-469', '70-513', 'Szczecin', 'Małopolska 148/2'),
-(2, 3, '1996-06-04', 'Milan', 'Rutkowski', '25249010154483197770208474', 4000, '188-482-975', '90-954', 'Łódź', 'Al. Kościuszki 97'),
-(3, 1, '1995-05-15', 'Fryderyk', 'Lewandowski', '70249010443972240527274151', 3000, '739-722-015', '32-305', 'Olkusz', 'Krasińskiego 72/3'),
-(4, 1, '1975-05-01', 'Alex', 'Walczak', '45249010318881704000536399', 3000, '744-446-093', '15-161', 'Białystok', 'Czarnej Hańczy 7'),
-(5, 2, '1996-12-26', 'Artur', 'Kołodziej', '09249010447474422165839092', 3500, '748-686-884', '05-075', 'Warszawa', 'I Pułku Praskiego 108/5'),
-(6, 3, '1998-10-22', 'Lucyna', 'Cieślak', '93249010441741221091577543', 4000, '727-799-091', '50-114', 'Wrocław', 'Odrzańska 127'),
-(7, 1, '1979-11-12', 'Balbina', 'Dąbrowska', '72249010284538998156445325', 3000, '580-035-635', '01-158', 'Warszawa', 'Złocienia 3/7'),
-(8, 1, '1965-01-20', 'Anita', 'Adamska', '04249010152485639713389353', 3000, '223-192-870', '85-430', 'Bydgoszcz', 'Jarząbkowa 12'),
-(9, 2, '1998-10-10', 'Faustyna', 'Sadowska', '57249010579142041118217285', 3500, '175-855-865', '59-202', 'Legnica', 'Nowy Świat 58'),
-(10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34');
+INSERT INTO STANOWISKO (IdStanowiska, Nazwa_Stanowiska) VALUES
+(1, 'Pracownik fizyczny'),
+(2, 'Technolog'),
+(3, 'Logistyk'),
+(4, 'Kierownik');
+
+INSERT INTO PRACOWNIK (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisko, Numer_konta_bankowego, Zarobki, Numer_telefonu, Adres_Kod, Adres_Miasto, Adres_Ulica, Login, Haslo) VALUES
+(1, 1, '1956-06-15', 'Borys', 'Zakrzewski', '95249010289970091125976427', 3000, '997-015-469', '70-513', 'Szczecin', 'Małopolska 148/2', 'Borys134', 'mhfojv5p2q'),
+(2, 3, '1996-06-04', 'Milan', 'Rutkowski', '25249010154483197770208474', 4000, '188-482-975', '90-954', 'Łódź', 'Al. Kościuszki 97', 'Milan24', '7o28ua4jiz'),
+(3, 1, '1995-05-15', 'Fryderyk', 'Lewandowski', '70249010443972240527274151', 3000, '739-722-015', '32-305', 'Olkusz', 'Krasińskiego 72/3', 'Fryderyk67', 'nbczpbad9s'),
+(4, 1, '1975-05-01', 'Alex', 'Walczak', '45249010318881704000536399', 3000, '744-446-093', '15-161', 'Białystok', 'Czarnej Hańczy 7', 'Alex12', 'qva6ku1pk3'),
+(5, 2, '1996-12-26', 'Artur', 'Kołodziej', '09249010447474422165839092', 3500, '748-686-884', '05-075', 'Warszawa', 'I Pułku Praskiego 108/5', 'Artur56', 'grsi0mt55b'),
+(6, 3, '1998-10-22', 'Lucyna', 'Cieślak', '93249010441741221091577543', 4000, '727-799-091', '50-114', 'Wrocław', 'Odrzańska 127', 'Lucyna17', '4tmhsbs2p2'),
+(7, 1, '1979-11-12', 'Balbina', 'Dąbrowska', '72249010284538998156445325', 3000, '580-035-635', '01-158', 'Warszawa', 'Złocienia 3/7', 'Balbina23', 'vfy6mj0n8k'),
+(8, 1, '1965-01-20', 'Anita', 'Adamska', '04249010152485639713389353', 3000, '223-192-870', '85-430', 'Bydgoszcz', 'Jarząbkowa 12', 'Anita67', 'rocj7c60ib'),
+(9, 2, '1998-10-10', 'Faustyna', 'Sadowska', '57249010579142041118217285', 3500, '175-855-865', '59-202', 'Legnica', 'Nowy Świat 58', 'Faustyna89', 'cm4y3wawz0'),
+(10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34', 'Julita76', 'zvgx12g2pp');
 
 INSERT INTO klienci ('Id_Klienta', 'Imie', 'Nazwisko', 'Numer_telefonu', 'E-mail','Adres_Kraj', 'Adres_AdresPocztowy', 'Adres_Miejscowosc', 'Adres_Ulica', 'Adres_NumerDomu', 'Adres_NumerMieszkania') VALUES
 (1, 'Marcelina', 'Woźniak', '690793569', 'paulbont@adaov.com', 'Polska', '10-182', 'Bielsko-Biała', 'Akacjowa', 15, 38),
@@ -88,3 +94,49 @@ INSERT INTO typ_mebla (Id_Typu_mebla, Nazwa) VALUES
 (10, 'Narożnik'),
 (11, 'Regał'),
 (12, 'Kredens');
+
+INSERT INTO RODZAJ_MATERIALU (Id_Rodzaju, Nazwa) VALUES
+(1, 'Tkanina obiciowa'),
+(2, 'Płyta meblowa'),
+(3, 'Tarcica'),
+(4, 'Pianka tapicerska'),
+(5, 'Okleina');
+
+INSERT INTO KOLOR (Id_Koloru, Nazwa) VALUES
+(1, 'niebieski'),
+(2, 'zielony'),
+(3, 'brązowy'),
+(4, 'szary'),
+(5, 'czerwony'),
+(6, 'żółty'),
+(7, 'czarny'),
+(8, 'pomarańczowy');
+
+INSERT INTO WZOR(Id_Wzoru, Nazwa) VALUES
+(1, 'pasy z rombami'),
+(2, 'ornamenty'),
+(3, 'kwiaty'),
+(4, 'pasy i kratka'),
+(5, 'romby'),
+(6, 'pasy');
+
+INSERT INTO MATERIAL (Id_Materialu, Nazwa, Cena, Kolor, Klasa, Wzor, Rodzaj, Rozmiar) VALUES
+(1, 'flok', 120, 1, 'A', 1, 1, '1mb'),
+(2, 'welwet', 130, 2, 'A', 2, 1, '1mb'),
+(3, 'ekoskóra', 110, 5, 'A', 3, 1, '1mb'),
+(4, 'szenil', 100, 6, 'A', 4, 1, '1mb'),
+(5, 'płyta wiórowa', 42, 3, 'A1', 0, 2, '1m^2 x 18 mm'),
+(6, 'płyta paździerzowa', 30, 3, 'A1', 0, 2, '1m^2 x 12 mm'),
+(7, 'płyta pilśniowa', 10, 3, 'A1', 0, 2, '1m^2 x 3 mm'),
+(8, 'płyta MDF', 56, 3, 'A1', 0, 2, '1m^2 x 10 mm'),
+(9, 'deska dębowa', 1500, 3, '1', 0, 3, '1m^3'),
+(10, 'drewno bukowe', 720, 3, '1', 0, 3, '1m^3'),
+(11, 'drewno sosnowe', 760, 3, '1', 0, 3, '1m^3'),
+(12, 'drewno brzozowe', 650, 3, '1', 0, 3, '1m^3'),
+(13, 'drewno hebanowe', 1200, 3, '1', 0, 3, '1m^3'),
+(14, 'pianka poliuretanowa', 175, 4, 'T30', 0, 4, '1m^3'),
+(15, 'pianka wysokoeleasty', 300, 4, 'T25', 0, 4, '1m^3'),
+(16, 'pianka polieterowa', 180, 4, 'T35', 0, 4, '1m^3'),
+(17, 'fornir naturalny', 14, 3, 'A', 0, 5, '1mb'),
+(18, 'fornir modyfikowany', 30, 7, 'A', 5, 5, '1mb'),
+(19, 'okleina PCV', 25, 8, 'A', 6, 5, '1mb');

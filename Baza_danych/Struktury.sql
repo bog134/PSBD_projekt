@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS PRACOWNIK
 	Adres_Kod VARCHAR(45) NOT NULL, 
 	Adres_Miasto VARCHAR(45) NOT NULL,		
 	Adres_Ulica VARCHAR(45) NOT NULL,	
+	Login VARCHAR(45) NOT NULL,
+	Haslo VARCHAR(45) NOT NULL,
 
 	PRIMARY KEY (Id_Pracownika),
 	UNIQUE KEY (Numer_konta_bankowego),
@@ -167,19 +169,46 @@ CREATE TABLE IF NOT EXISTS LACZENIE
 	PRIMARY KEY (Id_Laczenia)
 );
 
+CREATE TABLE IF NOT EXISTS KOLOR 
+(
+  	Id_Koloru INT NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(20) NOT NULL,
+	
+	PRIMARY KEY (Id_Koloru)
+);
+
+CREATE TABLE IF NOT EXISTS WZOR
+(
+  	Id_Wzoru INT NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(20) NOT NULL,
+	
+	PRIMARY KEY (Id_Wzoru)
+);
+
+CREATE TABLE IF NOT EXISTS RODZAJ_MATERIALU
+(
+  	Id_Rodzaju INT NOT NULL AUTO_INCREMENT,
+  	Nazwa varchar(20) NOT NULL,
+	
+	PRIMARY KEY (Id_Rodzaju)
+);
+
 
 CREATE TABLE IF NOT EXISTS MATERIAL
 (
   	Id_Materialu int(11) NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
   	Cena float NOT NULL,
-  	Kolor varchar(20) NOT NULL,
-  	Klasa varchar(1) NOT NULL,
-  	Wzor varchar(40) DEFAULT NULL,
-  	Rodzaj varchar(40) NOT NULL,
-  	Rozmiar int(11) NOT NULL,
+  	Kolor INT NOT NULL,
+  	Klasa varchar(10) NOT NULL,
+  	Wzor INT DEFAULT NULL,
+  	Rodzaj INT NOT NULL,
+  	Rozmiar varchar(40) NOT NULL,
 	
-	PRIMARY KEY (Id_Materialu)
+	PRIMARY KEY (Id_Materialu),
+	FOREIGN KEY (Kolor) REFERENCES KOLOR(Id_Koloru),
+	FOREIGN KEY (Wzor) REFERENCES WZOR(Id_Wzoru),
+	FOREIGN KEY (Rodzaj) REFERENCES RODZAJ_MEBLA(Id_Rodzaju)
 );
 
 CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
