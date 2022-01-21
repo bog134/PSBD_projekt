@@ -261,25 +261,25 @@ INSERT INTO MEBEL (Id_Mebla, Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog) VAL
 (33, 26, NULL, 24);
 
 INSERT INTO PROJEKT_POLPRODUKTU(Id_Proj_polprod, Id_Proj_klient, Id_Proj_katalog, Id_Rodzaju_polproduktu, Nazwa, Rozmiar_Wysokosc, Rozmiar_Szerokosc, Rozmiar_Dlugosc, Cena, Nazwa_pliku_rysunku) VALUES
-(1, NULL, 7, 1, 'FUTURA NV', 60, 1000, 2000, 270, NULL),
-(2, NULL, 8, 1, 'FUTURA NV', 60, 1400, 2000, 305, NULL),
-(3, 3, NULL, 1, 'NATURA', 55, 700, 2000, 152, NULL),
-(4, NULL, 9, 1, 'NATURA NV', 55, 1200, 2000, 215, NULL),
-(5, NULL, 2, 2, 'RAMA STOLU STALOWA', 450, 600, 900, 215, NULL),
-(6, NULL, 24, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, NULL),
-(7, NULL, 13, 3, 'DRZWICZKI AZUROWE', 2000, 20, 600, 440, NULL),
-(8, NULL, 14, 3, 'FRONT MDF', 2000, 20, 600, 240, NULL),
-(9, NULL, 15, 3, 'FRONT MDF', 600, 20, 250, 200, NULL),
-(10, NULL, 16, 3, 'LUSTRZANY FRONT', 600, 20, 250, 950, NULL),
-(11, NULL, 17, 3, 'FRONT BUKOWY', 400, 20, 400, 400, NULL),
-(12, NULL, 18, 3, 'FRONT MDF', 400, 20, 450, 220, NULL),
-(13, NULL, 23, 3, 'FRONT RZEZBIONY', 400, 20, 600, 500, NULL),
-(14, NULL, 24, 3, 'FRONT FREZOWANY', 400, 20, 600, 420, NULL),
-(15, NULL, 7, 4, 'DEKOR DREWNIANY', 100, 5, 200, 30, NULL),
-(16, NULL, 23, 4, 'DEKOR DREWNIANY NAROZNY', 100, 5, 100, 25, NULL),
-(17, 5, NULL, 3, 'FRONT MAHONIOWY', 600, 20, 400, 25, NULL),
-(18, 8, NULL, 3, 'FRONT MDF', 2000, 20, 1000, 25, NULL),
-(19, 11, NULL, 3, 'FRONT RZEZBIONY', 400, 20, 400, 25, NULL);
+(1, NULL, 7, 1, 'FUTURA NV', 60, 1000, 2000, 270, 'futura.dwg'),
+(2, NULL, 8, 1, 'FUTURA NV', 60, 1400, 2000, 305, 'futura2.dwg'),
+(3, 3, NULL, 1, 'NATURA', 55, 700, 2000, 152, 'natura.jpg'),
+(4, NULL, 9, 1, 'NATURA NV', 55, 1200, 2000, 215, 'natura2.jpg'),
+(5, NULL, 2, 2, 'RAMA STOLU STALOWA', 450, 600, 900, 215, 'rama_stol.png'),
+(6, NULL, 24, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, 'rama_kredens.dwg'),
+(7, NULL, 13, 3, 'DRZWICZKI AZUROWE', 2000, 20, 600, 440, 'front_azur.jpg'),
+(8, NULL, 14, 3, 'FRONT MDF', 2000, 20, 600, 240, 'mdf1.jpg'),
+(9, NULL, 15, 3, 'FRONT MDF', 600, 20, 250, 200, 'mdf2.jpg'),
+(10, NULL, 16, 3, 'LUSTRZANY FRONT', 600, 20, 250, 950, 'front_lustro.jpg'),
+(11, NULL, 17, 3, 'FRONT BUKOWY', 400, 20, 400, 400, 'Front_buk.png'),
+(12, NULL, 18, 3, 'FRONT MDF', 400, 20, 450, 220, 'mdf3.png'),
+(13, NULL, 23, 3, 'FRONT RZEZBIONY', 400, 20, 600, 500, 'front_rzezbiony.dwg'),
+(14, NULL, 24, 3, 'FRONT FREZOWANY', 400, 20, 600, 420, 'front_frez.jpg'),
+(15, NULL, 7, 4, 'DEKOR DREWNIANY', 100, 5, 200, 30, 'dekor.jpg'),
+(16, NULL, 23, 4, 'DEKOR DREWNIANY NAROZNY', 100, 5, 100, 25, 'dekor_dr_nar.png'),
+(17, 5, NULL, 3, 'FRONT MAHONIOWY', 600, 20, 400, 25, 'mahon_f.jpg'),
+(18, 8, NULL, 3, 'FRONT MDF', 2000, 20, 1000, 25, 'mdf_f.jpg'),
+(19, 11, NULL, 3, 'FRONT RZEZBIONY', 400, 20, 400, 25, 'front_rzezb.png');
 
 
 INSERT INTO POLPRODUKT(Id_Polprod, Id_Proj_polprod, Id_Mebla) VALUES
