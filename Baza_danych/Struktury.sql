@@ -136,6 +136,7 @@ CREATE TABLE IF NOT EXISTS KLIENCI
   	Nazwisko varchar(20) NOT NULL,
   	Numer_telefonu varchar(10) NOT NULL,
   	Email varchar(50) NOT NULL,
+	Adres_Kraj varchar(50) NOT NULL,
   	Adres_AdresPocztowy varchar(200) NOT NULL,
   	Adres_Miejscowosc varchar(100) NOT NULL,
   	Adres_Ulica varchar(100) NOT NULL,
@@ -144,10 +145,10 @@ CREATE TABLE IF NOT EXISTS KLIENCI
 	PRIMARY KEY (Id_Klienta)
 );
 
-CREATE TABLE IF NOT EXISTS LACZENIE 
+CREATE TABLE IF NOT EXISTS LACZENIA
 (
   	Id_Laczenia int(11) NOT NULL AUTO_INCREMENT,
-  	Nazwa varchar(20) NOT NULL,
+  	Nazwa varchar(30) NOT NULL,
 	
 	PRIMARY KEY (Id_Laczenia)
 );
@@ -229,8 +230,8 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
   	Id_Proj_katalog int(11) NOT NULL AUTO_INCREMENT,
   	Id_Typu_mebla int(11) NOT NULL,
   	Id_Laczenia int(11) NOT NULL,
+	Id_Opcjonalne_czesci int(11) NULL,
   	Nazwa varchar(20) NOT NULL,
-  	Opcjonalne_czesci enum('x','y','z','a') NOT NULL,
   	Marza float NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
   	Wymiary_Wysokosc int(11) NOT NULL,

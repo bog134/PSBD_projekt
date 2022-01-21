@@ -1,5 +1,62 @@
 USE FIRMA;
 
+-- Słowniki
+
+INSERT INTO LACZENIA (Id_Laczenia, Nazwa) VALUES
+(1, 'wkręty'),
+(2, 'klej'),
+(3, 'wciskowe'),
+(4, 'kołki'),
+(5, 'mimośrody i trzpienie'),
+(6, 'gwintowe');
+
+INSERT INTO STAN_REALIZACJI (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
+(1, 'W realizacji'),
+(2, 'Gotowe do odebrania'),
+(3, 'Oczekuje na zatwierdzenie'),
+(4, 'Wyceniono'),
+(5, 'Odrzucono'),
+(6, 'Odebrano');
+
+INSERT INTO TYP_MEBLA (Id_Typu_mebla, Nazwa) VALUES
+(1, 'Stół'),
+(2, 'Krzesło'),
+(3, 'Fotel'),
+(4, 'Łóżko'),
+(5, 'Sofa'),
+(6, 'Biurko'),
+(7, 'Szafa'),
+(8, 'Komoda'),
+(9, 'Szafka nocna'),
+(10, 'Narożnik'),
+(11, 'Regał'),
+(12, 'Kredens');
+
+INSERT INTO RODZAJ_MATERIALU (Id_Rodzaju_materialu, Nazwa) VALUES
+(1, 'Tkanina obiciowa'),
+(2, 'Płyta meblowa'),
+(3, 'Tarcica'),
+(4, 'Pianka tapicerska'),
+(5, 'Okleina');
+
+INSERT INTO KOLOR (Id_Koloru, Nazwa) VALUES
+(1, 'niebieski'),
+(2, 'zielony'),
+(3, 'brązowy'),
+(4, 'szary'),
+(5, 'czerwony'),
+(6, 'żółty'),
+(7, 'czarny'),
+(8, 'pomarańczowy');
+
+INSERT INTO WZOR(Id_Wzoru, Nazwa) VALUES
+(1, 'pasy z rombami'),
+(2, 'ornamenty'),
+(3, 'kwiaty'),
+(4, 'pasy i kratka'),
+(5, 'romby'),
+(6, 'pasy');
+
 INSERT INTO RODZAJ_POLPRODUKTU (Id_Rodzaju_polproduktu, Nazwa) VALUES
 (1, 'Stelaz'),
 (2, 'Rama'),
@@ -8,13 +65,36 @@ INSERT INTO RODZAJ_POLPRODUKTU (Id_Rodzaju_polproduktu, Nazwa) VALUES
 (5, 'Dekory'),
 (6, 'Klienta');
 
-INSERT INTO STANOWISKO (IdStanowiska, Nazwa_Stanowiska) VALUES
+INSERT INTO STANOWISKO (Id_Stanowiska, Nazwa_Stanowiska) VALUES
 (1, 'Pracownik fizyczny'),
 (2, 'Technolog'),
 (3, 'Logistyk'),
 (4, 'Kierownik');
 
-INSERT INTO PRACOWNIK (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisko, Numer_konta_bankowego, Zarobki, Numer_telefonu, Adres_Kod, Adres_Miasto, Adres_Ulica, Login, Haslo) VALUES
+-- Koniec słowników
+
+INSERT INTO MATERIAL (Id_Materialu, Nazwa, Cena, Kolor, Klasa, Wzor, Rodzaj, Rozmiar) VALUES
+(1, 'flok', 120, 1, 'A', 1, 1, '1mb'),
+(2, 'welwet', 130, 2, 'A', 2, 1, '1mb'),
+(3, 'ekoskóra', 110, 5, 'A', 3, 1, '1mb'),
+(4, 'szenil', 100, 6, 'A', 4, 1, '1mb'),
+(5, 'płyta wiórowa', 42, 3, 'A1', NULL, 2, '1m^2 x 18 mm'),
+(6, 'płyta paździerzowa', 30, 3, 'A1', NULL, 2, '1m^2 x 12 mm'),
+(7, 'płyta pilśniowa', 10, 3, 'A1', NULL, 2, '1m^2 x 3 mm'),
+(8, 'płyta MDF', 56, 3, 'A1', NULL, 2, '1m^2 x 10 mm'),
+(9, 'deska dębowa', 1500, 3, '1', NULL, 3, '1m^3'),
+(10, 'drewno bukowe', 720, 3, '1', NULL, 3, '1m^3'),
+(11, 'drewno sosnowe', 760, 3, '1', NULL, 3, '1m^3'),
+(12, 'drewno brzozowe', 650, 3, '1', NULL, 3, '1m^3'),
+(13, 'drewno hebanowe', 1200, 3, '1', NULL, 3, '1m^3'),
+(14, 'pianka poliuretanowa', 175, 4, 'T30', NULL, 4, '1m^3'),
+(15, 'pianka wysokoeleasty', 300, 4, 'T25', NULL, 4, '1m^3'),
+(16, 'pianka polieterowa', 180, 4, 'T35', NULL, 4, '1m^3'),
+(17, 'fornir naturalny', 14, 3, 'A', NULL, 5, '1mb'),
+(18, 'fornir modyfikowany', 30, 7, 'A', 5, 5, '1mb'),
+(19, 'okleina PCV', 25, 8, 'A', 6, 5, '1mb');
+
+INSERT INTO PRACOWNIK (Id_Pracownika, Id_Stanowiska, Data_urodzenia, Imie, Nazwisko, Numer_konta_bankowego, Zarobki, Numer_telefonu, Adres_Kod, Adres_Miasto, Adres_Ulica, Login, Haslo) VALUES
 (1, 1, '1956-06-15', 'Borys', 'Zakrzewski', '95249010289970091125976427', 3000, '997-015-469', '70-513', 'Szczecin', 'Małopolska 148/2', 'Borys134', 'mhfojv5p2q'),
 (2, 3, '1996-06-04', 'Milan', 'Rutkowski', '25249010154483197770208474', 4000, '188-482-975', '90-954', 'Łódź', 'Al. Kościuszki 97', 'Milan24', '7o28ua4jiz'),
 (3, 1, '1995-05-15', 'Fryderyk', 'Lewandowski', '70249010443972240527274151', 3000, '739-722-015', '32-305', 'Olkusz', 'Krasińskiego 72/3', 'Fryderyk67', 'nbczpbad9s'),
@@ -26,7 +106,7 @@ INSERT INTO PRACOWNIK (IdPracownika, IdStanowiska, Data_urodzenia, Imie, Nazwisk
 (9, 2, '1998-10-10', 'Faustyna', 'Sadowska', '57249010579142041118217285', 3500, '175-855-865', '59-202', 'Legnica', 'Nowy Świat 58', 'Faustyna89', 'cm4y3wawz0'),
 (10, 4, '1957-06-25', 'Julita', 'Mazur', '48249010571218574983266911', 5000, '109-202-875', '70-352', 'Szczecin', 'Księdza Ściegiennego Piotra 34', 'Julita76', 'zvgx12g2pp');
 
-INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, E-mail, Adres_Kraj, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania) VALUES
+INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, Email, Adres_Kraj, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania) VALUES
 (1, 'Marcelina', 'Woźniak', '690793569', 'paulbont@adaov.com', 'Polska', '10-182', 'Bielsko-Biała', 'Akacjowa', 15, 38),
 (2, 'Bogumił', 'Łukasik', '212994545', 'stumptown@gmailya.com', 'Polska', '62-875', 'Poznań', 'Niedzielna', 512, 43),
 (3, 'Lilianna', 'Bielecka', '814536325', 'olgachernyh@fheiesit.com', 'Polska', '38-650', 'Katowice', 'Gołuńskiego', 3, 123),
@@ -44,7 +124,15 @@ INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, E-mail, Adres_K
 (14, 'Justyna', 'Jastrzębska', '599952162', 'samirainterfarm@taikz.com', 'Polska', '52-233', 'Lublin', 'Okopowa', 100, 101),
 (15, 'Oliwia', 'Dąbrowska', '179095786', 'aleksandrcypin@rstoremail.ml', 'Polska', '74-284', 'Wałbrzych', 'Kujawska', 15, 1);
 
-INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Stanu_Realizacji', 'Czas_realizacji_Data_zlozenia', 'Czas_Realizacji_Data_zakonczenia') VALUES
+INSERT INTO DOSTAWCY (Id_Dostawcy, Nazwa, Email, Numer_konta_bankowego, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_Numer) VALUES
+(1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
+(2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
+(3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
+(4, 'XeDef', 'xedef@gmail.com', '61154062116032497746659251', '92-256', 'Kraków', 'Lubińska', '67'),
+(5, 'NTN', 'ntn@onet.pl', '94187099089534543073777450', '10-682', 'Gdynia', 'Okopowa', '56'),
+(6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
+
+INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Zamowienia, Id_Klienta, Koszt, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES
 (1, 1, 14267, 4, '2022-01-01', NULL),
 (2, 4, NULL, 5, '2022-01-07', NULL),
 (3, 4, NULL, 3, '2022-01-20', NULL),
@@ -72,8 +160,7 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (25, 3, 7814, 4, '2022-01-01', NULL),
 (26, 10, 8712, 4, '2022-01-22', NULL);
 
-INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku') VALUES
-('Id_Proj', 'Id_Ceny', 'Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku')
+INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Ceny, Id_Typu_mebla, Id_Laczenia, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc, Nazwa_pliku_rysunku) VALUES
 (1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
 (2, 2, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
 (3, 3, 5, 1, 156, 81, 80, 'sofa.dwg'),
@@ -86,7 +173,7 @@ INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_L
 (10, 10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
 (11, 11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
 
-INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow', 'Marza') VALUES
+INSERT INTO CENA (Id_Ceny, Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza) VALUES
 (1, 5, 2000, 3000, 1500),
 (2, 9, 150, 200, 100),
 (3, 9, 800, 2000, 4000),
@@ -100,92 +187,8 @@ INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow
 (11, 9, 460, 410, 200);
 
 
-INSERT INTO LACZENIA ('Id_Laczenia', 'Nazwa') VALUES
-(1, 'wkręty'),
-(2, 'klej'),
-(3, 'wciskowe'),
-(4, 'kołki'),
-(5, 'mimośrody i trzpienie'),
-(6, 'gwintowe');
-
-INSERT INTO DOSTAWCY (Id_Dostawcy, Nazwa, Email, Numer_konta_bankowego, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_Numer) VALUES
-(1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
-(2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
-(3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
-(4, 'XeDef', 'xedef@gmail.com', '61154062116032497746659251', '92-256', 'Kraków', 'Lubińska', '67'),
-(5, 'NTN', 'ntn@onet.pl', '94187099089534543073777450', '10-682', 'Gdynia', 'Okopowa', '56'),
-(6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
-
-INSERT INTO STAN_REALIZACJI (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
-(1, 'W realizacji'),
-(2, 'Gotowe do odebrania'),
-(3, 'Oczekuje na zatwierdzenie'),
-(4, 'Wyceniono'),
-(5, 'Odrzucono'),
-(6, 'Odebrano');
-
-INSERT INTO TYP_MEBLA (Id_Typu_mebla, Nazwa) VALUES
-(1, 'Stół'),
-(2, 'Krzesło'),
-(3, 'Fotel'),
-(4, 'Łóżko'),
-(5, 'Sofa'),
-(6, 'Biurko'),
-(7, 'Szafa'),
-(8, 'Komoda'),
-(9, 'Szafka nocna'),
-(10, 'Narożnik'),
-(11, 'Regał'),
-(12, 'Kredens');
-
-INSERT INTO RODZAJ_MATERIALU (Id_Rodzaju, Nazwa) VALUES
-(1, 'Tkanina obiciowa'),
-(2, 'Płyta meblowa'),
-(3, 'Tarcica'),
-(4, 'Pianka tapicerska'),
-(5, 'Okleina');
-
-INSERT INTO KOLOR (Id_Koloru, Nazwa) VALUES
-(1, 'niebieski'),
-(2, 'zielony'),
-(3, 'brązowy'),
-(4, 'szary'),
-(5, 'czerwony'),
-(6, 'żółty'),
-(7, 'czarny'),
-(8, 'pomarańczowy');
-
-INSERT INTO WZOR(Id_Wzoru, Nazwa) VALUES
-(1, 'pasy z rombami'),
-(2, 'ornamenty'),
-(3, 'kwiaty'),
-(4, 'pasy i kratka'),
-(5, 'romby'),
-(6, 'pasy');
-
-INSERT INTO MATERIAL (Id_Materialu, Nazwa, Cena, Kolor, Klasa, Wzor, Rodzaj, Rozmiar) VALUES
-(1, 'flok', 120, 1, 'A', 1, 1, '1mb'),
-(2, 'welwet', 130, 2, 'A', 2, 1, '1mb'),
-(3, 'ekoskóra', 110, 5, 'A', 3, 1, '1mb'),
-(4, 'szenil', 100, 6, 'A', 4, 1, '1mb'),
-(5, 'płyta wiórowa', 42, 3, 'A1', 0, 2, '1m^2 x 18 mm'),
-(6, 'płyta paździerzowa', 30, 3, 'A1', 0, 2, '1m^2 x 12 mm'),
-(7, 'płyta pilśniowa', 10, 3, 'A1', 0, 2, '1m^2 x 3 mm'),
-(8, 'płyta MDF', 56, 3, 'A1', 0, 2, '1m^2 x 10 mm'),
-(9, 'deska dębowa', 1500, 3, '1', 0, 3, '1m^3'),
-(10, 'drewno bukowe', 720, 3, '1', 0, 3, '1m^3'),
-(11, 'drewno sosnowe', 760, 3, '1', 0, 3, '1m^3'),
-(12, 'drewno brzozowe', 650, 3, '1', 0, 3, '1m^3'),
-(13, 'drewno hebanowe', 1200, 3, '1', 0, 3, '1m^3'),
-(14, 'pianka poliuretanowa', 175, 4, 'T30', 0, 4, '1m^3'),
-(15, 'pianka wysokoeleasty', 300, 4, 'T25', 0, 4, '1m^3'),
-(16, 'pianka polieterowa', 180, 4, 'T35', 0, 4, '1m^3'),
-(17, 'fornir naturalny', 14, 3, 'A', 0, 5, '1mb'),
-(18, 'fornir modyfikowany', 30, 7, 'A', 5, 5, '1mb'),
-(19, 'okleina PCV', 25, 8, 'A', 6, 5, '1mb');
-
-INSERT INTO ('Id_Proj_katalog', 'Id_Typu_mebla', 'Id_Laczenia', 'Nazwa', "Id_Opcjonalne_czesci",
-'Marza', 'Wymiary_Szerokosc', "Wymiary_Wysokosc", "Wymiary_Glebokosc") VALUES
+INSERT INTO PROJEKT_Z_KATALOGU(Id_Proj_katalog, Id_Typu_mebla, Id_Laczenia, Nazwa, Id_Opcjonalne_czesci,
+Marza, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Glebokosc) VALUES
 (1, 1, 2, 'VEDBO', 1, 500, 950, 750, 1600),
 (2, 1, 4, 'EKEDALEN', 1, 240, 900, 730, 2400),
 (3, 2, 4, 'ODGER', 1, 39, 410, 810, 380),
