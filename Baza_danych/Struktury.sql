@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS PRACOWNIK
 	Haslo VARCHAR(45) NOT NULL,
 
 	PRIMARY KEY (Id_Pracownika),
-	UNIQUE KEY (Numer_konta_bankowego)
+	UNIQUE KEY (Numer_konta_bankowego),
+	UNIQUE KEY (Login)
 );
 
 CREATE TABLE IF NOT EXISTS CENA 
@@ -125,8 +126,11 @@ CREATE TABLE IF NOT EXISTS KLIENT
   	Adres_Ulica varchar(100) NOT NULL,
   	Adres_NumerDomu varchar(10) NOT NULL,
 	Adres_NumerMieszkania varchar(10) NULL,
+	Login varchar(45) NOT NULL,
+	Haslo varchar(45) NOT NULL,
 	
-	PRIMARY KEY (Id_Klienta)
+	PRIMARY KEY (Id_Klienta);
+	UNIQUE KEY (Login)
 );
 
 CREATE TABLE IF NOT EXISTS LACZENIA
