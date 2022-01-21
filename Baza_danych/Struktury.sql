@@ -27,8 +27,7 @@ CREATE TABLE IF NOT EXISTS PRACOWNIK
 	Haslo VARCHAR(45) NOT NULL,
 
 	PRIMARY KEY (Id_Pracownika),
-	UNIQUE KEY (Numer_konta_bankowego),
-	FOREIGN KEY (Id_Stanowiska) REFERENCES STANOWISKO(Id_Stanowiska)
+	UNIQUE KEY (Numer_konta_bankowego)
 );
 
 CREATE TABLE IF NOT EXISTS CENA 
@@ -39,8 +38,7 @@ CREATE TABLE IF NOT EXISTS CENA
   	Koszt_surowcow DOUBLE NOT NULL,
   	Marza DOUBLE NOT NULL,
   
-  	PRIMARY KEY (Id_Ceny),
-  	FOREIGN KEY (Id_Pracownika) REFERENCES PRACOWNIK (Id_Pracownika)
+  	PRIMARY KEY (Id_Ceny)
 );
 
 CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
@@ -51,7 +49,7 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	Czas_wykonania TIME NOT NULL,	
 
 	PRIMARY KEY (Id_Def_zadania),
-	UNIQUE KEY (Opis_zadania),
+	UNIQUE KEY (Opis_zadania)
 );
 
 CREATE TABLE IF NOT EXISTS RODZAJ_POLPRODUKTU
@@ -74,7 +72,6 @@ CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY
 	PRIMARY KEY (NrZamowienia)
 );
 
-
 CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 ( 
 	Id_Proj_polprod INT NOT NULL AUTO_INCREMENT,
@@ -88,11 +85,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 	Cena DOUBLE NOT NULL,
 	Nazwa_pliku_rysunku VARCHAR(45) NULL,
 
-	PRIMARY KEY (Id_Proj_polprod),
-	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
-	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog),
-	FOREIGN KEY (Id_Rodzaju) REFERENCES RODZAJ(Id_Rodzaju)
-
+	PRIMARY KEY (Id_Proj_polprod)
 );
 
 CREATE TABLE IF NOT EXISTS POLPRODUKT
@@ -100,8 +93,7 @@ CREATE TABLE IF NOT EXISTS POLPRODUKT
 	Id_Polprod INT NOT NULL AUTO_INCREMENT,
 	Id_Proj_polprod INT NOT NULL,
 
-	PRIMARY KEY (Id_Polprod),
-	FOREIGN KEY (Id_Proj_polprod) REFERENCES PROJEKT_POLPRODUKTU(Id_Proj_polprod)
+	PRIMARY KEY (Id_Polprod)
 );
 
 CREATE TABLE IF NOT EXISTS DOSTAWCY
@@ -125,18 +117,20 @@ CREATE TABLE IF NOT EXISTS KLIENCI
   	Nazwisko varchar(20) NOT NULL,
   	Numer_telefonu varchar(10) NOT NULL,
   	Email varchar(50) NOT NULL,
+	Adres_Kraj varchar(50) NOT NULL,
   	Adres_AdresPocztowy varchar(200) NOT NULL,
   	Adres_Miejscowosc varchar(100) NOT NULL,
   	Adres_Ulica varchar(100) NOT NULL,
   	Adres_NumerDomu varchar(10) NOT NULL,
+	Adres_NumerMieszkania varchar(10) NULL,
 	
 	PRIMARY KEY (Id_Klienta)
 );
 
-CREATE TABLE IF NOT EXISTS LACZENIE 
+CREATE TABLE IF NOT EXISTS LACZENIA
 (
   	Id_Laczenia int(11) NOT NULL AUTO_INCREMENT,
-  	Nazwa varchar(20) NOT NULL,
+  	Nazwa varchar(30) NOT NULL,
 	
 	PRIMARY KEY (Id_Laczenia)
 );
@@ -159,10 +153,10 @@ CREATE TABLE IF NOT EXISTS WZOR
 
 CREATE TABLE IF NOT EXISTS RODZAJ_MATERIALU
 (
-  	Id_Rodzaju INT NOT NULL AUTO_INCREMENT,
+  	Id_Rodzaju_materialu INT NOT NULL AUTO_INCREMENT,
   	Nazwa varchar(20) NOT NULL,
 	
-	PRIMARY KEY (Id_Rodzaju)
+	PRIMARY KEY (Id_Rodzaju_materialu)
 );
 
 
@@ -177,10 +171,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL
   	Rodzaj INT NOT NULL,
   	Rozmiar varchar(40) NOT NULL,
 	
-	PRIMARY KEY (Id_Materialu),
-	FOREIGN KEY (Kolor) REFERENCES KOLOR(Id_Koloru),
-	FOREIGN KEY (Wzor) REFERENCES WZOR(Id_Wzoru),
-	FOREIGN KEY (Rodzaj) REFERENCES RODZAJ_MEBLA(Id_Rodzaju)
+	PRIMARY KEY (Id_Materialu)
 );
 
 CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
@@ -189,9 +180,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
   	Id_Materialu int(11) NOT NULL,
   	Id_Mebla int(11) NOT NULL,
 	
-	PRIMARY KEY (Id_Mat_mebel),
-	FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
-	FOREIGN KEY (Id_Mebla) REFERENCES MEBEL(Id_Mebla)
+	PRIMARY KEY (Id_Mat_mebel)
 );
 
 CREATE TABLE IF NOT EXISTS MEBEL
@@ -201,10 +190,7 @@ CREATE TABLE IF NOT EXISTS MEBEL
   	Id_Proj_klient int(11) DEFAULT NULL,
   	Id_Proj_katalog int(11) DEFAULT NULL,
 	
-	PRIMARY KEY (Id_Mebla),
-	FOREIGN KEY (Id_Zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Id_Zamowienia),
-	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
-	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog)
+	PRIMARY KEY (Id_Mebla)
 );
 
 CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
@@ -215,11 +201,10 @@ CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
   	Id_Laczenia int(11) NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
   	Wymiary_Wysokosc int(11) NOT NULL,
-  	Wymiary_Glebokosc int(11) NOT NULL,
+  	Wymiary_Dlugosc int(11) NOT NULL,
   	Nazwa_pliku_rysunku varchar(40) NOT NULL,
 	
-	PRIMARY KEY (Id_Proj_klient),
-	FOREIGN KEY (Id_Ceny) REFERENCES CENA(Id_Ceny)
+	PRIMARY KEY (Id_Proj_klient)
 );
 
 CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
@@ -227,12 +212,12 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
   	Id_Proj_katalog int(11) NOT NULL AUTO_INCREMENT,
   	Id_Typu_mebla int(11) NOT NULL,
   	Id_Laczenia int(11) NOT NULL,
+	Id_Opcjonalne_czesci int(11) NULL,
   	Nazwa varchar(20) NOT NULL,
-  	Opcjonalne_czesci enum('x','y','z','a') NOT NULL,
   	Marza float NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
   	Wymiary_Wysokosc int(11) NOT NULL,
-  	Wymiary_Glebokosc int(11) NOT NULL,
+  	Wymiary_Dlugosc int(11) NOT NULL,
 	
 	PRIMARY KEY (Id_Proj_katalog)
 );
@@ -259,8 +244,7 @@ CREATE TABLE IF NOT EXISTS ZADANIE
   	Id_Def_zadania int(11) NOT NULL,
   	Czas_wykonania time NOT NULL,
 	
-	PRIMARY KEY (Id_Zadania),
-	FOREIGN KEY (Id_Def_zadania) REFERENCES DEFINICJA_ZADANIA(IdDef_zadania)
+	PRIMARY KEY (Id_Zadania)
 );
 
 CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_MEBLE (
@@ -283,17 +267,22 @@ ADD FOREIGN KEY (Id_Pracownika) REFERENCES PRACOWNIK (Id_Pracownika);
 ALTER TABLE PROJEKT_POLPRODUKTU
 ADD FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
 ADD	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog),
-ADD	FOREIGN KEY (Id_Rodzaju) REFERENCES RODZAJ(Id_Rodzaju);
+ADD	FOREIGN KEY (Id_Rodzaju_polproduktu) REFERENCES RODZAJ_POLPRODUKTU(Id_Rodzaju_polproduktu);
 
 ALTER TABLE POLPRODUKT
 ADD FOREIGN KEY (Id_Proj_polprod) REFERENCES PROJEKT_POLPRODUKTU(Id_Proj_polprod);
+
+ALTER TABLE MATERIAL
+ADD FOREIGN KEY (Kolor) REFERENCES KOLOR(Id_Koloru),
+ADD FOREIGN KEY (Wzor) REFERENCES WZOR(Id_Wzoru),
+ADD FOREIGN KEY (Rodzaj) REFERENCES RODZAJ_MATERIALU(Id_Rodzaju_materialu);
 
 ALTER TABLE MATERIAL_MEBEL
 ADD FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
 ADD	FOREIGN KEY (Id_Mebla) REFERENCES MEBEL(Id_Mebla);
 
 ALTER TABLE MEBEL
-ADD FOREIGN KEY (Numer_zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Numer_zamowienia),
+ADD FOREIGN KEY (Id_Zamowienia) REFERENCES ZAMOWIENIE_NA_MEBLE(Id_Zamowienia),
 ADD	FOREIGN KEY (Id_Proj_klient) REFERENCES PROJEKT_KLIENTA(Id_Proj_klient),
 ADD	FOREIGN KEY (Id_Proj_katalog) REFERENCES PROJEKT_Z_KATALOGU(Id_Proj_katalog);
 
