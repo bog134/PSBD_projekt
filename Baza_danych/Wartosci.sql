@@ -72,7 +72,6 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE ('Id_zamowienia', 'Id_Klienta', 'Koszt', 'Id_Sta
 (25, 3, 7814, 4, '2022-01-01', NULL),
 (26, 10, 8712, 4, '2022-01-22', NULL);
 
---zmienic w pliku Struktury.sql 
 INSERT INTO PROJEKT_KLIENTA ('Id_Proj_klient', 'Id_Ceny', 'Id_Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku') VALUES
 ('Id_Proj', 'Id_Ceny', 'Typu_mebla', 'Id_Laczenia', 'Wymiary_Szerokosc', 'Wymiary_Wysokosc', 'Wymiary_Dlugosc', 'Nazwa_pliku_rysunku')
 (1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
@@ -101,7 +100,7 @@ INSERT INTO CENA ('Id_Ceny', 'Id_Pracownika', 'Koszt_robocizny', 'Koszt_surowcow
 (11, 9, 460, 410, 200);
 
 
-INSERT INTO ('Id_Laczenia', 'Nazwa') LACZENIA VALUES
+INSERT INTO LACZENIA ('Id_Laczenia', 'Nazwa') VALUES
 (1, 'wkręty'),
 (2, 'klej'),
 (3, 'wciskowe'),
@@ -109,7 +108,7 @@ INSERT INTO ('Id_Laczenia', 'Nazwa') LACZENIA VALUES
 (5, 'mimośrody i trzpienie'),
 (6, 'gwintowe');
 
-INSERT INTO DOSTAWCY (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`, `Adres_AdresPocztowy`, `Adres_Miejscowosc`, `Adres_Ulica`, `Adres_Numer`) VALUES
+INSERT INTO DOSTAWCY (Id_Dostawcy, Nazwa, Email, Numer_konta_bankowego, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_Numer) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
 (2, 'BigTransit', 'bigtransit@wp.pl', '53154097207946681000682451', '41-558', 'Koszalin', 'Rzemieślnicza', '28'),
 (3, 'SzybkieDostawy', 'szybkiedostawy@o2.pl', '86193076266895453453276931', '43-421', 'Leszno', 'Piastowska', '12'),
@@ -117,7 +116,7 @@ INSERT INTO DOSTAWCY (`Id_Dostawcy`, `Nazwa`, `E-mail`, `Numer_konta_bankowego`,
 (5, 'NTN', 'ntn@onet.pl', '94187099089534543073777450', '10-682', 'Gdynia', 'Okopowa', '56'),
 (6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
 
-INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
+INSERT INTO STAN_REALIZACJI (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
 (1, 'W realizacji'),
 (2, 'Gotowe do odebrania'),
 (3, 'Oczekuje na zatwierdzenie'),
@@ -125,7 +124,7 @@ INSERT INTO `stan_realizacji` (`Id_Stanu_realizacji`, `Nazwa_Stanu`) VALUES
 (5, 'Odrzucono'),
 (6, 'Odebrano');
 
-INSERT INTO typ_mebla (Id_Typu_mebla, Nazwa) VALUES
+INSERT INTO TYP_MEBLA (Id_Typu_mebla, Nazwa) VALUES
 (1, 'Stół'),
 (2, 'Krzesło'),
 (3, 'Fotel'),
@@ -211,3 +210,15 @@ INSERT INTO ('Id_Proj_katalog', 'Id_Typu_mebla', 'Id_Laczenia', 'Nazwa', "Id_Opc
 (22, 11, 1, 'BILLY', 1, 380, 800, 2020, 280),
 (23, 12, 1, 'VIHALS', 1, 900, 1400, 750, 370),
 (24, 12, 1, 'KLACKENAS', 1, 360, 1200, 970, 410);
+
+INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Koszt, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
+(1, 14638, 1, '2021-06-15', '2021-06-25'),
+(2, 6872, 1, '2021-10-10', '2021-10-20'),
+(3, 8715, 1, '2021-02-10', '2021-02-20'),
+(4, 9777, 1, '2021-09-06', '2021-09-16'),
+(5, 9245, 1, '2021-01-03', '2021-01-13'),
+(6, 6394, 0, '2022-01-15', NULL),
+(7, 6159, 0, '2022-01-04', NULL),
+(8, 11348, 0, '2022-01-20', NULL),
+(9, 12519, 0, '2022-01-04', NULL),
+(10, 13648, 0, '2022-01-09', NULL);
