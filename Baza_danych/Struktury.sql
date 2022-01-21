@@ -44,14 +44,13 @@ CREATE TABLE IF NOT EXISTS CENA
 CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 ( 
 	Id_Def_zadania INT NOT NULL AUTO_INCREMENT,
-	Id_Proj_klient INT NOT NULL,
-	Id_Proj_katalog INT NOT NULL,	
+	Id_Proj_klient INT,
+	Id_Proj_katalog INT,	
 	Opis_zadania VARCHAR(200) NOT NULL, 
 	Cena DOUBLE NOT NULL,
 	Czas_wykonania TIME NOT NULL,	
 
-	PRIMARY KEY (Id_Def_zadania),
-	UNIQUE KEY (Opis_zadania)
+	PRIMARY KEY (Id_Def_zadania)
 );
 
 CREATE TABLE IF NOT EXISTS RODZAJ_POLPRODUKTU
