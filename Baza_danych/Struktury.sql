@@ -190,9 +190,9 @@ CREATE TABLE IF NOT EXISTS MEBEL
   	Id_Proj_klient int(11) DEFAULT NULL,
   	Id_Proj_katalog int(11) DEFAULT NULL,
 	Id_Polprod int(11) NULL,
-	Id_Typu_mebla int(11) NOT NULL;
+	Id_Typu_mebla int(11) NOT NULL,
 	
-	PRIMARY KEY (Id_Mebla),
+	PRIMARY KEY (Id_Mebla)
 );
 
 CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
