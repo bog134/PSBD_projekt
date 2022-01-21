@@ -61,9 +61,8 @@ INSERT INTO RODZAJ_POLPRODUKTU (Id_Rodzaju_polproduktu, Nazwa) VALUES
 (1, 'Stelaz'),
 (2, 'Rama'),
 (3, 'Front'),
-(4, 'Materac'),
-(5, 'Dekory'),
-(6, 'Klienta');
+(4, 'Dekory'),
+(5, 'Klienta');
 
 INSERT INTO STANOWISKO (Id_Stanowiska, Nazwa_Stanowiska) VALUES
 (1, 'Pracownik fizyczny'),
@@ -258,3 +257,16 @@ INSERT INTO MEBEL (Id_Mebla, Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog) VAL
 (29, 26, NULL, 20),
 (30, 26, 10, NULL),
 (31, 26, 11, NULL);
+
+INSERT INTO PROJEKT_POLPRODUKTU(Id_Proj_polprod, Id_Proj_klient, Id_Proj_katalog, Id_Rodzaju_polproduktu, Nazwa, Rozmiar_Wysokosc, Rozmiar_Szerokosc, Rozmiar_Dlugosc, Cena, Nazwa_pliku_rysunku) VALUES
+(1, NULL, NULL, 1, 'FUTURA NV', 60, 1000, 2000, 270, NULL),
+(2, NULL, NULL, 1, 'FUTURA NV', 60, 1400, 2000, 305, NULL),
+(3, NULL, NULL, 1, 'NATURA NV', 55, 700, 2000, 152, NULL),
+(4, NULL, NULL, 1, 'NATURA NV', 55, 1200, 2000, 215, NULL),
+(5, NULL, NULL, 2, 'RAMA STOLU STALOWA', 450, 600, 900, 215, NULL),
+(6, NULL, NULL, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, NULL),
+(7, NULL, NULL, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, NULL),
+
+
+
+

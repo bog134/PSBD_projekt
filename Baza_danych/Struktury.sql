@@ -191,6 +191,7 @@ CREATE TABLE IF NOT EXISTS MEBEL
   	Id_Zamowienia int(11) NOT NULL,
   	Id_Proj_klient int(11) DEFAULT NULL,
   	Id_Proj_katalog int(11) DEFAULT NULL,
+	Id_Polprod int(11) NULL,
 	
 	PRIMARY KEY (Id_Mebla)
 );
