@@ -245,7 +245,6 @@ CREATE TABLE IF NOT EXISTS ZADANIE
 (
   	Id_Zadania int(11) NOT NULL AUTO_INCREMENT,
   	Id_Def_zadania int(11) NOT NULL,
-  	Czas_wykonania time NOT NULL,
 	
 	PRIMARY KEY (Id_Zadania)
 );
