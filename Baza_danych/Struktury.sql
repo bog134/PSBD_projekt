@@ -257,7 +257,6 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
   	Id_Laczenia int(11) NOT NULL,
   	Nazwa varchar(20) NOT NULL,
   	Opcjonalne_czesci enum('x','y','z','a') NOT NULL,
-  	Wykonywalny tinyint(1) NOT NULL,
   	Marza float NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
   	Wymiary_Wysokosc int(11) NOT NULL,
