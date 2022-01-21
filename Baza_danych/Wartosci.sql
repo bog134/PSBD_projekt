@@ -253,19 +253,60 @@ INSERT INTO MEBEL (Id_Mebla, Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog) VAL
 (25, 22, NULL, 16),
 (26, 23, NULL, 17),
 (27, 24, NULL, 18),
-(28, 25, NULL, 19),
-(29, 26, NULL, 20),
-(30, 26, 10, NULL),
-(31, 26, 11, NULL);
+(28, 24, NULL, 19),
+(29, 25, NULL, 20),
+(30, 25, 10, NULL),
+(31, 26, 11, NULL),
+(32, 26, NULL, 23),
+(33, 26, NULL, 24);
 
 INSERT INTO PROJEKT_POLPRODUKTU(Id_Proj_polprod, Id_Proj_klient, Id_Proj_katalog, Id_Rodzaju_polproduktu, Nazwa, Rozmiar_Wysokosc, Rozmiar_Szerokosc, Rozmiar_Dlugosc, Cena, Nazwa_pliku_rysunku) VALUES
-(1, NULL, NULL, 1, 'FUTURA NV', 60, 1000, 2000, 270, NULL),
-(2, NULL, NULL, 1, 'FUTURA NV', 60, 1400, 2000, 305, NULL),
-(3, NULL, NULL, 1, 'NATURA NV', 55, 700, 2000, 152, NULL),
-(4, NULL, NULL, 1, 'NATURA NV', 55, 1200, 2000, 215, NULL),
-(5, NULL, NULL, 2, 'RAMA STOLU STALOWA', 450, 600, 900, 215, NULL),
-(6, NULL, NULL, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, NULL),
-(7, NULL, NULL, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, NULL),
+(1, NULL, 7, 1, 'FUTURA NV', 60, 1000, 2000, 270, 'futura.dwg'),
+(2, NULL, 8, 1, 'FUTURA NV', 60, 1400, 2000, 305, 'futura2.dwg'),
+(3, 3, NULL, 1, 'NATURA', 55, 700, 2000, 152, 'natura.jpg'),
+(4, NULL, 9, 1, 'NATURA NV', 55, 1200, 2000, 215, 'natura2.jpg'),
+(5, NULL, 2, 2, 'RAMA STOLU STALOWA', 450, 600, 900, 215, 'rama_stol.png'),
+(6, NULL, 24, 2, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, 'rama_kredens.dwg'),
+(7, NULL, 13, 3, 'DRZWICZKI AZUROWE', 2000, 20, 600, 440, 'front_azur.jpg'),
+(8, NULL, 14, 3, 'FRONT MDF', 2000, 20, 600, 240, 'mdf1.jpg'),
+(9, NULL, 15, 3, 'FRONT MDF', 600, 20, 250, 200, 'mdf2.jpg'),
+(10, NULL, 16, 3, 'LUSTRZANY FRONT', 600, 20, 250, 950, 'front_lustro.jpg'),
+(11, NULL, 17, 3, 'FRONT BUKOWY', 400, 20, 400, 400, 'Front_buk.png'),
+(12, NULL, 18, 3, 'FRONT MDF', 400, 20, 450, 220, 'mdf3.png'),
+(13, NULL, 23, 3, 'FRONT RZEZBIONY', 400, 20, 600, 500, 'front_rzezbiony.dwg'),
+(14, NULL, 24, 3, 'FRONT FREZOWANY', 400, 20, 600, 420, 'front_frez.jpg'),
+(15, NULL, 7, 4, 'DEKOR DREWNIANY', 100, 5, 200, 30, 'dekor.jpg'),
+(16, NULL, 23, 4, 'DEKOR DREWNIANY NAROZNY', 100, 5, 100, 25, 'dekor_dr_nar.png'),
+(17, 5, NULL, 3, 'FRONT MAHONIOWY', 600, 20, 400, 25, 'mahon_f.jpg'),
+(18, 8, NULL, 3, 'FRONT MDF', 2000, 20, 1000, 25, 'mdf_f.jpg'),
+(19, 11, NULL, 3, 'FRONT RZEZBIONY', 400, 20, 400, 25, 'front_rzezb.png');
+
+
+INSERT INTO POLPRODUKT(Id_Polprod, Id_Proj_polprod, Id_Mebla) VALUES
+(1, 1, 16),
+(2, 2, 17),
+(3, 3, 5),
+(4, 4, 18),
+(5, 5, 2),
+(6, 6, 33),
+(7, 7, 22),
+(8, 8, 23),
+(9, 9, 24),
+(10, 10, 25),
+(11, 11, 26),
+(12, 12, 27),
+(13, 13, 32),
+(14, 14, 33),
+(15, 15, 16),
+(16, 16, 32),
+(17, 17, 9),
+(18, 18, 12),
+(19, 19, 31);
+
+
+
+
+
 
 INSERT INTO DEFINCJA_ZADANIA (Id_Def_zadania, Id_Proj_klient, Id_Proj_katalog, Opis_zadania, Cena, Czas_wykonania) VALUES
 (1, 4, NULL, 'wytnij elementy z płyty paździerzowej', 10, '00:25:00'),
