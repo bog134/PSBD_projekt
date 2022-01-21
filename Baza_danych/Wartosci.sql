@@ -119,10 +119,10 @@ INSERT INTO KLIENCI (Id_Klienta, Imie, Nazwisko, Numer_telefonu, Email, Adres_Kr
 (10, 'Nicole', 'Urbańska', '893315479', 'alan16@tigo.tk', 'Polska', '21-366', 'Mysłowice', 'Słowackiego', 31, 9),
 (11, 'Romualda', 'Kosińska', '234532394', 'djsp1200@filevino.com', 'Polska', '23-004', 'Kielce', 'PCK', 9, 51),
 (12, 'Bożena', 'Jóźwiak', '733316402', 'diankaodessa@mobitivaisao.com', 'Polska', '23-004', 'Radom', 'Stachury', 7, 90),
-(12, 'Karina', 'Marek', '518052514', 'khan503@hasevo.com', 'Polska', '07-378', 'Krosno', 'Ćwiklińskiej', 13, 13),
-(13, 'Włodzimierz', 'Kosiński', '834473715', 'roqstar17@sumikang.com', 'Polska', '57-871', 'Chorzów', 'Rolnicza', 76, 61),
-(14, 'Justyna', 'Jastrzębska', '599952162', 'samirainterfarm@taikz.com', 'Polska', '52-233', 'Lublin', 'Okopowa', 100, 101),
-(15, 'Oliwia', 'Dąbrowska', '179095786', 'aleksandrcypin@rstoremail.ml', 'Polska', '74-284', 'Wałbrzych', 'Kujawska', 15, 1);
+(13, 'Karina', 'Marek', '518052514', 'khan503@hasevo.com', 'Polska', '07-378', 'Krosno', 'Ćwiklińskiej', 13, 13),
+(14, 'Włodzimierz', 'Kosiński', '834473715', 'roqstar17@sumikang.com', 'Polska', '57-871', 'Chorzów', 'Rolnicza', 76, 61),
+(15, 'Justyna', 'Jastrzębska', '599952162', 'samirainterfarm@taikz.com', 'Polska', '52-233', 'Lublin', 'Okopowa', 100, 101),
+(16, 'Oliwia', 'Dąbrowska', '179095786', 'aleksandrcypin@rstoremail.ml', 'Polska', '74-284', 'Wałbrzych', 'Kujawska', 15, 1);
 
 INSERT INTO DOSTAWCY (Id_Dostawcy, Nazwa, Email, Numer_konta_bankowego, Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_Numer) VALUES
 (1, 'FTransport', 'ftransport@gmail.com', '56782491346520215687524589', '43-421', 'Poznan', 'Widok', '9'),
@@ -160,19 +160,6 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Zamowienia, Id_Klienta, Koszt, Id_Stanu_Real
 (25, 3, 7814, 4, '2022-01-01', NULL),
 (26, 10, 8712, 4, '2022-01-22', NULL);
 
-INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Ceny, Id_Typu_mebla, Id_Laczenia, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc, Nazwa_pliku_rysunku) VALUES
-(1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
-(2, 2, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
-(3, 3, 5, 1, 156, 81, 80, 'sofa.dwg'),
-(4, 4, 11, 1, 70, 1900, 20, 'regal_23.dwg'),
-(5, 5, 12, 1, 20, 20000, 1, 'mojWymazonyKredens_xd.dwg'),
-(6, 6, 10, 1, 2800, 85, 1121, 'kanapaNarozna.dwg'),
-(7, 7, 10, 1, 2800, 85, 1600, 'kanapaNarozna-trw.dwg'),
-(8, 8, 7, 1, 2500, 2400, 65, 'szafa.dwg'),
-(9, 9, 3, 1, 45, 1500, 65, 'fotel.dwg'),
-(10, 10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
-(11, 11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
-
 INSERT INTO CENA (Id_Ceny, Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza) VALUES
 (1, 5, 2000, 3000, 1500),
 (2, 9, 150, 200, 100),
@@ -186,9 +173,22 @@ INSERT INTO CENA (Id_Ceny, Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza
 (10, 9, 400, 400, 300),
 (11, 9, 460, 410, 200);
 
+INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Ceny, Id_Typu_mebla, Id_Laczenia, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc, Nazwa_pliku_rysunku) VALUES
+(1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
+(2, 2, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
+(3, 3, 5, 1, 156, 81, 80, 'sofa.dwg'),
+(4, 4, 11, 1, 70, 1900, 20, 'regal_23.dwg'),
+(5, 5, 12, 1, 20, 20000, 1, 'mojWymazonyKredens_xd.dwg'),
+(6, 6, 10, 1, 2800, 85, 1121, 'kanapaNarozna.dwg'),
+(7, 7, 10, 1, 2800, 85, 1600, 'kanapaNarozna-trw.dwg'),
+(8, 8, 7, 1, 2500, 2400, 65, 'szafa.dwg'),
+(9, 9, 3, 1, 45, 1500, 65, 'fotel.dwg'),
+(10, 10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
+(11, 11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
+
 
 INSERT INTO PROJEKT_Z_KATALOGU(Id_Proj_katalog, Id_Typu_mebla, Id_Laczenia, Nazwa, Id_Opcjonalne_czesci,
-Marza, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Glebokosc) VALUES
+Marza, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc) VALUES
 (1, 1, 2, 'VEDBO', 1, 500, 950, 750, 1600),
 (2, 1, 4, 'EKEDALEN', 1, 240, 900, 730, 2400),
 (3, 2, 4, 'ODGER', 1, 39, 410, 810, 380),

@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS KLIENCI
   	Adres_Miejscowosc varchar(100) NOT NULL,
   	Adres_Ulica varchar(100) NOT NULL,
   	Adres_NumerDomu varchar(10) NOT NULL,
+	Adres_NumerMieszkania varchar(10) NULL,
 	
 	PRIMARY KEY (Id_Klienta)
 );
@@ -219,7 +220,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
   	Id_Laczenia int(11) NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
   	Wymiary_Wysokosc int(11) NOT NULL,
-  	Wymiary_Glebokosc int(11) NOT NULL,
+  	Wymiary_Dlugosc int(11) NOT NULL,
   	Nazwa_pliku_rysunku varchar(40) NOT NULL,
 	
 	PRIMARY KEY (Id_Proj_klient)
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_Z_KATALOGU
   	Marza float NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
   	Wymiary_Wysokosc int(11) NOT NULL,
-  	Wymiary_Glebokosc int(11) NOT NULL,
+  	Wymiary_Dlugosc int(11) NOT NULL,
 	
 	PRIMARY KEY (Id_Proj_katalog)
 );
