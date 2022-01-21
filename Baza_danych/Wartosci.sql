@@ -317,7 +317,6 @@ INSERT INTO MATERIAL_MEBEL(Id_Mat_mebel, Id_Materialu, Id_Mebla) VALUES
 (11, 4, 10),
 (12, 15, 10),
 (13, 1, 11),
-(13, 16, 11),
 (14, 6, 12),
 (15, 3, 13),
 (16, 15, 13),
@@ -356,7 +355,7 @@ INSERT INTO MATERIAL_MEBEL(Id_Mat_mebel, Id_Materialu, Id_Mebla) VALUES
 
 
 
-INSERT INTO DEFINCJA_ZADANIA (Id_Def_zadania, Id_Proj_klient, Id_Proj_katalog, Opis_zadania, Cena, Czas_wykonania) VALUES
+INSERT INTO DEFINICJA_ZADANIA (Id_Def_zadania, Id_Proj_klient, Id_Proj_katalog, Opis_zadania, Cena, Czas_wykonania) VALUES
 (1, 4, NULL, 'wytnij elementy z płyty paździerzowej', 10, '00:25:00'),
 (2, 4, NULL, 'oklej fronty czarną okleiną', 20, '00:52:00'),
 (3, 4, NULL, 'nawierć otwory pod śruby', 12, '00:52:00'),
