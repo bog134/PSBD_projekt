@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package Ekrany;
 
 /**
  *
@@ -179,8 +180,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jButton4.setText("Anuluj Zamówienie");
         jButton4.setToolTipText("");
-        jButton4.setBorderPainted(Anuluj \n Zamówienie
-        );
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
