@@ -387,17 +387,17 @@ INSERT INTO MATERIAL_PROJ_KATALOG (Id_Mat_Proj_katalog, Id_Materialu, Id_Proj_ka
 (81, 9, 24, 2),
 (82, 18, 24, 2);
 
-INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Koszt, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
-(1, 14638, 1, '2021-06-15', '2021-06-25'),
-(2, 6872, 1, '2021-10-10', '2021-10-20'),
-(3, 8715, 1, '2021-02-10', '2021-02-20'),
-(4, 9777, 1, '2021-09-06', '2021-09-16'),
-(5, 9245, 1, '2021-01-03', '2021-01-13'),
-(6, 6394, 0, '2022-01-15', NULL),
-(7, 6159, 0, '2022-01-04', NULL),
-(8, 11348, 0, '2022-01-20', NULL),
-(9, 12519, 0, '2022-01-04', NULL),
-(10, 13648, 0, '2022-01-09', NULL);
+INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
+(1, 1, '2021-06-15', '2021-06-25'),
+(2, 1, '2021-10-10', '2021-10-20'),
+(3, 1, '2021-02-10', '2021-02-20'),
+(4, 1, '2021-09-06', '2021-09-16'),
+(5, 1, '2021-01-03', '2021-01-13'),
+(6, 0, '2022-01-15', NULL),
+(7, 0, '2022-01-04', NULL),
+(8, 0, '2022-01-20', NULL),
+(9, 0, '2022-01-04', NULL),
+(10, 0, '2022-01-09', NULL);
 
 INSERT INTO MEBEL (Id_Mebla, Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog) VALUES
 (1, 1, NULL, 1),
