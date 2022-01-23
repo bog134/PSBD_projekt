@@ -338,7 +338,8 @@ public class EkranKlienta extends javax.swing.JFrame {
     }//GEN-LAST:event_wylogujButtonActionPerformed
 
     private void historiaZamowienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historiaZamowienButtonActionPerformed
-        // TODO add your handling code here:
+        new Ekran_historii_zamowien().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
     private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
