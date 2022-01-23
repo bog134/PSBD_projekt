@@ -55,6 +55,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jLabel1.setText("Logowanie");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 260, 40));
 
+        loginTextField.setText("klient");
         loginTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginTextFieldActionPerformed(evt);
