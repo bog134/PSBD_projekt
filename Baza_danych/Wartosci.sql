@@ -634,7 +634,7 @@ INSERT INTO DEFINICJA_ZADANIA (Id_Def_zadania, Id_Proj_klient, Id_Proj_katalog, 
 (154, NULL, 24, 'zamontuj zawiasy GTV', 16, '00:42:00'),
 (155, NULL, 24, 'zmontuj wszystkie elementy ', 15, '00:47:00');
 
-INSERT INTO ZADANIE (Id_Zadania, Id_Def_zadania, Id_Pracownika) VALUES
+INSERT INTO ZADANIE (Id_Zadania, Id_Def_zadania, Id_Pracownika, Id_mebla) VALUES
 (1, 1, 8),
 (2, 2, 4),
 (3, 3, 3),
