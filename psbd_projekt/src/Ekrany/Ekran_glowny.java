@@ -41,6 +41,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -69,10 +70,10 @@ public class Ekran_glowny extends javax.swing.JFrame {
         });
         jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 220, 30));
 
-        jLabel2.setText("Nazwa uzytkownika");
+        jLabel2.setText("Nazwa użytkownika");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
-        jLabel3.setText("Haslo");
+        jLabel3.setText("Hasło");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         zalogujButton.setText("Zaloguj");
@@ -84,7 +85,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jPanel2.add(zalogujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 110, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Nowy uzytkownik");
+        jLabel4.setText("Nowy użytkownik");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 170, 50));
 
         rejestracjaButton.setText("Rejestracja");
@@ -98,7 +99,13 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 280, 20));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 300, 420));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 300, 410));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/default-profile-pic.jpg"))); // NOI18N
+        jLabel5.setText("Ikona Użytkownika");
+        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 290, 300));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 800));
 
@@ -163,6 +170,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
