@@ -37,8 +37,8 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        powrotButton = new javax.swing.JButton();
+        reklamacjaButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -178,16 +178,21 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 720, 480, 80));
 
-        jButton1.setText("Powrót");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        powrotButton.setText("Powrót");
+        powrotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                powrotButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 110, 40));
+        getContentPane().add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 110, 40));
 
-        jButton3.setText("Złóż reklamację");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 670, 150, 40));
+        reklamacjaButton.setText("Złóż reklamację");
+        reklamacjaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reklamacjaButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(reklamacjaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 670, 150, 40));
 
         jButton4.setText("Anuluj Zamówienie");
         jButton4.setToolTipText("");
@@ -284,9 +289,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
+        new EkranKlienta().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_powrotButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -311,6 +317,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void reklamacjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reklamacjaButtonActionPerformed
+        new Arkusz_Reklamacyjny().setVisible(true);
+    }//GEN-LAST:event_reklamacjaButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,9 +358,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -370,5 +378,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton powrotButton;
+    private javax.swing.JButton reklamacjaButton;
     // End of variables declaration//GEN-END:variables
 }

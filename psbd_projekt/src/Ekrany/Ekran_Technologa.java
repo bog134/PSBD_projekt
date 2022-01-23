@@ -40,7 +40,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         dane_użytkownika = new javax.swing.JPanel();
         zalogowano_jako = new javax.swing.JLabel();
         obraz_użytkownika = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        wylogujButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -232,10 +232,10 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         obraz_użytkownika.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         obraz_użytkownika.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jButton1.setText("Wyloguj");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        wylogujButton.setText("Wyloguj");
+        wylogujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                wylogujButtonActionPerformed(evt);
             }
         });
 
@@ -247,7 +247,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(zalogowano_jako, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(wylogujButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(obraz_użytkownika, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -263,7 +263,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(wylogujButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -597,9 +597,10 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Szukaj_przyciskActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void wylogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujButtonActionPerformed
+        new Ekran_glowny().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_wylogujButtonActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -659,7 +660,6 @@ public class Ekran_Technologa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Szukaj_przycisk;
     private javax.swing.JPanel dane_użytkownika;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -710,8 +710,12 @@ public class Ekran_Technologa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel obraz_użytkownika;
+<<<<<<< HEAD
     private javax.swing.JTable tabela_definicje_zadan;
     private javax.swing.JTable tabela_materialy;
+=======
+    private javax.swing.JButton wylogujButton;
+>>>>>>> c0d0875bf74ddee410a54eb4b875a804f6c54853
     private javax.swing.JLabel zalogowano_jako;
     // End of variables declaration//GEN-END:variables
 }

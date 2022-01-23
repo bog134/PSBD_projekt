@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Ekrany;
+
+import java.awt.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author huawei
@@ -25,28 +29,28 @@ public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        potwierdzButton = new javax.swing.JButton();
+        odrzucButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Potwierdź");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        potwierdzButton.setText("Potwierdź");
+        potwierdzButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                potwierdzButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 200, 70));
+        getContentPane().add(potwierdzButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 200, 70));
 
-        jButton2.setText("Odrzuć");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        odrzucButton.setText("Odrzuć");
+        odrzucButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                odrzucButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 200, 70));
+        getContentPane().add(odrzucButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 200, 70));
 
         jTextField1.setText("Treść Reklamacji");
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -60,13 +64,17 @@ public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void potwierdzButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_potwierdzButtonActionPerformed
+        
+        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zlozona", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        this.setVisible(false);
+    }//GEN-LAST:event_potwierdzButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void odrzucButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odrzucButtonActionPerformed
+        
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_odrzucButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -108,8 +116,8 @@ public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton odrzucButton;
+    private javax.swing.JButton potwierdzButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -63,10 +63,14 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+<<<<<<< HEAD
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
+=======
+        powrotButton = new javax.swing.JButton();
+>>>>>>> c0d0875bf74ddee410a54eb4b875a804f6c54853
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,6 +258,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel18.setText("Liczba sztuk");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 570, 180, 30));
 
+<<<<<<< HEAD
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -269,6 +274,17 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jPanel2.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 150, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 1000));
+=======
+        powrotButton.setText("Powrot");
+        powrotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                powrotButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 110, 40));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 970));
+>>>>>>> c0d0875bf74ddee410a54eb4b875a804f6c54853
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -398,6 +414,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+<<<<<<< HEAD
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
@@ -409,6 +426,12 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox8ActionPerformed
+=======
+    private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
+        new EkranKlienta().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_powrotButtonActionPerformed
+>>>>>>> c0d0875bf74ddee410a54eb4b875a804f6c54853
 
     /**
      * @param args the command line arguments
@@ -483,6 +506,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> okleinaBox;
     private javax.swing.JComboBox<String> piankaTapicerskaBox;
     private javax.swing.JComboBox<String> plytaMeblowaBox;
+    private javax.swing.JButton powrotButton;
     private javax.swing.JComboBox<String> tarcicaBox;
     private javax.swing.JComboBox<String> tkaninaObiciowaBox;
     private javax.swing.JComboBox<String> typMeblaBox;
