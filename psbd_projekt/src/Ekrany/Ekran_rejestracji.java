@@ -56,6 +56,8 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         powrotButton = new javax.swing.JButton();
+        jTextField13 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -82,7 +84,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 220, 40));
         jPanel2.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 220, 40));
 
-        jLabel2.setText("Numer telefonu:");
+        jLabel2.setText("Powtórz hasło:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
 
         jLabel3.setText("Imię:");
@@ -91,10 +93,10 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jLabel4.setText("E-mail:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
-        jLabel5.setText("Hasło:");
+        jLabel5.setText("Login:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
-        jLabel6.setText("Powtórz hasło:");
+        jLabel6.setText("Hasło:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         jLabel7.setText("Nazwisko:");
@@ -130,6 +132,10 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
             }
         });
         jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 100, 40));
+        jPanel2.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 220, 40));
+
+        jLabel14.setText("Numer telefonu:");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 500, 720));
 
@@ -185,6 +191,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -200,6 +207,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

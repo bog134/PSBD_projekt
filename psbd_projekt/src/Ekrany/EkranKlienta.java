@@ -201,20 +201,20 @@ public class EkranKlienta extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nr.", "Nazwa", "Typ"
+                "Nr.", "Nazwa", "Typ", "Ilość"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -231,7 +231,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridLayout(4, 2, 15, 3));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Material:");
+        jLabel9.setText("Materiał:");
         jPanel2.add(jLabel9);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -343,11 +343,13 @@ public class EkranKlienta extends javax.swing.JFrame {
     }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
     private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
-        // TODO add your handling code here:
+        new Ekran_projektu_klienta().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
     private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
-        // TODO add your handling code here:
+        new Ekran_szczegolow_zamowienia().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_koszykButtonActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
