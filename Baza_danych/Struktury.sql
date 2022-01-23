@@ -204,6 +204,8 @@ CREATE TABLE IF NOT EXISTS MEBEL
   	Id_Zamowienia int(11) NOT NULL,
   	Id_Proj_klient int(11) DEFAULT NULL,
   	Id_Proj_katalog int(11) DEFAULT NULL,
+	Id_Opcj_czesci int(11) DEFAULT NULL,
+	Wykonany BOOLEAN DEFAULT NULL,
 	
 	PRIMARY KEY (Id_Mebla)
 );
