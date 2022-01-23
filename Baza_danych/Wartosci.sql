@@ -131,6 +131,7 @@ INSERT INTO DOSTAWCA (Id_Dostawcy, Nazwa, Email, Numer_konta_bankowego, Adres_Ad
 (5, 'NTN', 'ntn@onet.pl', '94187099089534543073777450', '10-682', 'Gdynia', 'Okopowa', '56'),
 (6, 'pdp', 'pdp@gmail.com', '75194026083794609212034698', '98-395', 'Zabrze', 'Usługowa', '48');
 
+
 INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Zamowienia, Id_Klienta, Koszt, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES
 (1, 1, 14267, 4, '2022-01-01', NULL),
 (2, 4, NULL, 5, '2022-01-07', NULL),
