@@ -35,9 +35,9 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        zalogujButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        rejestracjaButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -75,15 +75,25 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jLabel3.setText("Haslo");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
-        jButton1.setText("Zaloguj");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 110, 40));
+        zalogujButton.setText("Zaloguj");
+        zalogujButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zalogujButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(zalogujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 110, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Nowy uzytkownik");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 170, 50));
 
-        jButton2.setText("Rejestracja");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 110, 40));
+        rejestracjaButton.setText("Rejestracja");
+        rejestracjaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejestracjaButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rejestracjaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 110, 40));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 280, 20));
@@ -102,6 +112,16 @@ public class Ekran_glowny extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void rejestracjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejestracjaButtonActionPerformed
+        new Ekran_rejestracji().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_rejestracjaButtonActionPerformed
+
+    private void zalogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujButtonActionPerformed
+        new EkranKlienta().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_zalogujButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,8 +159,6 @@ public class Ekran_glowny extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -152,5 +170,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton rejestracjaButton;
+    private javax.swing.JButton zalogujButton;
     // End of variables declaration//GEN-END:variables
 }

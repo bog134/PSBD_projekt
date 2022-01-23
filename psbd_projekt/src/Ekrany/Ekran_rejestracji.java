@@ -55,9 +55,9 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jTextField12 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        powrotButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 800));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -123,12 +123,25 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jButton1.setText("Zarejestruj się");
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 570, 220, 70));
 
+        powrotButton.setText("Powrót");
+        powrotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                powrotButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 100, 40));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 500, 720));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 800));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
+        new Ekran_glowny().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_powrotButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,5 +208,6 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JButton powrotButton;
     // End of variables declaration//GEN-END:variables
 }

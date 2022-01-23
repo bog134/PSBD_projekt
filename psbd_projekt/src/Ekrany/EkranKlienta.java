@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
+package Ekrany;
 /**
  *
  * @author huawei
@@ -26,16 +26,16 @@ public class EkranKlienta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        wylogujButton = new javax.swing.JButton();
+        historiaZamowienButton = new javax.swing.JButton();
+        wlasnyProjektButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         koszyk_pane = new javax.swing.JPanel();
-        koszyk = new javax.swing.JButton();
+        koszykButton = new javax.swing.JButton();
         ikona_wozka_sklepowego = new javax.swing.JLabel();
         l_rzeczy_w_koszyku = new javax.swing.JLabel();
         dane_użytkownika = new javax.swing.JPanel();
@@ -71,33 +71,33 @@ public class EkranKlienta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Wyloguj");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.setFocusTraversalPolicyProvider(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        wylogujButton.setText("Wyloguj");
+        wylogujButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        wylogujButton.setFocusTraversalPolicyProvider(true);
+        wylogujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                wylogujButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 13, 90, 50));
+        getContentPane().add(wylogujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 13, 90, 50));
 
-        jButton2.setText("Wyświetl historię zamówień");
-        jButton2.setToolTipText("");
-        jButton2.setAutoscrolls(true);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        historiaZamowienButton.setText("Wyświetl historię zamówień");
+        historiaZamowienButton.setToolTipText("");
+        historiaZamowienButton.setAutoscrolls(true);
+        historiaZamowienButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                historiaZamowienButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 13, 156, 50));
+        getContentPane().add(historiaZamowienButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 13, 156, 50));
 
-        jButton3.setText("Własny projekt");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        wlasnyProjektButton.setText("Własny projekt");
+        wlasnyProjektButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                wlasnyProjektButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, -1, 50));
+        getContentPane().add(wlasnyProjektButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, -1, 50));
 
         jPanel1.setLayout(new java.awt.GridLayout(0, 1));
 
@@ -125,10 +125,10 @@ public class EkranKlienta extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 100, 140));
 
-        koszyk.setText("Koszyk");
-        koszyk.addActionListener(new java.awt.event.ActionListener() {
+        koszykButton.setText("Koszyk");
+        koszykButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                koszykActionPerformed(evt);
+                koszykButtonActionPerformed(evt);
             }
         });
 
@@ -144,7 +144,7 @@ public class EkranKlienta extends javax.swing.JFrame {
                 .addGroup(koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(koszyk_paneLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(koszyk, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(koszykButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(koszyk_paneLayout.createSequentialGroup()
                         .addComponent(ikona_wozka_sklepowego)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -155,7 +155,7 @@ public class EkranKlienta extends javax.swing.JFrame {
             koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(koszyk_paneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(koszyk, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(koszykButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ikona_wozka_sklepowego, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
@@ -227,7 +227,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new java.awt.GridLayout(4, 2, 15, 3));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -332,21 +332,23 @@ public class EkranKlienta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void wylogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujButtonActionPerformed
+        new Ekran_glowny().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_wylogujButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void historiaZamowienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historiaZamowienButtonActionPerformed
+        new Ekran_historii_zamowien().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
-    private void koszykActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykActionPerformed
+    private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_koszykActionPerformed
+    }//GEN-LAST:event_koszykButtonActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -409,11 +411,9 @@ public class EkranKlienta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dane_użytkownika;
+    private javax.swing.JButton historiaZamowienButton;
     private javax.swing.JLabel ikona_wozka_sklepowego;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -433,11 +433,13 @@ public class EkranKlienta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton koszyk;
+    private javax.swing.JButton koszykButton;
     private javax.swing.JPanel koszyk_pane;
     private javax.swing.JLabel l_rzeczy_w_koszyku;
     private javax.swing.JLabel nazwa_użytkownika;
     private javax.swing.JLabel obraz_użytkownika;
+    private javax.swing.JButton wlasnyProjektButton;
+    private javax.swing.JButton wylogujButton;
     private javax.swing.JLabel zalogowano_jako;
     // End of variables declaration//GEN-END:variables
 }
