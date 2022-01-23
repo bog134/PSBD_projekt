@@ -63,6 +63,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        powrotButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -237,6 +238,14 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         });
         jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 850, 150, 30));
 
+        powrotButton.setText("Powrot");
+        powrotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                powrotButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 110, 40));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 970));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -367,6 +376,11 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
+        new EkranKlienta().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_powrotButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,6 +450,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> okleinaBox;
     private javax.swing.JComboBox<String> piankaTapicerskaBox;
     private javax.swing.JComboBox<String> plytaMeblowaBox;
+    private javax.swing.JButton powrotButton;
     private javax.swing.JComboBox<String> tarcicaBox;
     private javax.swing.JComboBox<String> tkaninaObiciowaBox;
     private javax.swing.JComboBox<String> typMeblaBox;

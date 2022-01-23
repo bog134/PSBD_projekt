@@ -343,11 +343,13 @@ public class EkranKlienta extends javax.swing.JFrame {
     }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
     private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
-        // TODO add your handling code here:
+        new Ekran_projektu_klienta().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
     private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
-        // TODO add your handling code here:
+        new Ekran_szczegolow_zamowienia().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_koszykButtonActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
