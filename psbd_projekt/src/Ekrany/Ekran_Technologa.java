@@ -710,12 +710,9 @@ public class Ekran_Technologa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel obraz_użytkownika;
-<<<<<<< HEAD
     private javax.swing.JTable tabela_definicje_zadan;
     private javax.swing.JTable tabela_materialy;
-=======
     private javax.swing.JButton wylogujButton;
->>>>>>> c0d0875bf74ddee410a54eb4b875a804f6c54853
     private javax.swing.JLabel zalogowano_jako;
     // End of variables declaration//GEN-END:variables
 }
