@@ -833,8 +833,8 @@ INSERT INTO ZADANIE (Id_Zadania, Id_Mebla) VALUES
 (147, 31);
 
 INSERT INTO REKLAMACJE (Id_Mebla, Opis_reklamacji) VALUES
-(12, "Drzwi są źle spasowane i ocierają o boki szafy") --szafa
-(13, "Siedzisko zapadło się po dwóch dniach użytkowania.") --fotel
+(12, "Drzwi są źle spasowane i ocierają o boki szafy")
+(13, "Siedzisko zapadło się po dwóch dniach użytkowania.")
 
 
 
