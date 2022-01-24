@@ -18,6 +18,7 @@ INSERT INTO STAN_REALIZACJI (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
 (5, 'Odrzucono'),
 (6, 'Odebrano');
 
+
 INSERT INTO TYP_MEBLA (Id_Typu_mebla, Nazwa) VALUES
 (1, 'Stół'),
 (2, 'Krzesło'),
@@ -160,30 +161,27 @@ INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Zamowienia, Id_Klienta, Id_Stanu_Realizacji,
 (26, 10, 4, '2022-01-22', NULL);
 
 INSERT INTO CENA (Id_Ceny, Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza) VALUES
-(1, 5, 2000, 3000, 1500),
-(2, 9, 150, 200, 100),
-(3, 9, 800, 2000, 4000),
-(4, 5, 820, 2010, 4020),
-(5, 5, 1005, 2342, 2020),
-(6, 5, 1005, 4342, 1020),
-(7, 5, 1005, 3342, 3020),
-(8, 9, 200, 551, 700),
-(9, 5, 500, 2300, 900),
-(10, 9, 400, 400, 300),
-(11, 9, 460, 410, 200);
+(1, 5, 820, 2010, 4020),
+(2, 5, 1005, 2342, 2020),
+(3, 5, 1005, 4342, 1020),
+(4, 5, 1005, 3342, 3020),
+(5, 9, 200, 551, 700),
+(6, 5, 500, 2300, 900),
+(7, 9, 400, 400, 300),
+(8, 9, 460, 410, 200);
 
 INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Ceny, Id_Typu_mebla, Id_Laczenia, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc, Nazwa_pliku_rysunku) VALUES
-(1, 1, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
-(2, 2, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
-(3, 3, 5, 1, 156, 81, 80, 'sofa.dwg'),
-(4, 4, 11, 1, 70, 1900, 20, 'regal_23.dwg'),
-(5, 5, 12, 1, 20, 20000, 1, 'mojWymazonyKredens_xd.dwg'),
-(6, 6, 10, 1, 2800, 85, 1121, 'kanapaNarozna.dwg'),
-(7, 7, 10, 1, 2800, 85, 1600, 'kanapaNarozna-trw.dwg'),
-(8, 8, 7, 1, 2500, 2400, 65, 'szafa.dwg'),
-(9, 9, 3, 1, 45, 1500, 65, 'fotel.dwg'),
-(10, 10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
-(11, 11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
+(1, NULL, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
+(2, NULL, 2, 1, 50, 240, 70, 'krzeselko_drewniane.dwg'),
+(3, NULL, 5, 1, 156, 81, 80, 'sofa.dwg'),
+(4, 1, 11, 1, 70, 1900, 20, 'regal_23.dwg'),
+(5, 2, 12, 1, 20, 20000, 1, 'mojWymazonyKredens_xd.dwg'),
+(6, 3, 10, 1, 2800, 85, 1121, 'kanapaNarozna.dwg'),
+(7, 4, 10, 1, 2800, 85, 1600, 'kanapaNarozna-trw.dwg'),
+(8, 5, 7, 1, 2500, 2400, 65, 'szafa.dwg'),
+(9, 6, 3, 1, 45, 1500, 65, 'fotel.dwg'),
+(10, 7, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
+(11, 8, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
 
 INSERT INTO MATERIAL_PROJ_KLIENTA (Id_Mat_Proj_klient, Id_Materialu, Id_Proj_klient, Ilosc) VALUES
 (1, 7, 1, NULL),
@@ -397,6 +395,27 @@ INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Stan_realizacji, Czas_realiz
 (8, 0, '2022-01-20', NULL),
 (9, 0, '2022-01-04', NULL),
 (10, 0, '2022-01-09', NULL);
+
+INSERT INTO MATERIAL_ZAMOW_KOMP (Id_Mat_zam, Id_Materialu, NrZamowienia, Ilosc) VALUES
+(1, 1, 5, 32),
+(2, 14, 1, 44),
+(3, 12, 5, 38),
+(4, 19, 6, 49),
+(5, 9, 1, 32),
+(6, 11, 3, 49),
+(7, 2, 7, 25),
+(8, 12, 4, 45),
+(9, 19, 10, 30),
+(10, 11, 2, 31),
+(11, 6, 1, 20),
+(12, 5, 1, 42),
+(13, 15, 4, 24),
+(14, 15, 1, 27),
+(15, 13, 10, 26),
+(16, 6, 9, 36),
+(17, 5, 3, 46),
+(18, 4, 2, 41),
+(19, 1, 4, 39);
 
 INSERT INTO MEBEL (Id_Mebla, Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog, Id_Opcj_czesci, Wykonany) VALUES
 (1, 1, NULL, 1, 2, 0),

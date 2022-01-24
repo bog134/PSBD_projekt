@@ -136,6 +136,35 @@ INSERT INTO REKLAMACJE (Id_Mebla, Opis_reklamacji) VALUES
 
 -- 2b. Kliknięcie "Odrzuć" -> zamknięcie arkusza
 
+--################################Ekran Technologa################################
+-- wyświetlenie listy projektów klienta
+SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,
+typ_mebla.Nazwa
+
+FROM projekt_klienta
+JOIN mebel USING (Id_Proj_klient)
+JOIN zamowienie_na_meble USING (Id_Zamowienia)
+JOIN typ_mebla USING (Id_Typu_mebla)
+
+WHERE zamowienie_na_meble.Id_Zamowienia=3;
+
+-- modyfikacja listy projektów w zależności od filtra
+
+SET @data1='2022-01-19', @data2='2022-01-21';
+
+SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,
+typ_mebla.Nazwa AS Typ_mebla
+
+FROM projekt_klienta
+JOIN mebel USING (Id_Proj_klient)
+JOIN zamowienie_na_meble USING (Id_Zamowienia)
+JOIN typ_mebla USING (Id_Typu_mebla)
+
+WHERE zamowienie_na_meble.Id_Zamowienia=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia BETWEEN @data1 AND @data2;
+
+-- wyświetlenie szczegółow projektu klienta
+
+-- zaaktulizowanie danych w projekcie klienta
 
 
 
