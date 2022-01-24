@@ -114,16 +114,6 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	PRIMARY KEY (Id_Def_zadania)
 );
 
-CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY 
-( 
-	NrZamowienia INT NOT NULL AUTO_INCREMENT,  
-	Stan_realizacji BOOLEAN NOT NULL, 
-   	Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
-	Czas_realizacji_Data_zakonczenia Date DEFAULT NULL,
-
-	PRIMARY KEY (NrZamowienia)
-);
-
 CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 ( 
 	Id_Proj_polprod INT NOT NULL AUTO_INCREMENT,
@@ -207,6 +197,26 @@ CREATE TABLE IF NOT EXISTS MATERIAL
 	PRIMARY KEY (Id_Materialu)
 );
 
+CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY 
+( 
+	NrZamowienia INT NOT NULL AUTO_INCREMENT,  
+	Stan_realizacji BOOLEAN NOT NULL, 
+   	Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
+	Czas_realizacji_Data_zakonczenia Date DEFAULT NULL,
+
+	PRIMARY KEY (NrZamowienia)
+);
+
+CREATE TABLE IF NOT EXISTS MATERIAL_ZAMOW_KOMP
+(
+  	Id_Mat_zam int(11) NOT NULL AUTO_INCREMENT,
+  	Id_Materialu int(11) NOT NULL,
+  	Id_Zamowienia int(11) NOT NULL,
+	Ilosc int(11) NOT NULL,
+	
+	PRIMARY KEY (Id_Mat_zam)
+);
+
 CREATE TABLE IF NOT EXISTS MEBEL
 (
   	Id_Mebla int(11) NOT NULL AUTO_INCREMENT,
@@ -232,7 +242,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL_PROJ_KLIENTA
 CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
 (
   	Id_Proj_klient int(11) NOT NULL AUTO_INCREMENT,
-  	Id_Ceny int(11) NOT NULL,
+  	Id_Ceny int(11) DEFAULT NULL,
   	Id_Typu_mebla int(11) NOT NULL,
   	Id_Laczenia int(11) NOT NULL,
   	Wymiary_Szerokosc int(11) NOT NULL,
@@ -365,7 +375,14 @@ ALTER TABLE ZAMOWIENIE_NA_MEBLE
 ADD FOREIGN KEY (Id_Klienta) REFERENCES KLIENT(Id_Klienta),
 ADD FOREIGN KEY (Id_Stanu_Realizacji) REFERENCES STAN_REALIZACJI(Id_Stanu_realizacji);
 
+<<<<<<< Updated upstream
 ALTER TABLE REKLAMACJA
 ADD FOREIGN KEY (Id_Mebla) REFERENCES MEBEL(Id_Mebla);
+=======
+ALTER TABLE ZAMOWIENIE_NA_MEBLE
+ADD FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
+ADD FOREIGN KEY (Id_Zamowienia) REFERENCES ZAMOWIENIE_NA_KOMPONENTY(Id_Zamowienia);
+
+>>>>>>> Stashed changes
 
 
