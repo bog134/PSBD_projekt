@@ -34,14 +34,26 @@ WHERE zamowienie_na_meble.Id_Klienta = "parametr"
 -- 1. Wybranie jednego z zamówień -> zczytanie id zamówienia i rodzaju projektu przez jave i zapisanie tego w zmiennych ->
 --    Zapytanie sql wyświetlające szczegóły tego zamówienia (Id mebla, typ mebla, cenę mebla), filtracja po id zamówienia ze zmiennej
 -- Zapytanie do projektu z katalogu:
-SELECT mebel.Id_Mebla, typ_mebla.Nazwa, (projekt_z_katalogu.Marza + cenaTab.Robocizna) AS Cena FROM mebel
+SELECT mebel.Id_Mebla, typ_mebla.Nazwa, (projekt_z_katalogu.Marza + cenaRobociznyTab.Robocizna + COALESCE(cenaMaterialuTab.CenaMaterialu,0) + COALESCE(cenaPolprTab.cenaPolprod,0)) AS Cena FROM mebel
 LEFT JOIN projekt_z_katalogu ON projekt_z_katalogu.Id_Proj_katalog = mebel.Id_Proj_katalog
 LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla
 LEFT JOIN (
 SELECT mebel.Id_Mebla, SUM(definicja_zadania.Cena) AS Robocizna FROM mebel
 LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = mebel.Id_Proj_katalog
 WHERE mebel.Id_Zamowienia = "parametr"
-GROUP BY mebel.Id_Mebla) AS cenaTab ON cenaTab.Id_Mebla = mebel.Id_Mebla 
+GROUP BY mebel.Id_Mebla) AS cenaRobociznyTab ON cenaRobociznyTab.Id_Mebla = mebel.Id_Mebla 
+LEFT JOIN (
+SELECT mebel.Id_Mebla, SUM(material.Cena) AS CenaMaterialu FROM mebel
+LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = mebel.Id_Proj_katalog
+LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu
+WHERE mebel.Id_Zamowienia = "parametr"
+GROUP BY mebel.Id_Mebla) AS cenaMaterialuTab ON cenaMaterialuTab.Id_Mebla = mebel.Id_Mebla
+LEFT JOIN (
+SELECT mebel.Id_Mebla, SUM(projekt_polproduktu.Cena) AS CenaPolprod FROM polprodukt
+LEFT JOIN mebel ON mebel.Id_Mebla = polprodukt.Id_Mebla
+LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_polprod = polprodukt.Id_Proj_polprod
+WHERE mebel.Id_Zamowienia = "parametr"
+GROUP BY mebel.Id_Mebla) AS cenaPolprTab ON cenaPolprTab.Id_Mebla = mebel.Id_Mebla
 WHERE mebel.Id_Zamowienia = "parametr"
 
 -- Zapytanie do projektu klienta:
@@ -54,7 +66,7 @@ SELECT mebel.Id_Mebla, SUM(definicja_zadania.Cena) AS Robocizna FROM mebel
 LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_klient = mebel.Id_Proj_klient
 WHERE mebel.Id_Zamowienia = "parametr"
 GROUP BY mebel.Id_Mebla) AS cenaTab ON cenaTab.Id_Mebla = mebel.Id_Mebla 
-WHERE mebel.Id_Zamowienia = "parametr" -- work in progress (wyjasnic nieścisłości dotyczace ceny)
+WHERE mebel.Id_Zamowienia = "parametr" -- work in progress (wyjasnic nieścisłości dotyczące ceny)
 
 -- 2a. Kliknięcie przycisku "Zaakceptuj zamówienie" -> 
 --      wyświetlenie komunikatu o zatwierdzeniu zamówienia, aktualizacja stanu zamówienia "Wyceniono" (zapytanie sql) (technolog wpisuje proponowaną cenę w kolumnę "Cena")
