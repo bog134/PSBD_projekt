@@ -396,7 +396,7 @@ INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Stan_realizacji, Czas_realiz
 (9, 0, '2022-01-04', NULL),
 (10, 0, '2022-01-09', NULL);
 
-INSERT INTO MATERIAL_ZAMOW_KOMP (Id_Mat_zam, Id_Materialu, Id_Zamowienia, Ilosc) VALUES
+INSERT INTO MATERIAL_ZAMOW_KOMP (Id_Mat_zam, Id_Materialu, NrZamowienia, Ilosc) VALUES
 (1, 1, 5, 32),
 (2, 14, 1, 44),
 (3, 12, 5, 38),
