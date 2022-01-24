@@ -101,7 +101,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="3" rowCount="6">
-                    <Column editable="false" title="Nr." type="java.lang.Object"/>
+                    <Column editable="false" title="Nr" type="java.lang.Object"/>
                     <Column editable="true" title="Data z&#x142;o&#x17c;enia" type="java.lang.Object"/>
                     <Column editable="false" title="Nazwa Projektu" type="java.lang.Object"/>
                   </Table>
@@ -252,7 +252,7 @@
                       <Component id="wylogujButton" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="obraz_użytkownika" min="-2" pref="88" max="-2" attributes="0"/>
+                  <Component id="obraz_uzytkownika_label" min="-2" pref="88" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -261,14 +261,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="zalogowano_jako" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Component id="wylogujButton" min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="obraz_użytkownika" min="-2" pref="87" max="-2" attributes="0"/>
+                      <Component id="obraz_uzytkownika_label" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -283,9 +282,8 @@
             <Property name="text" type="java.lang.String" value="Technolog"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="obraz_u&#x17c;ytkownika">
+        <Component class="javax.swing.JLabel" name="obraz_uzytkownika_label">
           <Properties>
-            <Property name="text" type="java.lang.String" value="obraz u&#x17c;ytkownika "/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
@@ -295,6 +293,9 @@
               <Dimension value="[100, 16]"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="javax.swing.ImageIcon icon;&#xa;&#xa;try {&#xa;    icon = new javax.swing.ImageIcon(&quot;.\\src\\Icons\\profile_pic.jpg&quot;);&#xa;    java.awt.Image im1 = icon.getImage();&#xa;//    java.awt.Image scaled_im = im1.getScaledInstance(obraz_uzytkownika_label.getSize().width, obraz_uzytkownika_label.getSize().height, java.awt.Image.SCALE_SMOOTH);&#xa;    java.awt.Image scaled_im = im1.getScaledInstance(88, 88, java.awt.Image.SCALE_SMOOTH);&#xa;    icon = new javax.swing.ImageIcon(scaled_im);&#xa;    obraz_uzytkownika_label.setIcon(icon);&#xa;} catch (java.lang.Exception e) {&#xa;   java.lang.System.out.println(&quot;blad ladowania ikony&quot;);&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="wylogujButton">
           <Properties>

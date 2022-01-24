@@ -11,7 +11,7 @@ INSERT INTO LACZENIA (Id_Laczenia, Nazwa) VALUES
 (6, 'gwintowe');
 
 INSERT INTO STAN_REALIZACJI (Id_Stanu_realizacji, Nazwa_Stanu) VALUES
-(1, 'W realizacji'),
+(1, 'W realizacji'pracownicykierownicykierownicykierownicy),
 (2, 'Gotowe do odebrania'),
 (3, 'Oczekuje na zatwierdzenie'),
 (4, 'Wyceniono'),

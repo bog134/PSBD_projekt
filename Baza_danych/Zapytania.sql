@@ -6,7 +6,9 @@
 -- Zapytanie wyszukujące użytkownika o podanym loginie i sprawdzające poprawność hasła
     -- 1.Wyszukanie z tabeli KLIENT użytkownika o podanym LOGIN-ie
     -- 2.Jeżeli dany użytkownik istnieje, sprawdzić czy wprowadzone HASŁO zgadza się z klient.Haslo
-
+SELECT * 
+FROM klient
+where login = "parametr_login" AND haslo = "parametr_haslo"; 
 
 --################################Ekran Rejestracji################################
 
@@ -14,6 +16,11 @@
 -- 1.Zapytanie sprawdzające czy w bazie istnieje już użytkownik o podanym LOGINIE
     -- Wyszukaj w tabeli KLIENT użytkownika o podanym LOGINIE, jeżeli istnieje zwróć
         --wartość logiczną 1 jeżeli nie 0
+SELECT 
+IF (EXISTS(
+	    SELECT * 
+        FROM klient
+        WHERE klient.login = "Toby"), 1, 0) AS Czy_istnieje;
 -- 2.Jeżeli użytkownik o podanym LOGINIE nie istnieje jeszcze w bazie danych dodanie do
     --tabeli KLIENT, klienta o podanych danych.
 
