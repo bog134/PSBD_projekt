@@ -176,9 +176,10 @@
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/default-profile-pic.jpg"/>
+              <Image iconType="3" name="/Icons/profile_pic.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ikona U&#x17c;ytkownika"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

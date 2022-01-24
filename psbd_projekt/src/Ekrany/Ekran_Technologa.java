@@ -39,7 +39,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         Szukaj_przycisk = new javax.swing.JButton();
         dane_użytkownika = new javax.swing.JPanel();
         zalogowano_jako = new javax.swing.JLabel();
-        obraz_użytkownika = new javax.swing.JLabel();
+        obraz_uzytkownika_label = new javax.swing.JLabel();
         wylogujButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -107,7 +107,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Nr.", "Data złożenia", "Nazwa Projektu"
+                "Nr", "Data złożenia", "Nazwa Projektu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -233,9 +233,20 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         zalogowano_jako.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         zalogowano_jako.setText("Technolog");
 
-        obraz_użytkownika.setText("obraz użytkownika ");
-        obraz_użytkownika.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        obraz_użytkownika.setPreferredSize(new java.awt.Dimension(100, 16));
+        obraz_uzytkownika_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        obraz_uzytkownika_label.setPreferredSize(new java.awt.Dimension(100, 16));
+        javax.swing.ImageIcon icon;
+
+        try {
+            icon = new javax.swing.ImageIcon(".\\src\\Icons\\profile_pic.jpg");
+            java.awt.Image im1 = icon.getImage();
+            //    java.awt.Image scaled_im = im1.getScaledInstance(obraz_uzytkownika_label.getSize().width, obraz_uzytkownika_label.getSize().height, java.awt.Image.SCALE_SMOOTH);
+            java.awt.Image scaled_im = im1.getScaledInstance(88, 88, java.awt.Image.SCALE_SMOOTH);
+            icon = new javax.swing.ImageIcon(scaled_im);
+            obraz_uzytkownika_label.setIcon(icon);
+        } catch (java.lang.Exception e) {
+            java.lang.System.out.println("blad ladowania ikony");
+        }
 
         wylogujButton.setText("Wyloguj");
         wylogujButton.addActionListener(new java.awt.event.ActionListener() {
@@ -254,19 +265,18 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                     .addComponent(zalogowano_jako, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(wylogujButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(obraz_użytkownika, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         dane_użytkownikaLayout.setVerticalGroup(
             dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dane_użytkownikaLayout.createSequentialGroup()
                 .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(wylogujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(obraz_użytkownika, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 3, Short.MAX_VALUE))
+                    .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         getContentPane().add(dane_użytkownika, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 220, 90));
@@ -738,7 +748,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JLabel obraz_użytkownika;
+    private javax.swing.JLabel obraz_uzytkownika_label;
     private javax.swing.JTable tabela_definicje_zadan;
     private javax.swing.JTable tabela_materialy;
     private javax.swing.JButton wylogujButton;

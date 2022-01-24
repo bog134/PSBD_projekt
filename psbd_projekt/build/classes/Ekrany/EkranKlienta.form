@@ -90,42 +90,12 @@
     <Container class="javax.swing.JPanel" name="koszyk_pane">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="620" y="0" width="180" height="-1"/>
+          <AbsoluteConstraints x="620" y="0" width="200" height="120"/>
         </Constraint>
       </Constraints>
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="koszykButton" min="-2" pref="150" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="ikona_wozka_sklepowego" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="l_rzeczy_w_koszyku" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="koszykButton" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ikona_wozka_sklepowego" alignment="3" pref="48" max="32767" attributes="0"/>
-                      <Component id="l_rzeczy_w_koszyku" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
-        </DimensionLayout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JButton" name="koszykButton">
@@ -135,16 +105,31 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="koszykButtonActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="38" y="13" width="150" height="50"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="ikona_wozka_sklepowego">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ikona w&#xf3;zka"/>
-          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="javax.swing.ImageIcon icon2;&#xa;try {&#xa;    icon2 = new javax.swing.ImageIcon(&quot;.\\src\\Icons\\shopping_cart.png&quot;);&#xa;    java.awt.Image im1 = icon2.getImage();&#xa;//    java.awt.Image scaled_im = im1.getScaledInstance(obraz_uzytkownika_label.getSize().width, obraz_uzytkownika_label.getSize().height, java.awt.Image.SCALE_SMOOTH);&#xa;    java.awt.Image scaled_im = im1.getScaledInstance(39, 39, java.awt.Image.SCALE_SMOOTH);&#xa;    icon2 = new javax.swing.ImageIcon(scaled_im);&#xa;    ikona_wozka_sklepowego.setIcon(icon2);&#xa;} catch (java.lang.Exception e) {&#xa;   java.lang.System.out.println(&quot;blad ladowania ikony&quot;);&#xa;}"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="50" y="70" width="39" height="37"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="l_rzeczy_w_koszyku">
           <Properties>
             <Property name="text" type="java.lang.String" value="Koszyk: l_sz"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="100" y="80" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
       </SubComponents>
     </Container>
@@ -159,7 +144,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="zalogowano_jako" min="-2" max="-2" attributes="0"/>
-              <Component id="obraz_użytkownika" min="-2" pref="100" max="-2" attributes="0"/>
+              <Component id="obraz_uzytkownika_label" min="-2" pref="100" max="-2" attributes="0"/>
               <Component id="nazwa_użytkownika" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
@@ -168,7 +153,7 @@
               <Group type="102" attributes="0">
                   <Component id="zalogowano_jako" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="obraz_użytkownika" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Component id="obraz_uzytkownika_label" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="nazwa_użytkownika" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -185,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="Zalogowano jako:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="obraz_u&#x17c;ytkownika">
+        <Component class="javax.swing.JLabel" name="obraz_uzytkownika_label">
           <Properties>
             <Property name="text" type="java.lang.String" value="obraz u&#x17c;ytkownika "/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -197,6 +182,9 @@
               <Dimension value="[100, 16]"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="javax.swing.ImageIcon icon;&#xa;&#xa;try {&#xa;    icon = new javax.swing.ImageIcon(&quot;.\\src\\Icons\\profile_pic.jpg&quot;);&#xa;    java.awt.Image im1 = icon.getImage();&#xa;//    java.awt.Image scaled_im = im1.getScaledInstance(obraz_uzytkownika_label.getSize().width, obraz_uzytkownika_label.getSize().height, java.awt.Image.SCALE_SMOOTH);&#xa;    java.awt.Image scaled_im = im1.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);&#xa;    icon = new javax.swing.ImageIcon(scaled_im);&#xa;    obraz_uzytkownika_label.setIcon(icon);&#xa;} catch (java.lang.Exception e) {&#xa;   java.lang.System.out.println(&quot;blad ladowania ikony&quot;);&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="nazwa_u&#x17c;ytkownika">
           <Properties>
@@ -259,7 +247,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
-                    <Column editable="false" title="Nr." type="java.lang.Integer"/>
+                    <Column editable="false" title="Nr" type="java.lang.Integer"/>
                     <Column editable="false" title="Nazwa" type="java.lang.Object"/>
                     <Column editable="false" title="Typ" type="java.lang.String"/>
                     <Column editable="true" title="Ilo&#x15b;&#x107;" type="java.lang.Object"/>

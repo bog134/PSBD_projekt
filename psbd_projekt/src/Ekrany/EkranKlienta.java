@@ -35,7 +35,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         l_rzeczy_w_koszyku = new javax.swing.JLabel();
         dane_użytkownika = new javax.swing.JPanel();
         zalogowano_jako = new javax.swing.JLabel();
-        obraz_użytkownika = new javax.swing.JLabel();
+        obraz_uzytkownika_label = new javax.swing.JLabel();
         nazwa_użytkownika = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -96,51 +96,51 @@ public class EkranKlienta extends javax.swing.JFrame {
         });
         getContentPane().add(wlasnyProjektButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, -1, 50));
 
+        koszyk_pane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         koszykButton.setText("Koszyk");
         koszykButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 koszykButtonActionPerformed(evt);
             }
         });
-
-        ikona_wozka_sklepowego.setText("ikona wózka");
+        koszyk_pane.add(koszykButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 13, 150, 50));
+        koszyk_pane.add(ikona_wozka_sklepowego, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 39, 37));
+        javax.swing.ImageIcon icon2;
+        try {
+            icon2 = new javax.swing.ImageIcon(".\\src\\Icons\\shopping_cart.png");
+            java.awt.Image im1 = icon2.getImage();
+            //    java.awt.Image scaled_im = im1.getScaledInstance(obraz_uzytkownika_label.getSize().width, obraz_uzytkownika_label.getSize().height, java.awt.Image.SCALE_SMOOTH);
+            java.awt.Image scaled_im = im1.getScaledInstance(39, 39, java.awt.Image.SCALE_SMOOTH);
+            icon2 = new javax.swing.ImageIcon(scaled_im);
+            ikona_wozka_sklepowego.setIcon(icon2);
+        } catch (java.lang.Exception e) {
+            java.lang.System.out.println("blad ladowania ikony");
+        }
 
         l_rzeczy_w_koszyku.setText("Koszyk: l_sz");
+        koszyk_pane.add(l_rzeczy_w_koszyku, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
-        javax.swing.GroupLayout koszyk_paneLayout = new javax.swing.GroupLayout(koszyk_pane);
-        koszyk_pane.setLayout(koszyk_paneLayout);
-        koszyk_paneLayout.setHorizontalGroup(
-            koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(koszyk_paneLayout.createSequentialGroup()
-                .addGroup(koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(koszyk_paneLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(koszykButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(koszyk_paneLayout.createSequentialGroup()
-                        .addComponent(ikona_wozka_sklepowego)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(l_rzeczy_w_koszyku)))
-                .addContainerGap())
-        );
-        koszyk_paneLayout.setVerticalGroup(
-            koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(koszyk_paneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(koszykButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(koszyk_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ikona_wozka_sklepowego, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(l_rzeczy_w_koszyku)))
-        );
-
-        getContentPane().add(koszyk_pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 180, -1));
+        getContentPane().add(koszyk_pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 200, 120));
 
         zalogowano_jako.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         zalogowano_jako.setText("Zalogowano jako:");
 
-        obraz_użytkownika.setText("obraz użytkownika ");
-        obraz_użytkownika.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        obraz_użytkownika.setPreferredSize(new java.awt.Dimension(100, 16));
+        obraz_uzytkownika_label.setText("obraz użytkownika ");
+        obraz_uzytkownika_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        obraz_uzytkownika_label.setPreferredSize(new java.awt.Dimension(100, 16));
+        javax.swing.ImageIcon icon;
+
+        try {
+            icon = new javax.swing.ImageIcon(".\\src\\Icons\\profile_pic.jpg");
+            java.awt.Image im1 = icon.getImage();
+            //    java.awt.Image scaled_im = im1.getScaledInstance(obraz_uzytkownika_label.getSize().width, obraz_uzytkownika_label.getSize().height, java.awt.Image.SCALE_SMOOTH);
+            java.awt.Image scaled_im = im1.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+            icon = new javax.swing.ImageIcon(scaled_im);
+            obraz_uzytkownika_label.setIcon(icon);
+        } catch (java.lang.Exception e) {
+            java.lang.System.out.println("blad ladowania ikony");
+        }
 
         nazwa_użytkownika.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nazwa_użytkownika.setText("JOHN");
@@ -150,7 +150,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         dane_użytkownikaLayout.setHorizontalGroup(
             dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(zalogowano_jako)
-            .addComponent(obraz_użytkownika, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(nazwa_użytkownika, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         dane_użytkownikaLayout.setVerticalGroup(
@@ -158,7 +158,7 @@ public class EkranKlienta extends javax.swing.JFrame {
             .addGroup(dane_użytkownikaLayout.createSequentialGroup()
                 .addComponent(zalogowano_jako)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(obraz_użytkownika, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nazwa_użytkownika)
                 .addContainerGap())
@@ -178,7 +178,7 @@ public class EkranKlienta extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Nr.", "Nazwa", "Typ", "Ilość"
+                "Nr", "Nazwa", "Typ", "Ilość"
             }
         ) {
             Class[] types = new Class [] {
@@ -415,7 +415,7 @@ kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel koszyk_pane;
     private javax.swing.JLabel l_rzeczy_w_koszyku;
     private javax.swing.JLabel nazwa_użytkownika;
-    private javax.swing.JLabel obraz_użytkownika;
+    private javax.swing.JLabel obraz_uzytkownika_label;
     private javax.swing.JButton wlasnyProjektButton;
     private javax.swing.JButton wylogujButton;
     private javax.swing.JLabel zalogowano_jako;

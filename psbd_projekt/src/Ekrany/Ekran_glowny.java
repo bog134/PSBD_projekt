@@ -102,8 +102,9 @@ public class Ekran_glowny extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 300, 410));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/default-profile-pic.jpg"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/profile_pic.jpg"))); // NOI18N
         jLabel5.setText("Ikona Użytkownika");
+        jLabel5.setToolTipText("");
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 290, 300));
