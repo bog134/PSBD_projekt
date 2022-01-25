@@ -41,7 +41,7 @@ IF (EXISTS(
 -- Wyświetlenie liczby sztuk w koszyku 
     --
 
---###Ekran Historii Zamówień###
+--################################Ekran Historii Zamówień################################
 -- Wyświetlenie historii zamówień:
 -- 1. Zapytanie wyświetlające Id zamówienia, Datę złożenia zamówienia , Opis zamówienia(?), Cenę zamówienia
 --     konkretnego klienta, filtrowanie po dacie złożenia zamówienia (parametr)
@@ -144,6 +144,11 @@ INSERT INTO REKLAMACJE (Id_Mebla, Opis_reklamacji) VALUES
 -- 2b. Kliknięcie "Odrzuć" -> zamknięcie arkusza
 
 --################################Ekran Technologa################################
+-- pobranie id_technologa
+SELECT pracownik.Id_Pracownika
+FROM pracownik
+WHERE pracownik.Login = login;
+
 -- wyświetlenie listy projektów klienta
 SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,
 typ_mebla.Nazwa
@@ -165,11 +170,66 @@ JOIN mebel USING (Id_Proj_klient)
 JOIN zamowienie_na_meble USING (Id_Zamowienia)
 JOIN typ_mebla USING (Id_Typu_mebla)
 
-WHERE zamowienie_na_meble.Id_Zamowienia=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia BETWEEN DATE(data1) AND DATE(data2);
+WHERE zamowienie_na_meble.Id_Zamowienia=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia 
+BETWEEN DATE(data1) AND DATE(data2) OR typ_mebla.Nazwa LIKE parametr; --'Fo%';
 
--- wyświetlenie szczegółow projektu klienta
+-- wyświetlenie szczegółow wybranego projektu klienta
+
+-- 1. wyświetlenie szczegółów projektu 
+SELECT typ_mebla.Nazwa, CONCAT(projekt_klienta.Wymiary_Dlugosc,"x",projekt_klienta.Wymiary_Wysokosc,"x",projekt_klienta.Wymiary_Szerokosc),
+laczenia.Nazwa,
+COUNT(mebel.Id_Mebla),
+projekt_klienta.Nazwa_pliku_rysunku
+
+FROM typ_mebla
+JOIN projekt_klienta USING (Id_Typu_mebla)
+JOIN laczenia USING (Id_Laczenia)
+JOIN mebel USING (Id_Proj_klient)
+
+WHERE mebel.Wykonany=0 AND projekt_klienta.Id_Proj_klient=id
+GROUP BY Id_Proj_klient;
+
+-- 2. wyświetlenie id projektów półproduktów
+SELECT projekt_polproduktu.Id_Proj_polprod
+
+FROM projekt_polproduktu
+JOIN projekt_klienta USING (Id_Proj_klient)
+
+WHERE projekt_klienta.Id_Proj_klient = id;
+
+-- 3. wyświetlenie materiałów
+SELECT material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa
+
+FROM material
+JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)
+JOIN wzor USING (Id_Wzoru)
+JOIN material_proj_klienta USING (Id_Materialu)
+
+WHERE material_proj_klienta.Id_Proj_klient=3;
+
+-- 4. wyświetlenie szczegółów wybranego półproduktu
+SELECT projekt_polproduktu.Nazwa, rodzaj_polproduktu.Nazwa, CONCAT(projekt_polproduktu.Rozmiar_Dlugosc,"x",projekt_polproduktu.Rozmiar_Wysokosc,"x",projekt_polproduktu.Rozmiar_Szerokosc),
+COUNT(*),
+projekt_polproduktu.Nazwa_pliku_rysunku
+
+FROM projekt_polproduktu
+JOIN rodzaj_polproduktu USING (Id_Rodzaju_polproduktu)
+
+WHERE projekt_polproduktu.Id_Proj_klient=id
+GROUP BY Id_Proj_klient;
 
 -- zaaktulizowanie danych w projekcie klienta
+-- 1. zaaktulizowanie ilości materialow
+UPDATE material_proj_klienta
+SET ilosc=x
+WHERE Id_Mat_Proj_klient = id_mat;
+
+-- 2. utworzenie definicji zadań 
+INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania) VALUES (id,opis);
+
+-- 3. utworzenie ceny 
+INSERT INTO CENA (Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza) VALUES 
+(id_techn,robocizna,materialy,marza);
 
 
 
