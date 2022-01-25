@@ -4,6 +4,10 @@
  */
 package Ekrany;
 
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author huawei
@@ -16,7 +20,122 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     public Ekran_historii_zamowien() {
         initComponents();
     }
-
+    
+    public void DbHistoriaZamowien(){
+        
+        Object[] tab;
+        int IdKlienta = 1;
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT COALESCE(mebel.Id_Proj_katalog,0) AS a, zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu, SUM(tab.Cena) AS Laczny_Koszt FROM zamowienie_na_meble\n" +
+                    "LEFT JOIN stan_realizacji on stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, mebel.Id_Zamowienia, typ_mebla.Nazwa, (projekt_z_katalogu.Marza + cenaRobociznyTab.Robocizna + COALESCE(cenaMaterialuTab.CenaMaterialu,0) + COALESCE(cenaPolprTab.cenaPolprod,0)) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
+                    "LEFT JOIN projekt_z_katalogu ON projekt_z_katalogu.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(definicja_zadania.Cena) AS Robocizna FROM mebel\n" +
+                    "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "-- WHERE mebel.Id_Zamowienia = 5\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaRobociznyTab ON cenaRobociznyTab.Id_Mebla = mebel.Id_Mebla \n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(material.Cena) AS CenaMaterialu FROM mebel\n" +
+                    "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu\n" +
+                    "-- WHERE mebel.Id_Zamowienia = 5\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaMaterialuTab ON cenaMaterialuTab.Id_Mebla = mebel.Id_Mebla\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(projekt_polproduktu.Cena) AS CenaPolprod FROM polprodukt\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Mebla = polprodukt.Id_Mebla\n" +
+                    "LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_polprod = polprodukt.Id_Proj_polprod\n" +
+                    "-- WHERE mebel.Id_Zamowienia = 5\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaPolprTab ON cenaPolprTab.Id_Mebla = mebel.Id_Mebla\n" +
+                    "LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia) tab ON tab.Id_Zamowienia = zamowienie_na_meble.Id_Zamowienia\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Zamowienia = tab.Id_Zamowienia\n" +
+                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta+"\n" +
+                    "GROUP BY tab.Id_Zamowienia\n" +
+                    "HAVING  a > 0";
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4), rs.getObject(5)};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.addRow(tab);
+            }
+            
+            zapytanie = 
+                    "SELECT DISTINCT COALESCE(mebel.Id_Proj_klient,0) AS a, zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu, SUM(tab.CenaPKlient) AS Cena FROM zamowienie_na_meble\n" +
+                    "LEFT JOIN stan_realizacji on stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji\n" +
+                    "LEFT JOIN(SELECT mebel.Id_Mebla, mebel.Id_Zamowienia, typ_mebla.Nazwa AS NazwaPKlient, (cena.Koszt_robocizny + cena.Koszt_surowcow + cena.Marza) AS CenaPKlient, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
+                    "LEFT JOIN projekt_klienta ON projekt_klienta.Id_Proj_klient = mebel.Id_Proj_klient\n" +
+                    "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_klienta.Id_Typu_mebla\n" +
+                    "LEFT JOIN cena ON cena.Id_Ceny = projekt_klienta.Id_Ceny\n" +
+                    "LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia\n" +
+                    "WHERE typ_mebla.Nazwa IS NOT NULL) tab ON tab.Id_Zamowienia = zamowienie_na_meble.Id_Zamowienia\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Zamowienia = tab.Id_Zamowienia\n" +
+                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta+"\n" +
+                    "GROUP BY zamowienie_na_meble.Id_Zamowienia\n" +
+                    "HAVING a > 0";
+            rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4), rs.getObject(5)};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.addRow(tab);
+            }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
+    
+    public void DbSzczegolyZamowienia(String value){
+        
+        Object[] tab;
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT mebel.Id_Mebla, typ_mebla.Nazwa, (projekt_z_katalogu.Marza + cenaRobociznyTab.Robocizna + COALESCE(cenaMaterialuTab.CenaMaterialu,0) + COALESCE(cenaPolprTab.cenaPolprod,0)) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
+                    "LEFT JOIN projekt_z_katalogu ON projekt_z_katalogu.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(definicja_zadania.Cena) AS Robocizna FROM mebel\n" +
+                    "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "-- WHERE mebel.Id_Zamowienia = \"parametr\"\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaRobociznyTab ON cenaRobociznyTab.Id_Mebla = mebel.Id_Mebla \n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(material.Cena) AS CenaMaterialu FROM mebel\n" +
+                    "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu\n" +
+                    "-- WHERE mebel.Id_Zamowienia = \"parametr\"\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaMaterialuTab ON cenaMaterialuTab.Id_Mebla = mebel.Id_Mebla\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(projekt_polproduktu.Cena) AS CenaPolprod FROM polprodukt\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Mebla = polprodukt.Id_Mebla\n" +
+                    "LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_polprod = polprodukt.Id_Proj_polprod\n" +
+                    "-- WHERE mebel.Id_Zamowienia = \"parametr\"\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaPolprTab ON cenaPolprTab.Id_Mebla = mebel.Id_Mebla\n" +
+                    "LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia\n" +
+                    "WHERE mebel.Id_Zamowienia = "+value+"";
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3)};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                model.addRow(tab);
+            }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +165,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        szukajButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,10 +179,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nr.", "Data złożenia", "Opis", "Sumaryczna Cena"
@@ -82,6 +198,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -119,10 +240,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nr.", "Mebel", "Cena"
@@ -239,7 +357,12 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Szukaj");
+        szukajButton.setText("Szukaj");
+        szukajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szukajButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Data:");
 
@@ -262,7 +385,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(szukajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,7 +403,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(szukajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -322,6 +445,27 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         new Arkusz_Reklamacyjny().setVisible(true);
     }//GEN-LAST:event_reklamacjaButtonActionPerformed
 
+    private void szukajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szukajButtonActionPerformed
+        DbHistoriaZamowien();
+    }//GEN-LAST:event_szukajButtonActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        String IdZamowienia = jTable1.getModel().getValueAt(row, column).toString();
+        //System.out.println(value);
+        DbSzczegolyZamowienia(IdZamowienia);
+        
+    }//GEN-LAST:event_jTable1MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -358,7 +502,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -380,5 +523,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JButton powrotButton;
     private javax.swing.JButton reklamacjaButton;
+    private javax.swing.JButton szukajButton;
     // End of variables declaration//GEN-END:variables
 }
