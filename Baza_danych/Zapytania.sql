@@ -232,7 +232,7 @@ WHERE zamowienie_na_meble.Id_Zamowienia = "parametr"
 -- 1. Kliknięcie przycisku "Złóż reklamację" -> wyświetlenie arkusza reklamacyjnego, zapisanie przez jave id mebla w zmiennej
 -- 2a. Wypełnienie arkusza i kliknięcie "Potwierdź" -> zapisanie opisu reklamacji w zmiennej -> dodanie reklamacji do bazy danych (zapytanie sql)
 
-INSERT INTO REKLAMACJE (Id_Mebla, Opis_reklamacji) VALUES
+INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES
 ("zmienna", "Opis reklamacji")
 
 -- 2b. Kliknięcie "Odrzuć" -> zamknięcie arkusza
