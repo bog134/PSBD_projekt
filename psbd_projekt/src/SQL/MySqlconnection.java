@@ -9,8 +9,7 @@ public class MySqlconnection {
         String data1="2022-01-19";
         String data2="2022-01-21";
         try{  
-            Connection con=DriverManager.getConnection(  
-            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
             Statement stmt=con.createStatement();
             String zapytanie = 
                     "SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +

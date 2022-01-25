@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	Id_Proj_katalog INT DEFAULT NULL,	
 	Opis_zadania VARCHAR(200) NOT NULL, 
 	Cena DOUBLE DEFAULT NULL,
-	Czas_wykonania TIME NOT NULL,	
+	Czas_wykonania TIME DEFAULT NULL,	
 
 	PRIMARY KEY (Id_Def_zadania)
 );
