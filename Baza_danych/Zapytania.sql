@@ -16,30 +16,84 @@ where login = "parametr_login" AND haslo = "parametr_haslo";
 -- 1.Zapytanie sprawdzające czy w bazie istnieje już użytkownik o podanym LOGINIE
     -- Wyszukaj w tabeli KLIENT użytkownika o podanym LOGINIE, jeżeli istnieje zwróć
         --wartość logiczną 1 jeżeli nie 0
-SELECT 
-IF (EXISTS(
-	    SELECT * 
-        FROM klient
-        WHERE klient.login = "Toby"), 1, 0) AS Czy_istnieje;
 -- 2.Jeżeli użytkownik o podanym LOGINIE nie istnieje jeszcze w bazie danych dodanie do
     --tabeli KLIENT, klienta o podanych danych.
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `zarejestruj_klienta`(
+inout zarejestrowano boolean, --argument zawsze na wejściu dodać jako false 
+                              --w przypadku gdy rejestracja się powiedzie zarejestrowano = true
+in imie varchar(20), 
+in nazwisko varchar(20), 
+in numer_telefonu varchar(10), 
+in email varchar(50),
+in adres_kraj varchar(50),
+in adres_adres_pocztowy varchar(200), 
+in adres_miejscowosc varchar(100), 
+in adres_ulica varchar(100), 
+in adres_numer_domu varchar(10), 
+in adres_numer_mieszkania varchar(10), 
+in login varchar(45), 
+in haslo varchar(45))
+BEGIN    
+    IF(login NOT IN (SELECT klient.Login FROM klient)) THEN
+    INSERT IGNORE INTO klient (Imie, Nazwisko, Numer_telefonu, Email, Adres_Kraj, 
+    Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania, Login, Haslo) 
+	VALUES
+		(imie, nazwisko, numer_telefonu, email, adres_kraj, adres_adres_pocztowy, adres_miejscowosc,
+        adres_ulica, adres_numer_domu, adres_numer_mieszkania, login, haslo);
+		SELECT TRUE INTO zarejestrowano;
+	END IF;
+END
+
 
 
 --################################Ekran Klienta################################
 
 -- Przypadek Użycia - Wyświetlenie katalogu
     -- 1. Zapytanie wyświetlające projekty z katalogu, id i nazwę
+SELECT PROJEKT_Z_KATALOGU.Id_Proj_katalog, PROJEKT_Z_KATALOGU.Nazwa, TYP_MEBLA.Nazwa
+FROM PROJEKT_Z_KATALOGU
+LEFT JOIN TYP_MEBLA ON TYP_MEBLA.Id_Typu_mebla = PROJEKT_Z_KATALOGU.Id_Typu_mebla
     -- 2. Zapytanie wyświetlające projekty z katalogu, id i nazwę z opcją filtracji. 
         -- Wyświetlenie tylko projektów na meble o danym typie, np "stoły"
+SELECT PROJEKT_Z_KATALOGU.Id_Proj_katalog, PROJEKT_Z_KATALOGU.Nazwa, TYP_MEBLA.Nazwa
+FROM PROJEKT_Z_KATALOGU
+LEFT JOIN TYP_MEBLA ON TYP_MEBLA.Id_Typu_mebla = PROJEKT_Z_KATALOGU.Id_Typu_mebla
+WHERE TYP_MEBLA.Nazwa = "parametr"
+
 -- Przypadek Użycia - Wybranie mebla z katalogu
     -- Po wybraniu mebla z katalogu należy wyświetlnić opcje konfiguracji danego mebla.
-        -- 1. Zapytanie zwracające Materiały, Łączenia i Opcjonalne części dla wybranego mebla
+-- 1. Zapytanie zwracające Materiały dla wybranego mebla
+SELECT material.Nazwa
+FROM material_proj_katalog
+LEFT JOIN material ON material.Id_Materialu =  material_proj_katalog.Id_Materialu
+WHERE material_proj_katalog.Id_Proj_katalog = "id_wybranego_przez_użytkownika_praojektu_z_katalogu"
+-- 2. Zapytanie zwracające Opcjonalne części dla wybranego mebla
+SELECT opcjonalna_czesc.Nazwa
+FROM opcjonalna_czesc
+WHERE opcjonalna_czesc.Id_Proj_katalog = "id_wybranego_przez_użytkownika_praojektu_z_katalogu"
+
 -- Przypadek Użycia - Złożenie zamówienia na mebel
-    -- Dodanie mebla o ustalonej konfiguracji.
+    -- Dodanie mebla o ustalonej konfiguracji. 
+        -- mebel dodawany jest do buforu w javie (vektor) - dodanie go do bazy danych odbywa się przez
+        -- EKRAN SZCZEGÓŁÓW ZAMÓWIEŃ ponieważ najpierw trzeba utworzyć zamówienie do którego będzie przypisany
 -- INNE:
--- Wyświetlenie Loginu użytkownika na GUI
--- Wyświetlenie liczby sztuk w koszyku 
-    --
+-- Wyświetlenie Loginu użytkownika na GUI - 
+-- Wyświetlenie liczby sztuk w koszyku - z buforu 
+
+--################################Ekran Szczegółów Zamówienia################################
+    -- Lista mebli zamówieniu wyświetla się za pośrednictwem buforu w Javie
+--Klient akceptuje zamówienie 
+INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Klienta, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES
+("Id_Klienta", 1, "Czas_realizacji_Data_zlozenia", NULL);
+
+INSERT INTO MEBEL (Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog, Id_Opcj_czesci, Wykonany) VALUES
+("Id_Zamowienia", "Id_Proj_klient", "Id_Proj_katalog", "Id_Opcj_czesci", FALSE);
+
+--################################Arkusz Reklamacyjny################################
+INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES
+("Id_Mebla", "Opis"),
+
 
 --################################Ekran Historii Zamówień################################
 -- Wyświetlenie historii zamówień:
