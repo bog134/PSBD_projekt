@@ -46,9 +46,49 @@ IF (EXISTS(
 -- 1. Zapytanie wyświetlające Id zamówienia, Datę złożenia zamówienia , Opis zamówienia(?), Cenę zamówienia
 --     konkretnego klienta, filtrowanie po dacie złożenia zamówienia (parametr)
 
-SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu, zamowienie_na_meble.Koszt FROM zamowienie_na_meble
+SELECT COALESCE(mebel.Id_Proj_katalog,0) AS a, zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu, SUM(tab.Cena) AS Laczny_Koszt FROM zamowienie_na_meble
 LEFT JOIN stan_realizacji on stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji
-WHERE zamowienie_na_meble.Id_Klienta = "parametr"
+LEFT JOIN (
+SELECT mebel.Id_Mebla, mebel.Id_Zamowienia, typ_mebla.Nazwa, (projekt_z_katalogu.Marza + cenaRobociznyTab.Robocizna + COALESCE(cenaMaterialuTab.CenaMaterialu,0) + COALESCE(cenaPolprTab.cenaPolprod,0)) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel
+LEFT JOIN projekt_z_katalogu ON projekt_z_katalogu.Id_Proj_katalog = mebel.Id_Proj_katalog
+LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla
+LEFT JOIN (
+SELECT mebel.Id_Mebla, SUM(definicja_zadania.Cena) AS Robocizna FROM mebel
+LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = mebel.Id_Proj_katalog
+-- WHERE mebel.Id_Zamowienia = 5
+GROUP BY mebel.Id_Mebla) AS cenaRobociznyTab ON cenaRobociznyTab.Id_Mebla = mebel.Id_Mebla 
+LEFT JOIN (
+SELECT mebel.Id_Mebla, SUM(material.Cena) AS CenaMaterialu FROM mebel
+LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = mebel.Id_Proj_katalog
+LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu
+-- WHERE mebel.Id_Zamowienia = 5
+GROUP BY mebel.Id_Mebla) AS cenaMaterialuTab ON cenaMaterialuTab.Id_Mebla = mebel.Id_Mebla
+LEFT JOIN (
+SELECT mebel.Id_Mebla, SUM(projekt_polproduktu.Cena) AS CenaPolprod FROM polprodukt
+LEFT JOIN mebel ON mebel.Id_Mebla = polprodukt.Id_Mebla
+LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_polprod = polprodukt.Id_Proj_polprod
+-- WHERE mebel.Id_Zamowienia = 5
+GROUP BY mebel.Id_Mebla) AS cenaPolprTab ON cenaPolprTab.Id_Mebla = mebel.Id_Mebla
+LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia) tab ON tab.Id_Zamowienia = zamowienie_na_meble.Id_Zamowienia
+LEFT JOIN mebel ON mebel.Id_Zamowienia = tab.Id_Zamowienia
+WHERE zamowienie_na_meble.Id_Klienta = 7
+GROUP BY tab.Id_Zamowienia
+HAVING  a > 0
+
+-- Drugie zapytanie wywoływane po pierwszym
+
+SELECT DISTINCT COALESCE(mebel.Id_Proj_klient,0) AS a, zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu, SUM(tab.CenaPKlient) AS Cena FROM zamowienie_na_meble
+LEFT JOIN stan_realizacji on stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji
+LEFT JOIN(SELECT mebel.Id_Mebla, mebel.Id_Zamowienia, typ_mebla.Nazwa AS NazwaPKlient, (cena.Koszt_robocizny + cena.Koszt_surowcow + cena.Marza) AS CenaPKlient, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel
+LEFT JOIN projekt_klienta ON projekt_klienta.Id_Proj_klient = mebel.Id_Proj_klient
+LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_klienta.Id_Typu_mebla
+LEFT JOIN cena ON cena.Id_Ceny = projekt_klienta.Id_Ceny
+LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia
+WHERE typ_mebla.Nazwa IS NOT NULL) tab ON tab.Id_Zamowienia = zamowienie_na_meble.Id_Zamowienia
+LEFT JOIN mebel ON mebel.Id_Zamowienia = tab.Id_Zamowienia
+WHERE zamowienie_na_meble.Id_Klienta = 7
+GROUP BY zamowienie_na_meble.Id_Zamowienia
+HAVING a > 0
 
 -- 
 -- Zaakceptowanie ceny zamówienia według projektu klienta:
