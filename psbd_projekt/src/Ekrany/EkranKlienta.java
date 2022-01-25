@@ -3,18 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Ekrany;
+import java.sql.*;
 /**
  *
  * @author huawei
  */
 public class EkranKlienta extends javax.swing.JFrame {
-
+    int id_klienta;
+    java.lang.String login_klienta;  
     /**
      * Creates new form EkranKlienta
      */
     public EkranKlienta() {
         initComponents();
+        id_klienta = 0;
+        login_klienta = "Nieznany";  
     }
+    
+    public void  setCustomer(int id, String login){
+        this.id_klienta = id;
+        this.login_klienta = login;
+        nazwa_użytkownika.setText(login_klienta);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,7 +152,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         }
 
         nazwa_użytkownika.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nazwa_użytkownika.setText("JOHN");
+        nazwa_użytkownika.setText(login_klienta);
 
         javax.swing.GroupLayout dane_użytkownikaLayout = new javax.swing.GroupLayout(dane_użytkownika);
         dane_użytkownika.setLayout(dane_użytkownikaLayout);

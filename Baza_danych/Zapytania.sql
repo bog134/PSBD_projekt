@@ -8,7 +8,7 @@
     -- 2.Jeżeli dany użytkownik istnieje, sprawdzić czy wprowadzone HASŁO zgadza się z klient.Haslo
 SELECT * 
 FROM klient
-where login = "parametr_login" AND haslo = "parametr_haslo"; 
+WHERE login = "parametr_login" AND haslo = "parametr_haslo"; 
 
 --################################Ekran Rejestracji################################
 

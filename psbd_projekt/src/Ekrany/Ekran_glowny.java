@@ -4,13 +4,20 @@
  */
 package Ekrany;
 
+
+
 import java.sql.*;
 /**
  *
  * @author Maciek
  */
-public class Ekran_glowny extends javax.swing.JFrame {
 
+public class Ekran_glowny extends javax.swing.JFrame {
+    Ekrany.EkranKlienta ekran_klienta;
+
+    int id_klienta = 0;
+    int id_technologa = 0;
+    java.lang.String login_klienta;  
     //Connection sqlConn = null;
     /**
      * Creates new form Ekran_glowny
@@ -18,6 +25,60 @@ public class Ekran_glowny extends javax.swing.JFrame {
     public Ekran_glowny() {
         initComponents();
     }
+
+    private boolean logowanie(String login, String haslo) {
+        boolean prawidlowe_dane_logowania = false;
+        id_klienta = 0;
+
+        try{  
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt = con.createStatement();
+            String zapytanie = 
+                    "SELECT klient.Id_Klienta\n" +
+                    "FROM klient\n" +
+                    "WHERE klient.login = '" + login + "' AND klient.haslo = '" + haslo + "';";
+            ResultSet rs = stmt.executeQuery(zapytanie);  
+
+            if(rs.next() == false) {
+                prawidlowe_dane_logowania = false;
+            } else {
+                id_klienta = rs.getInt(1);
+                prawidlowe_dane_logowania = true;
+            }
+            con.close(); 
+        } catch(Exception e) { 
+            System.out.println(e);
+        }    
+        System.out.println("id_klienta: " + id_klienta);
+        return prawidlowe_dane_logowania;
+    };
+
+    private boolean logowanie_technologa(String login, String haslo) {
+        boolean prawidlowe_dane_logowania = false;
+        // SELECT Id_Pracownika
+        // FROM pracownik
+        // WHERE Id_Stanowiska = 2 AND Login = "Artur56" AND Haslo = "grsi0mt55b"
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt = con.createStatement();
+            String zapytanie = 
+                 "SELECT Id_Pracownika\n" +
+                 "FROM pracownik\n" +
+                 "WHERE Id_Stanowiska = 2 AND Login = '" + login + "' AND AND Haslo = '" + haslo + "';";
+            ResultSet rs = stmt.executeQuery(zapytanie);  
+
+            if(rs.next() == false) {
+                prawidlowe_dane_logowania = false;
+            } else {
+                id_technologa = rs.getInt(1);
+                prawidlowe_dane_logowania = true;
+            }
+            con.close(); 
+        } catch(Exception e) { 
+            System.out.println(e);
+        }    
+        return prawidlowe_dane_logowania;
+    };
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,6 +102,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        message_label = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,7 +145,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
                 zalogujButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(zalogujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 110, 40));
+        jPanel2.add(zalogujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 110, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Nowy użytkownik");
@@ -99,6 +161,9 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 280, 20));
+
+        message_label.setForeground(new java.awt.Color(255, 100, 100));
+        jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 200, 20));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 300, 410));
 
@@ -128,15 +193,29 @@ public class Ekran_glowny extends javax.swing.JFrame {
     }//GEN-LAST:event_rejestracjaButtonActionPerformed
 
     private void zalogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujButtonActionPerformed
+        String login = loginTextField.getText();
+        String haslo = hasloTextField.getText();
+        if (logowanie(login, haslo) == true) {
+            ekran_klienta = new EkranKlienta();
+            ekran_klienta.setCustomer(id_klienta, login);
+            ekran_klienta.setVisible(true);
+            this.setVisible(false);
+        } else if (logowanie_technologa(login, haslo) == true) {
+            new Ekran_Technologa().setVisible(true);
+            this.setVisible(false);
+        } else {
+            message_label.setText("Nieprawidłowe dane logowania");
+        }
+
+
         if(loginTextField.getText().equals("klient")){
-            new EkranKlienta().setVisible(true);
+            ekran_klienta = new EkranKlienta();
+            ekran_klienta.setVisible(true);
             this.setVisible(false);
         }else if(loginTextField.getText().equals("technolog")){
             new Ekran_Technologa().setVisible(true);
             this.setVisible(false);
-        }
-        
-        
+        } 
     }//GEN-LAST:event_zalogujButtonActionPerformed
 
     /**
@@ -187,6 +266,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField loginTextField;
+    private javax.swing.JLabel message_label;
     private javax.swing.JButton rejestracjaButton;
     private javax.swing.JButton zalogujButton;
     // End of variables declaration//GEN-END:variables
