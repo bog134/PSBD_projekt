@@ -84,7 +84,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                     "HAVING a>0";
             ResultSet rs=stmt.executeQuery(zapytanie);  
             while(rs.next()){
-                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4)};
+                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4), "Projekt z katalogu"};
                 //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
                 DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
                 model.addRow(tab);
@@ -100,7 +100,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                     "HAVING a >0 ";
             rs=stmt.executeQuery(zapytanie);  
             while(rs.next()){
-                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4)};
+                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4), "Projekt klienta"};
                 //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
                 DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
                 model.addRow(tab);
@@ -217,14 +217,14 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nr.", "Mebel", "Cena"
+                "Nr.", "Mebel", "Cena", "Wg. projektu"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                true, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -468,6 +468,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         if(StanZamowienia.equals("Odebrano")){
             reklamacjaButton.setEnabled(true);
         }
+        
+        column = 3;
+        row = jTable2.getSelectedRow();
+        IdMebla = jTable2.getModel().getValueAt(row, column).toString();
     }//GEN-LAST:event_jTable2MousePressed
 
     /**
