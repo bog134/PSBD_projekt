@@ -439,9 +439,9 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-        EkranKlienta klient = new EkranKlienta();
-        klient.setCustomer(IdKlienta, login_klienta);
-        klient.setVisible(true);
+        //EkranKlienta klient = new EkranKlienta();
+        //klient.setCustomer(IdKlienta, login_klienta);
+        //klient.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 

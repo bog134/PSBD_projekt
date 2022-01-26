@@ -4,19 +4,49 @@
  */
 package Ekrany;
 
+import Dodatkowe.dodanyProjekt;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Maciek
  */
 public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
+    
+    ArrayList<dodanyProjekt> koszyk;
+    
+    public void setKoszyk(ArrayList<dodanyProjekt> k){
+        this.koszyk = k;
+    }
+
 
     /**
      * Creates new form Ekran_szczegolow_zamowienia
      */
     public Ekran_szczegolow_zamowienia() {
         initComponents();
+        
     }
-
+    
+    public void koszykDoTabeli(){
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        
+        for (int i=0; i < koszyk.size(); i++){
+            String nr = koszyk.get(i).getId();
+            String nazwa = koszyk.get(i).getNazwa();
+            String typ = koszyk.get(i).getTyp();
+            String cena = koszyk.get(i).getCena();
+            //String mat = koszyk.get(i).getMaterial();
+            //String opcj = koszyk.get(i).getOpcjonalneCzesci();
+            
+            Object[] tab = {nr, nazwa, typ, cena};
+            
+            model.addRow(tab);
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,14 +120,14 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nr", "Mebel", "Ilość"
+                "Nr", "Mebel", "Ilość", "Cena"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -135,7 +165,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-        new EkranKlienta().setVisible(true);
+
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 

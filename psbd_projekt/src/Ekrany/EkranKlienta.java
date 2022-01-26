@@ -4,7 +4,11 @@
  */
 package Ekrany;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.table.DefaultTableModel;
+import Dodatkowe.dodanyProjekt;
 /**
  *
  * @author huawei
@@ -12,7 +16,35 @@ import javax.swing.table.DefaultTableModel;
 public class EkranKlienta extends javax.swing.JFrame {
     int id_klienta;
     java.lang.String login_klienta;  
+    int licznik = 0;
     
+    /*public class dodanyProjekt{
+        
+        String Id_projektu, Nazwa, Typ, Cena, Material, OpcjonalneCzesci;
+        
+        public dodanyProjekt(String Id_projektu, String Nazwa, String Typ, String Cena, String Material, String OpcjonalneCzesci){
+            this.setId(Id_projektu);
+            this.setNazwa(Nazwa);
+            this.setTyp(Typ);
+            this.setCena(Cena);
+            this.setMaterial(Material);
+            this.setOpcjonalneCzesci(OpcjonalneCzesci);
+        }
+        
+        public void setId(String Id_projektu){this.Id_projektu = Id_projektu;}
+        public void setNazwa(String Nazwa){this.Nazwa = Nazwa;}
+        public void setTyp(String Typ){this.Typ = Typ;}
+        public void setCena(String Cena){this.Cena = Cena;}
+        public void setMaterial(String Material){this.Material = Material;}
+        public void setOpcjonalneCzesci(String OpcjonalneCzesci){this.OpcjonalneCzesci = OpcjonalneCzesci;}
+        
+    }*/
+    
+    ArrayList<dodanyProjekt> koszyk;
+    
+    public void setKoszyk(ArrayList<dodanyProjekt> k){
+        this.koszyk = k;
+    }
     
     public void DbWyswietlKatalog(String temp, String filtr){
         Object[] tab;
@@ -58,6 +90,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         id_klienta = 0;
         login_klienta = "Nieznany";  
         DbWyswietlKatalog(" ", " -- ");
+        koszyk = new ArrayList<>();
     
     }
     
@@ -95,10 +128,10 @@ public class EkranKlienta extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        materialBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton9 = new javax.swing.JButton();
+        opcjonalneCzesciBox = new javax.swing.JComboBox<>();
+        dodajDoKoszykaButton = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         kategorie_comb_box = new javax.swing.JComboBox<>();
@@ -252,14 +285,14 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel9.setText("Materiał:");
         jPanel2.add(jLabel9);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        materialBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        materialBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        materialBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                materialBoxActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox3);
+        jPanel2.add(materialBox);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Opcjonalne części:");
@@ -267,17 +300,17 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(jLabel7);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel2.add(jComboBox2);
+        opcjonalneCzesciBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        opcjonalneCzesciBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel2.add(opcjonalneCzesciBox);
 
-        jButton9.setText("Dodaj do koszyka");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        dodajDoKoszykaButton.setText("Dodaj do koszyka");
+        dodajDoKoszykaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                dodajDoKoszykaButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton9);
+        jPanel2.add(dodajDoKoszykaButton);
 
         jButton10.setText("Odrzuć");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +401,7 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
         histZam = new Ekran_historii_zamowien();
         histZam.setCustomer(id_klienta, login_klienta);
         histZam.setVisible(true);
-        this.setVisible(false);
+        //this.setVisible(false);
     }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
     private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
@@ -377,21 +410,46 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
     private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
-        new Ekran_szczegolow_zamowienia().setVisible(true);
-        this.setVisible(false);
+        Ekran_szczegolow_zamowienia ekran = new Ekran_szczegolow_zamowienia();
+        ekran.setKoszyk(koszyk);
+        ekran.koszykDoTabeli();
+        ekran.setVisible(true);
+        
+        //this.setVisible(false);
     }//GEN-LAST:event_koszykButtonActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void dodajDoKoszykaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajDoKoszykaButtonActionPerformed
+        
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        String numer = jTable1.getModel().getValueAt(row, column).toString();
+        
+        column = 1;
+        row = jTable1.getSelectedRow();
+        String nazwa = jTable1.getModel().getValueAt(row, column).toString();
+        
+        column = 2;
+        row = jTable1.getSelectedRow();
+        String typ = jTable1.getModel().getValueAt(row, column).toString();
+        
+        column = 3;
+        row = jTable1.getSelectedRow();
+        String cena = jTable1.getModel().getValueAt(row, column).toString();
+        
+        String material = materialBox.getSelectedItem().toString();
+        
+        String opcj = opcjonalneCzesciBox.getSelectedItem().toString();
+        
+        koszyk.add(new dodanyProjekt(numer, nazwa, typ, cena, material, opcj));
+    }//GEN-LAST:event_dodajDoKoszykaButtonActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void materialBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_materialBoxActionPerformed
 
     private void kategorie_comb_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategorie_comb_boxActionPerformed
         try{
@@ -483,12 +541,10 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dane_użytkownika;
+    private javax.swing.JButton dodajDoKoszykaButton;
     private javax.swing.JButton historiaZamowienButton;
     private javax.swing.JLabel ikona_wozka_sklepowego;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -503,8 +559,10 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     private javax.swing.JButton koszykButton;
     private javax.swing.JPanel koszyk_pane;
     private javax.swing.JLabel l_rzeczy_w_koszyku;
+    private javax.swing.JComboBox<String> materialBox;
     private javax.swing.JLabel nazwa_użytkownika;
     private javax.swing.JLabel obraz_uzytkownika_label;
+    private javax.swing.JComboBox<String> opcjonalneCzesciBox;
     private javax.swing.JButton wlasnyProjektButton;
     private javax.swing.JButton wylogujButton;
     private javax.swing.JLabel zalogowano_jako;
