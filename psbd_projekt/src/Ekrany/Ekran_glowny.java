@@ -15,7 +15,7 @@ import java.sql.*;
 public class Ekran_glowny extends javax.swing.JFrame {
     Ekrany.EkranKlienta ekran_klienta;
 
-    int id_klienta = 0;
+    int id_klienta = 3;
     int id_technologa = 0;
     java.lang.String login_klienta;  
     //Connection sqlConn = null;
@@ -28,7 +28,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
 
     private boolean logowanie(String login, String haslo) {
         boolean prawidlowe_dane_logowania = false;
-        id_klienta = 0;
+        id_klienta = 3;
 
         try{  
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
@@ -195,7 +195,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
     private void zalogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujButtonActionPerformed
         String login = loginTextField.getText();
         String haslo = hasloTextField.getText();
-        if (logowanie(login, haslo) == true) {
+        /*if (logowanie(login, haslo) == true) {
             ekran_klienta = new EkranKlienta();
             ekran_klienta.setCustomer(id_klienta, login);
             ekran_klienta.setVisible(true);
@@ -205,11 +205,12 @@ public class Ekran_glowny extends javax.swing.JFrame {
             this.setVisible(false);
         } else {
             message_label.setText("Nieprawidłowe dane logowania");
-        }
+        }*/
 
 
         if(loginTextField.getText().equals("klient")){
             ekran_klienta = new EkranKlienta();
+            ekran_klienta.setCustomer(id_klienta, login_klienta);
             ekran_klienta.setVisible(true);
             this.setVisible(false);
         }else if(loginTextField.getText().equals("technolog")){
