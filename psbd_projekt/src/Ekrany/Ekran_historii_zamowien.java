@@ -4,11 +4,22 @@
  */
 package Ekrany;
 
+import java.awt.Frame;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author huawei
  */
 public class Ekran_historii_zamowien extends javax.swing.JFrame {
+    
+    String StanZamowienia = null;
+    String IdMebla = null;
+    String IdZamowienia = null;
+    int IdKlienta = 3;
+    String login_klienta = null;
 
     /**
      * Creates new form Ekran_historii_zamowien
@@ -16,7 +27,134 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     public Ekran_historii_zamowien() {
         initComponents();
     }
-
+    
+    public void  setCustomer(int id, String login){
+        this.IdKlienta = id;
+        this.login_klienta = login;
+        
+    }
+    
+    public void DbHistoriaZamowien(){
+        
+        Object[] tab;
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu FROM zamowienie_na_meble\n" +
+                    "LEFT JOIN stan_realizacji ON stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji\n" +
+                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta+"";
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3)};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.addRow(tab);
+            }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
+    
+    public void DbSzczegolyZamowienia(String value){
+        
+        Object[] tab;
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT COALESCE(mebel.Id_Proj_katalog,0) AS a, mebel.Id_Mebla, typ_mebla.Nazwa, (projekt_z_katalogu.Marza + cenaRobociznyTab.Robocizna + COALESCE(cenaMaterialuTab.CenaMaterialu,0) + COALESCE(cenaPolprTab.cenaPolprod,0)) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
+                    "LEFT JOIN projekt_z_katalogu ON projekt_z_katalogu.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(definicja_zadania.Cena) AS Robocizna FROM mebel\n" +
+                    "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "-- WHERE mebel.Id_Zamowienia = \"parametr\"\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaRobociznyTab ON cenaRobociznyTab.Id_Mebla = mebel.Id_Mebla \n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(material.Cena) AS CenaMaterialu FROM mebel\n" +
+                    "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu\n" +
+                    "-- WHERE mebel.Id_Zamowienia = \"parametr\"\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaMaterialuTab ON cenaMaterialuTab.Id_Mebla = mebel.Id_Mebla\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT mebel.Id_Mebla, SUM(projekt_polproduktu.Cena) AS CenaPolprod FROM polprodukt\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Mebla = polprodukt.Id_Mebla\n" +
+                    "LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_polprod = polprodukt.Id_Proj_polprod\n" +
+                    "-- WHERE mebel.Id_Zamowienia = \"parametr\"\n" +
+                    "GROUP BY mebel.Id_Mebla) AS cenaPolprTab ON cenaPolprTab.Id_Mebla = mebel.Id_Mebla\n" +
+                    "LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia\n" +
+                    "WHERE mebel.Id_Zamowienia = "+value+"\n" +
+                    "HAVING a>0";
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4), "Projekt z katalogu"};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                model.addRow(tab);
+            }
+            
+            zapytanie = 
+                    "SELECT COALESCE(mebel.Id_Proj_klient,0) AS a, mebel.Id_Mebla, typ_mebla.Nazwa, (cena.Koszt_robocizny + cena.Koszt_surowcow + cena.Marza) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
+                    "LEFT JOIN projekt_klienta ON projekt_klienta.Id_Proj_klient = mebel.Id_Proj_klient\n" +
+                    "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_klienta.Id_Typu_mebla\n" +
+                    "LEFT JOIN cena ON cena.Id_Ceny = projekt_klienta.Id_Ceny\n" +
+                    "LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia\n" +
+                    "WHERE mebel.Id_Zamowienia = "+value+"\n" +
+                    "HAVING a >0 ";
+            rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(2), rs.getObject(3), rs.getObject(4), "Projekt klienta"};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                model.addRow(tab);
+            }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
+    public void DbAkceptuj(){
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "UPDATE zamowienie_na_meble\n" +
+                    "SET Id_stanu_realizacji = 1\n" +
+                    "WHERE zamowienie_na_meble.Id_Zamowienia = " + IdZamowienia;
+            
+            
+            stmt.executeUpdate(zapytanie);
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
+    public void DbAnuluj(){
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "UPDATE zamowienie_na_meble\n" +
+                    "SET Id_stanu_realizacji = 5\n" +
+                    "WHERE zamowienie_na_meble.Id_Zamowienia = " + IdZamowienia;
+            
+            
+            stmt.executeUpdate(zapytanie);
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,14 +177,14 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         powrotButton = new javax.swing.JButton();
         reklamacjaButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
+        zaakceptujButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        szukajButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,13 +198,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nr.", "Data złożenia", "Opis", "Sumaryczna Cena"
+                "Nr.", "Data złożenia", "Status zamowienia", "Sumaryczna Cena"
             }
         ) {
             Class[] types = new Class [] {
@@ -82,6 +217,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -119,20 +259,17 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nr.", "Mebel", "Cena"
+                "Nr.", "Mebel", "Cena", "Wg. projektu"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                true, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,6 +278,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable2MousePressed(evt);
             }
         });
         jScrollPane4.setViewportView(jTable2);
@@ -170,7 +312,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, 350));
 
-        jTextField1.setText("Status zamówienia: Wycenione");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -187,6 +328,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         getContentPane().add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 110, 40));
 
         reklamacjaButton.setText("Złóż reklamację");
+        reklamacjaButton.setEnabled(false);
         reklamacjaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reklamacjaButtonActionPerformed(evt);
@@ -194,22 +336,24 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         });
         getContentPane().add(reklamacjaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 670, 150, 40));
 
-        jButton4.setText("Anuluj Zamówienie");
-        jButton4.setToolTipText("");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        anulujButton.setText("Anuluj Zamówienie");
+        anulujButton.setToolTipText("");
+        anulujButton.setEnabled(false);
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                anulujButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 810, 220, 50));
+        getContentPane().add(anulujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 810, 220, 50));
 
-        jButton5.setText("Zaakceptuj Zamówienie");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        zaakceptujButton.setText("Zaakceptuj Zamówienie");
+        zaakceptujButton.setEnabled(false);
+        zaakceptujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                zaakceptujButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 810, 220, 50));
+        getContentPane().add(zaakceptujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 810, 220, 50));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -239,7 +383,12 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Szukaj");
+        szukajButton.setText("Szukaj");
+        szukajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szukajButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Data:");
 
@@ -262,7 +411,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(szukajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,7 +429,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(szukajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -290,17 +439,72 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-        new EkranKlienta().setVisible(true);
+        //EkranKlienta klient = new EkranKlienta();
+        //klient.setCustomer(IdKlienta, login_klienta);
+        //klient.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
+        DbAnuluj();
+        JOptionPane.showMessageDialog(new Frame(), "Zamówienie anulowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        DbHistoriaZamowien();
+    }//GEN-LAST:event_anulujButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaakceptujButtonActionPerformed
+        DbAkceptuj();
+        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zaakceptowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        DbHistoriaZamowien();
+        
+    }//GEN-LAST:event_zaakceptujButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -319,8 +523,88 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void reklamacjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reklamacjaButtonActionPerformed
-        new Arkusz_Reklamacyjny().setVisible(true);
+        Arkusz_Reklamacyjny arkusz = new Arkusz_Reklamacyjny();
+        arkusz.setIdMebla(IdMebla);
+        arkusz.setVisible(true);
     }//GEN-LAST:event_reklamacjaButtonActionPerformed
+
+    private void szukajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szukajButtonActionPerformed
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        DbHistoriaZamowien();
+    }//GEN-LAST:event_szukajButtonActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        IdZamowienia = jTable1.getModel().getValueAt(row, column).toString();
+        //System.out.println(value);
+        
+        DbSzczegolyZamowienia(IdZamowienia);
+        
+        column = 2;
+        row = jTable1.getSelectedRow();
+        StanZamowienia = jTable1.getModel().getValueAt(row, column).toString();
+        System.out.println(StanZamowienia);
+        
+        if(StanZamowienia.equals("Wyceniono")){
+            jTextField1.setText("Twoje zamówienie zostało wycenione. Zaakceptować?");
+            zaakceptujButton.setEnabled(true);
+            anulujButton.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
+        
+        reklamacjaButton.setEnabled(false);
+        
+        
+        int column = 0;
+        int row = jTable2.getSelectedRow();
+        IdMebla = jTable2.getModel().getValueAt(row, column).toString();
+        if(StanZamowienia.equals("Odebrano")){
+            reklamacjaButton.setEnabled(true);
+        }
+        
+        
+    }//GEN-LAST:event_jTable2MousePressed
 
     /**
      * @param args the command line arguments
@@ -358,9 +642,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton anulujButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -380,5 +662,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JButton powrotButton;
     private javax.swing.JButton reklamacjaButton;
+    private javax.swing.JButton szukajButton;
+    private javax.swing.JButton zaakceptujButton;
     // End of variables declaration//GEN-END:variables
 }

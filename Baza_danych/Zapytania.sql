@@ -61,6 +61,25 @@ FROM PROJEKT_Z_KATALOGU
 LEFT JOIN TYP_MEBLA ON TYP_MEBLA.Id_Typu_mebla = PROJEKT_Z_KATALOGU.Id_Typu_mebla
 WHERE TYP_MEBLA.Nazwa = "parametr"
 
+	-- 3. Zapytanie wyświetlające projekty z katalogu wraz z ich ceną
+	
+SELECT tab1.Id_Proj_katalog, projekt_z_katalogu.Nazwa, typ_mebla.Nazwa, (tab1.Marza + COALESCE(tab1.CenaPolProd,0) + tab2.CenaMaterialow + tab3.CenaZadan) AS KosztCalkowity FROM projekt_z_katalogu
+LEFT JOIN
+(SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(projekt_z_katalogu.Marza) AS Marza, SUM(projekt_polproduktu.cena) AS CenaPolprod  FROM projekt_z_katalogu
+LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog
+GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab1 USING (Id_Proj_katalog)
+LEFT JOIN (
+SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(material.Cena) AS CenaMaterialow FROM projekt_z_katalogu
+LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog
+LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu
+GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab2 USING (Id_Proj_katalog)
+LEFT JOIN (
+SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(definicja_zadania.Cena) AS CenaZadan FROM firma.projekt_z_katalogu
+LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog
+GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab3 USING (Id_Proj_katalog)
+LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla
+WHERE typ_mebla.Nazwa = "parametr"
+
 -- Przypadek Użycia - Wybranie mebla z katalogu
     -- Po wybraniu mebla z katalogu należy wyświetlnić opcje konfiguracji danego mebla.
 -- 1. Zapytanie zwracające Materiały dla wybranego mebla
@@ -219,7 +238,7 @@ WHERE mebel.Id_Zamowienia = "parametr") tab2 ON tab2.Id_Mebla = tab1.Id_Mebla
 -- 2a. Kliknięcie przycisku "Zaakceptuj zamówienie" -> 
 --      wyświetlenie komunikatu o zatwierdzeniu zamówienia, aktualizacja stanu zamówienia "Wyceniono" (zapytanie sql) (technolog wpisuje proponowaną cenę w kolumnę "Cena")
 UPDATE zamowienie_na_meble
-SET Id_stanu_realizacji = 4
+SET Id_stanu_realizacji = 1
 WHERE zamowienie_na_meble.Id_Zamowienia = "parametr"
 
 -- 2b. Kliknięcie przycisku "Anuluj zamówienie" ->wyświetlenie komunikatu o odrzuceniu zamówienia, aktualizacja stanu zamówienia "Odrzucono" (zapytanie sql)
@@ -264,8 +283,8 @@ JOIN mebel USING (Id_Proj_klient)
 JOIN zamowienie_na_meble USING (Id_Zamowienia)
 JOIN typ_mebla USING (Id_Typu_mebla)
 
-WHERE zamowienie_na_meble.Id_Zamowienia=3 AND (zamowienie_na_meble.Czas_realizacji_Data_zlozenia 
-BETWEEN DATE(data1) AND DATE(data2) OR typ_mebla.Nazwa LIKE parametr);
+WHERE zamowienie_na_meble.Id_Zamowienia=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia 
+BETWEEN DATE(data1) AND DATE(data2) OR typ_mebla.Nazwa LIKE parametr; --'Fo%';
 
 -- wyświetlenie szczegółow wybranego projektu klienta
 
@@ -280,17 +299,16 @@ JOIN projekt_klienta USING (Id_Typu_mebla)
 JOIN laczenia USING (Id_Laczenia)
 JOIN mebel USING (Id_Proj_klient)
 
-WHERE projekt_klienta.Id_Proj_klient=id
+WHERE mebel.Wykonany=0 AND projekt_klienta.Id_Proj_klient=id
 GROUP BY Id_Proj_klient;
 
--- 2. wyświetlenie projektów półproduktów
-SELECT projekt_polproduktu.Nazwa
+-- 2. wyświetlenie id projektów półproduktów
+SELECT projekt_polproduktu.Id_Proj_polprod
 
 FROM projekt_polproduktu
 JOIN projekt_klienta USING (Id_Proj_klient)
 
-WHERE projekt_klienta.Id_Proj_klient = id
-GROUP BY (projekt_polproduktu.Nazwa);
+WHERE projekt_klienta.Id_Proj_klient = id;
 
 -- 3. wyświetlenie materiałów
 SELECT material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa
@@ -300,7 +318,7 @@ JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)
 JOIN wzor USING (Id_Wzoru)
 JOIN material_proj_klienta USING (Id_Materialu)
 
-WHERE material_proj_klienta.Id_Proj_klient=id;
+WHERE material_proj_klienta.Id_Proj_klient=3;
 
 -- 4. wyświetlenie szczegółów wybranego półproduktu
 SELECT projekt_polproduktu.Nazwa, rodzaj_polproduktu.Nazwa, CONCAT(projekt_polproduktu.Rozmiar_Dlugosc,"x",projekt_polproduktu.Rozmiar_Wysokosc,"x",projekt_polproduktu.Rozmiar_Szerokosc),
@@ -311,21 +329,20 @@ FROM projekt_polproduktu
 JOIN rodzaj_polproduktu USING (Id_Rodzaju_polproduktu)
 
 WHERE projekt_polproduktu.Id_Proj_klient=id
-GROUP BY (projekt_polproduktu.Nazwa)
-HAVING projekt_polproduktu.Nazwa = nazwa;
+GROUP BY Id_Proj_klient;
 
 -- zaaktulizowanie danych w projekcie klienta
--- 1. zaaktualizowanie ilości materialow
+-- 1. zaaktulizowanie ilości materialow
 UPDATE material_proj_klienta
-SET ilosc=ilosc
+SET ilosc=x
 WHERE Id_Mat_Proj_klient = id_mat;
 
 -- 2. utworzenie definicji zadań 
 INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania) VALUES (id,opis);
 
 -- 3. utworzenie ceny 
-INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow, Marza) VALUES 
-(id_techn,id,robocizna,materialy,marza);
+INSERT INTO CENA (Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza) VALUES 
+(id_techn,robocizna,materialy,marza);
 
 
 
