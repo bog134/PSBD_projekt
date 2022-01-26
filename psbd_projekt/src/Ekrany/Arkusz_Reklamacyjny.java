@@ -5,19 +5,49 @@
 package Ekrany;
 
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author huawei
  */
 public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
+    
+    String IdMebla = null;
+    String opisReklamacji = null;
 
     /**
      * Creates new form Arkusz_Reklamacyjny
      */
     public Arkusz_Reklamacyjny() {
         initComponents();
+    }
+    
+    public void setIdMebla(String set){
+        IdMebla = set;
+    }
+    
+    public void DbskladanieReklamacji(){
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES\n" +
+                    "("+IdMebla+", "+opisReklamacji+")";
+            
+            System.out.println("INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES\n" +
+                    "("+IdMebla+", "+opisReklamacji+")");
+            stmt.executeUpdate(zapytanie);
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
     }
 
     /**
@@ -66,7 +96,10 @@ public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
 
     private void potwierdzButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_potwierdzButtonActionPerformed
         
-        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zlozona", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        opisReklamacji = '"' + jTextField1.getText() + '"';
+        DbskladanieReklamacji();
+        
+        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zlozona na mebel"+IdMebla, "Uwaga", JOptionPane.PLAIN_MESSAGE);
         this.setVisible(false);
     }//GEN-LAST:event_potwierdzButtonActionPerformed
 

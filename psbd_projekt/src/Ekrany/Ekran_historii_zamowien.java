@@ -4,11 +4,18 @@
  */
 package Ekrany;
 
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author huawei
  */
 public class Ekran_historii_zamowien extends javax.swing.JFrame {
+    
+    String StanZamowienia = null;
+    String IdMebla = null;
 
     /**
      * Creates new form Ekran_historii_zamowien
@@ -16,7 +23,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     public Ekran_historii_zamowien() {
         initComponents();
     }
-
     
     public void DbHistoriaZamowien(){
         
@@ -104,7 +110,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         }catch(Exception e){ System.out.println(e);}
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,7 +139,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        szukajButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,13 +153,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nr.", "Data złożenia", "Opis", "Sumaryczna Cena"
+                "Nr.", "Data złożenia", "Status zamowienia", "Sumaryczna Cena"
             }
         ) {
             Class[] types = new Class [] {
@@ -170,6 +172,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -207,10 +214,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nr.", "Mebel", "Cena", "Wg. projektu"
@@ -229,6 +233,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable2MousePressed(evt);
             }
         });
         jScrollPane4.setViewportView(jTable2);
@@ -275,6 +284,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         getContentPane().add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 110, 40));
 
         reklamacjaButton.setText("Złóż reklamację");
+        reklamacjaButton.setEnabled(false);
         reklamacjaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reklamacjaButtonActionPerformed(evt);
@@ -284,6 +294,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jButton4.setText("Anuluj Zamówienie");
         jButton4.setToolTipText("");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -292,6 +303,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 810, 220, 50));
 
         jButton5.setText("Zaakceptuj Zamówienie");
+        jButton5.setEnabled(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -327,7 +339,12 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Szukaj");
+        szukajButton.setText("Szukaj");
+        szukajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szukajButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Data:");
 
@@ -350,7 +367,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(szukajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -368,7 +385,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(szukajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -407,9 +424,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void reklamacjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reklamacjaButtonActionPerformed
-        new Arkusz_Reklamacyjny().setVisible(true);
+        Arkusz_Reklamacyjny arkusz = new Arkusz_Reklamacyjny();
+        arkusz.setIdMebla(IdMebla);
+        arkusz.setVisible(true);
     }//GEN-LAST:event_reklamacjaButtonActionPerformed
-
 
     private void szukajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szukajButtonActionPerformed
         DbHistoriaZamowien();
@@ -456,7 +474,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         IdMebla = jTable2.getModel().getValueAt(row, column).toString();
     }//GEN-LAST:event_jTable2MousePressed
 
-
     /**
      * @param args the command line arguments
      */
@@ -493,7 +510,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -515,5 +531,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JButton powrotButton;
     private javax.swing.JButton reklamacjaButton;
+    private javax.swing.JButton szukajButton;
     // End of variables declaration//GEN-END:variables
 }
