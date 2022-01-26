@@ -15,9 +15,14 @@ import javax.swing.table.DefaultTableModel;
 public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     
     ArrayList<dodanyProjekt> koszyk;
+    EkranKlienta klient;
     
     public void setKoszyk(ArrayList<dodanyProjekt> k){
         this.koszyk = k;
+    }
+    
+    public void setEkranKlienta(EkranKlienta kl){
+        this.klient = kl;
     }
 
 
@@ -63,7 +68,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         powrotButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        usunButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -102,9 +107,14 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         });
         jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 100, 30));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Odrzuć zamówienie");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 150, 50));
+        usunButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usunButton.setText("Usuń produkt");
+        usunButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usunButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(usunButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 150, 50));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton3.setText("Złóż zamówienie");
@@ -165,13 +175,31 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-
+        klient.setKoszyk(koszyk);
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void usunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunButtonActionPerformed
+
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        System.out.println(jTable2.getSelectedRow());
+        
+        koszyk.remove(jTable2.getSelectedRow()+1);
+        
+        koszykDoTabeli();
+    }//GEN-LAST:event_usunButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,7 +237,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -220,5 +247,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JButton powrotButton;
+    private javax.swing.JButton usunButton;
     // End of variables declaration//GEN-END:variables
 }

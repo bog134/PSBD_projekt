@@ -15,7 +15,7 @@ import Dodatkowe.dodanyProjekt;
  */
 public class EkranKlienta extends javax.swing.JFrame {
     int id_klienta;
-    java.lang.String login_klienta;  
+    java.lang.String login_klienta;
     int licznik = 0;
     
     /*public class dodanyProjekt{
@@ -410,10 +410,11 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
     private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
-        Ekran_szczegolow_zamowienia ekran = new Ekran_szczegolow_zamowienia();
-        ekran.setKoszyk(koszyk);
-        ekran.koszykDoTabeli();
-        ekran.setVisible(true);
+        Ekran_szczegolow_zamowienia ekranSZ = new Ekran_szczegolow_zamowienia();
+        ekranSZ.setKoszyk(koszyk);
+        ekranSZ.koszykDoTabeli();
+        ekranSZ.setVisible(true);
+        ekranSZ.setEkranKlienta(this);
         
         //this.setVisible(false);
     }//GEN-LAST:event_koszykButtonActionPerformed
