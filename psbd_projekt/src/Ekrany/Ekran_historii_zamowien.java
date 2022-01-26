@@ -132,8 +132,8 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         powrotButton = new javax.swing.JButton();
         reklamacjaButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        anulujButton = new javax.swing.JButton();
+        zaakceptujButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -292,24 +292,24 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         });
         getContentPane().add(reklamacjaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 670, 150, 40));
 
-        jButton4.setText("Anuluj Zamówienie");
-        jButton4.setToolTipText("");
-        jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        anulujButton.setText("Anuluj Zamówienie");
+        anulujButton.setToolTipText("");
+        anulujButton.setEnabled(false);
+        anulujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                anulujButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 810, 220, 50));
+        getContentPane().add(anulujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 810, 220, 50));
 
-        jButton5.setText("Zaakceptuj Zamówienie");
-        jButton5.setEnabled(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        zaakceptujButton.setText("Zaakceptuj Zamówienie");
+        zaakceptujButton.setEnabled(false);
+        zaakceptujButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                zaakceptujButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 810, 220, 50));
+        getContentPane().add(zaakceptujButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 810, 220, 50));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -399,13 +399,13 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_anulujButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaakceptujButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_zaakceptujButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -436,6 +436,8 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
         
         reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
         
         try{
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -456,11 +458,17 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         StanZamowienia = jTable1.getModel().getValueAt(row, column).toString();
         System.out.println(StanZamowienia);
         
+        if(StanZamowienia.equals("Wyceniono")){
+            zaakceptujButton.setEnabled(true);
+            anulujButton.setEnabled(true);
+        }
+        
     }//GEN-LAST:event_jTable1MousePressed
 
     private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
         
         reklamacjaButton.setEnabled(false);
+        
         
         int column = 0;
         int row = jTable2.getSelectedRow();
@@ -469,9 +477,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             reklamacjaButton.setEnabled(true);
         }
         
-        column = 3;
-        row = jTable2.getSelectedRow();
-        IdMebla = jTable2.getModel().getValueAt(row, column).toString();
+        
     }//GEN-LAST:event_jTable2MousePressed
 
     /**
@@ -510,8 +516,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton anulujButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -532,5 +537,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private javax.swing.JButton powrotButton;
     private javax.swing.JButton reklamacjaButton;
     private javax.swing.JButton szukajButton;
+    private javax.swing.JButton zaakceptujButton;
     // End of variables declaration//GEN-END:variables
 }
