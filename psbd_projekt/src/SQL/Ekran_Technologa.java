@@ -15,7 +15,7 @@ public class Ekran_Technologa {
         /*ArrayList<String[]> allRows= ;
         
         wyswietl_na_konsoli(allRows);*/
-        utworzenie_ceny ("3","3","1000","1000","1000");
+        /*        utworzenie_ceny ("3","3","1000","1000","1000");*/
 
     } 
     
@@ -60,15 +60,6 @@ public class Ekran_Technologa {
         }
     }
     
-    static public ArrayList<String[]> pobranie_id_technologa(String login)
-    {        
-        String zapytanie = 
-        "SELECT pracownik.Id_Pracownika\n" +
-        "FROM pracownik\n" +
-        "WHERE pracownik.Login ='" + login + "';";
-        
-        return pobierz_z_bazy_danych(zapytanie);
-    }  
     static public ArrayList<String[]> wyswietlenie_listy_projektow_klienta()
     {         
         String zapytanie = 
@@ -135,7 +126,7 @@ public class Ekran_Technologa {
     static public ArrayList<String[]> wyswietlenie_materialow(String id)
     {       
         String zapytanie = 
-                "SELECT material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa\n" +
+                "SELECT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa\n" +
                 "\n" +
                 "FROM material\n" +
                 "JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)\n" +
