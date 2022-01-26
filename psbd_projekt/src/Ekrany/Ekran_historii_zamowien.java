@@ -4,6 +4,7 @@
  */
 package Ekrany;
 
+import java.awt.Frame;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +17,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     
     String StanZamowienia = null;
     String IdMebla = null;
+    String IdZamowienia = null;
 
     /**
      * Creates new form Ekran_historii_zamowien
@@ -105,6 +107,42 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
                 model.addRow(tab);
             }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
+    public void DbAkceptuj(){
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "UPDATE zamowienie_na_meble\n" +
+                    "SET Id_stanu_realizacji = 1\n" +
+                    "WHERE zamowienie_na_meble.Id_Zamowienia = " + IdZamowienia;
+            
+            
+            stmt.executeUpdate(zapytanie);
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
+    public void DbAnuluj(){
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "UPDATE zamowienie_na_meble\n" +
+                    "SET Id_stanu_realizacji = 5\n" +
+                    "WHERE zamowienie_na_meble.Id_Zamowienia = " + IdZamowienia;
+            
+            
+            stmt.executeUpdate(zapytanie);
             
             con.close(); 
         }catch(Exception e){ System.out.println(e);}
@@ -267,7 +305,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, 350));
 
-        jTextField1.setText("Status zamówienia: Wycenione");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -400,11 +437,13 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }//GEN-LAST:event_powrotButtonActionPerformed
 
     private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
-        // TODO add your handling code here:
+        DbAnuluj();
+        JOptionPane.showMessageDialog(new Frame(), "Zamówienie anulowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_anulujButtonActionPerformed
 
     private void zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaakceptujButtonActionPerformed
-        // TODO add your handling code here:
+        DbAkceptuj();
+        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zaakceptowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_zaakceptujButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -430,6 +469,30 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }//GEN-LAST:event_reklamacjaButtonActionPerformed
 
     private void szukajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szukajButtonActionPerformed
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
         DbHistoriaZamowien();
     }//GEN-LAST:event_szukajButtonActionPerformed
 
@@ -438,6 +501,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         reklamacjaButton.setEnabled(false);
         zaakceptujButton.setEnabled(false);
         anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
         
         try{
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -449,8 +513,9 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         }
         int column = 0;
         int row = jTable1.getSelectedRow();
-        String IdZamowienia = jTable1.getModel().getValueAt(row, column).toString();
+        IdZamowienia = jTable1.getModel().getValueAt(row, column).toString();
         //System.out.println(value);
+        
         DbSzczegolyZamowienia(IdZamowienia);
         
         column = 2;
@@ -459,6 +524,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         System.out.println(StanZamowienia);
         
         if(StanZamowienia.equals("Wyceniono")){
+            jTextField1.setText("Twoje zamówienie zostało wycenione. Zaakceptować?");
             zaakceptujButton.setEnabled(true);
             anulujButton.setEnabled(true);
         }

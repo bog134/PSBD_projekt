@@ -219,7 +219,7 @@ WHERE mebel.Id_Zamowienia = "parametr") tab2 ON tab2.Id_Mebla = tab1.Id_Mebla
 -- 2a. Kliknięcie przycisku "Zaakceptuj zamówienie" -> 
 --      wyświetlenie komunikatu o zatwierdzeniu zamówienia, aktualizacja stanu zamówienia "Wyceniono" (zapytanie sql) (technolog wpisuje proponowaną cenę w kolumnę "Cena")
 UPDATE zamowienie_na_meble
-SET Id_stanu_realizacji = 4
+SET Id_stanu_realizacji = 1
 WHERE zamowienie_na_meble.Id_Zamowienia = "parametr"
 
 -- 2b. Kliknięcie przycisku "Anuluj zamówienie" ->wyświetlenie komunikatu o odrzuceniu zamówienia, aktualizacja stanu zamówienia "Odrzucono" (zapytanie sql)
