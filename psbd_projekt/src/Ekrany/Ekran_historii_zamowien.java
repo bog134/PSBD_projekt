@@ -439,11 +439,62 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private void anulujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anulujButtonActionPerformed
         DbAnuluj();
         JOptionPane.showMessageDialog(new Frame(), "Zamówienie anulowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        DbHistoriaZamowien();
     }//GEN-LAST:event_anulujButtonActionPerformed
 
     private void zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaakceptujButtonActionPerformed
         DbAkceptuj();
         JOptionPane.showMessageDialog(new Frame(), "Reklamacja zaakceptowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        
+        reklamacjaButton.setEnabled(false);
+        zaakceptujButton.setEnabled(false);
+        anulujButton.setEnabled(false);
+        jTextField1.setText(" ");
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        DbHistoriaZamowien();
+        
     }//GEN-LAST:event_zaakceptujButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
