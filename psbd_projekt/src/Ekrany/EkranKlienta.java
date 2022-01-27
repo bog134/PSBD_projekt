@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.table.DefaultTableModel;
 import Dodatkowe.dodanyProjekt;
+import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author huawei
@@ -82,6 +83,33 @@ public class EkranKlienta extends javax.swing.JFrame {
             con.close(); 
         }catch(Exception e){ System.out.println(e);}
     }
+    
+    public void DbOpcjonalneCzesci(String indeks){
+        Object[] tab;
+        
+        ArrayList<String> lista = new ArrayList<>();
+        
+        lista.add(" ");
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+
+            String zapytanie = 
+                    "SELECT Nazwa FROM firma.opcjonalna_czesc\n" +
+                    "WHERE Id_Proj_katalog ="+indeks;
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                lista.add(rs.getString(1));
+            }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+        
+        //String[] array = (String[]) lista.toArray();
+        opcjBox.setModel(new DefaultComboBoxModel<String>(lista.toArray(new String[0])));
+    }
     /**
      * Creates new form EkranKlienta
      */
@@ -98,6 +126,11 @@ public class EkranKlienta extends javax.swing.JFrame {
         this.id_klienta = id;
         this.login_klienta = login;
         nazwa_użytkownika.setText(login_klienta);
+    }
+    
+    public void updateLiczbewKoszyku(){
+        
+        l_rzeczy_w_koszyku.setText("Koszyk: "+String.valueOf(koszyk.size()));
     }
 
 
@@ -128,9 +161,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        materialBox = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        opcjonalneCzesciBox = new javax.swing.JComboBox<>();
+        opcjBox = new javax.swing.JComboBox<>();
         dodajDoKoszykaButton = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -201,7 +232,7 @@ public class EkranKlienta extends javax.swing.JFrame {
             java.lang.System.out.println("blad ladowania ikony");
         }
 
-        l_rzeczy_w_koszyku.setText("Koszyk: l_sz");
+        l_rzeczy_w_koszyku.setText("Koszyk: 0");
         koszyk_pane.add(l_rzeczy_w_koszyku, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
         getContentPane().add(koszyk_pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 200, 120));
@@ -276,33 +307,28 @@ public class EkranKlienta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setLayout(new java.awt.GridLayout(3, 2, 3, 3));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Materiał:");
-        jPanel2.add(jLabel9);
+        jLabel9.setText("Opcjonalna część:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 164, 41));
 
-        materialBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        materialBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        materialBox.addActionListener(new java.awt.event.ActionListener() {
+        opcjBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        opcjBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        opcjBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialBoxActionPerformed(evt);
+                opcjBoxActionPerformed(evt);
             }
         });
-        jPanel2.add(materialBox);
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Opcjonalne części:");
-        jLabel7.setToolTipText("");
-        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel7);
-
-        opcjonalneCzesciBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        opcjonalneCzesciBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel2.add(opcjonalneCzesciBox);
+        jPanel2.add(opcjBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 164, 41));
 
         dodajDoKoszykaButton.setText("Dodaj do koszyka");
         dodajDoKoszykaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -310,7 +336,7 @@ public class EkranKlienta extends javax.swing.JFrame {
                 dodajDoKoszykaButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(dodajDoKoszykaButton);
+        jPanel2.add(dodajDoKoszykaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 164, 41));
 
         jButton10.setText("Odrzuć");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +344,7 @@ public class EkranKlienta extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton10);
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 164, 41));
 
         jLabel8.setText("Konfiguracja mebla:");
 
@@ -342,8 +368,8 @@ public class EkranKlienta extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(158, 158, 158))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -351,13 +377,15 @@ public class EkranKlienta extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,10 +394,10 @@ public class EkranKlienta extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, -1, 640));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, -1, 700));
 
         kategorie_comb_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wszystkie" ,"Stoły", "Krzesła", "Fotele", "Łóżka", "Sofy",
             "Biurka", "Szafy", "Komody", "Szafki nocne", "Narożniki", "Regały", "Kredensy"}));
@@ -437,20 +465,20 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
         row = jTable1.getSelectedRow();
         String cena = jTable1.getModel().getValueAt(row, column).toString();
         
-        String material = materialBox.getSelectedItem().toString();
+        String opcj = opcjBox.getSelectedItem().toString();
+       
         
-        String opcj = opcjonalneCzesciBox.getSelectedItem().toString();
-        
-        koszyk.add(new dodanyProjekt(numer, nazwa, typ, cena, material, opcj));
+        koszyk.add(new dodanyProjekt(numer, nazwa, typ, cena, null, opcj));
+        updateLiczbewKoszyku();
     }//GEN-LAST:event_dodajDoKoszykaButtonActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void materialBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialBoxActionPerformed
+    private void opcjBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcjBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_materialBoxActionPerformed
+    }//GEN-LAST:event_opcjBoxActionPerformed
 
     private void kategorie_comb_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategorie_comb_boxActionPerformed
         try{
@@ -505,6 +533,16 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
         // TODO add your handling code here:
     }//GEN-LAST:event_kategorie_comb_boxMousePressed
 
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        String numer = jTable1.getModel().getValueAt(row, column).toString();
+        System.out.println(numer);
+        
+        DbOpcjonalneCzesci(numer);
+        
+    }//GEN-LAST:event_jTable1MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -547,7 +585,6 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     private javax.swing.JLabel ikona_wozka_sklepowego;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -560,10 +597,9 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     private javax.swing.JButton koszykButton;
     private javax.swing.JPanel koszyk_pane;
     private javax.swing.JLabel l_rzeczy_w_koszyku;
-    private javax.swing.JComboBox<String> materialBox;
     private javax.swing.JLabel nazwa_użytkownika;
     private javax.swing.JLabel obraz_uzytkownika_label;
-    private javax.swing.JComboBox<String> opcjonalneCzesciBox;
+    private javax.swing.JComboBox<String> opcjBox;
     private javax.swing.JButton wlasnyProjektButton;
     private javax.swing.JButton wylogujButton;
     private javax.swing.JLabel zalogowano_jako;

@@ -45,11 +45,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             String zapytanie = 
                     "SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu FROM zamowienie_na_meble\n" +
                     "LEFT JOIN stan_realizacji ON stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji\n" +
-                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta+"";
+                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta;
             ResultSet rs=stmt.executeQuery(zapytanie);  
             while(rs.next()){
                 tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3)};
-                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                System.out.println(rs.getObject(1)+"  "+rs.getObject(2)+"  "+rs.getObject(3));  
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 model.addRow(tab);
             }
