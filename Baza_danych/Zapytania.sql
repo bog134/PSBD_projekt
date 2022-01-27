@@ -65,6 +65,25 @@ FROM PROJEKT_Z_KATALOGU
 LEFT JOIN TYP_MEBLA ON TYP_MEBLA.Id_Typu_mebla = PROJEKT_Z_KATALOGU.Id_Typu_mebla
 WHERE TYP_MEBLA.Nazwa = "parametr"
 
+	-- 3. Zapytanie wyświetlające projekty z katalogu wraz z ich ceną
+	
+SELECT tab1.Id_Proj_katalog, projekt_z_katalogu.Nazwa, typ_mebla.Nazwa, (tab1.Marza + COALESCE(tab1.CenaPolProd,0) + tab2.CenaMaterialow + tab3.CenaZadan) AS KosztCalkowity FROM projekt_z_katalogu
+LEFT JOIN
+(SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(projekt_z_katalogu.Marza) AS Marza, SUM(projekt_polproduktu.cena) AS CenaPolprod  FROM projekt_z_katalogu
+LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog
+GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab1 USING (Id_Proj_katalog)
+LEFT JOIN (
+SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(material.Cena) AS CenaMaterialow FROM projekt_z_katalogu
+LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog
+LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu
+GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab2 USING (Id_Proj_katalog)
+LEFT JOIN (
+SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(definicja_zadania.Cena) AS CenaZadan FROM firma.projekt_z_katalogu
+LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog
+GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab3 USING (Id_Proj_katalog)
+LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla
+WHERE typ_mebla.Nazwa = "parametr"
+
 -- Przypadek Użycia - Wybranie mebla z katalogu
     -- Po wybraniu mebla z katalogu należy wyświetlnić opcje konfiguracji danego mebla.
 -- 1. Zapytanie zwracające Materiały dla wybranego mebla

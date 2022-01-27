@@ -1,22 +1,235 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Ekrany;
+package SQL.Ekran_Technologa;
 
-/**
- *
- * @author huawei
- */
-public class Ekran_Technologa extends javax.swing.JFrame {
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
+class Projekt_klienta extends JButton {
+   
+    private JButton b1;
+    private JLabel l1;
+    private String id;
+    
+    Projekt_klienta(String id, String data, String typ, int button_width, int button_height)
+    {
+        this.id=id;   
+        
+        String text = " " +id + "                                         " + data + "                        " + typ;
+        l1 = new JLabel(text);
+        b1 = new JButton();
+        b1.add(l1);       
+     
+        b1.setContentAreaFilled(false);      
+        b1.setBorder(BorderFactory.createBevelBorder(0));
+    } 
+    
+    public String daj_id()
+    {
+        return id;
+    }
+    
+    public JButton daj_przycisk()
+    {
+        return b1;
+    }
+    
+};
+
+
+
+public class Ekran_Technologa extends javax.swing.JFrame implements ActionListener {
+
+    private JPanel panel_projektow;
+    private String id_techn="2";
+    private String id;
+    private ArrayList<Projekt_klienta> lista_przyciskow;
+    private ArrayList<String[]> lista_projektow_dane;
+    private ArrayList<String[]> lista_materialow;
     /**
      * Creates new form Ekran_Technologa
      */
     public Ekran_Technologa() {
         initComponents();
+        lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
+        wyswietlenie_listy_projektow_klienta(lista_projektow_dane);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        Object source = e.getSource();  
+        
+        for(int i=0; i<lista_przyciskow.size(); i++)
+        {
+            if(source==lista_przyciskow.get(i).daj_przycisk()) 
+            {
+                id=lista_przyciskow.get(i).daj_id();
+                wyswietlenie_szczegolow_projektu();
+                wyswietlenie_projektow_polproduktow();
+                wyswietlenie_materialow();
+                dodawanie_definicji_zadań();
+                definicje_zadan_tabela.addKeyListener(new Keychecker());
+
+            }
+        }  
+    }
+    
+    private void wyswietlenie_listy_projektow_klienta(ArrayList<String[]> lista_projektow_dane)
+    {
+       panel_projektow = new JPanel(new GridLayout(0,1,0,0));
+       lista_projektow.setLayout(null);
+       lista_projektow.add(panel_projektow);
+       panel_projektow.setLocation(3, 25);       
+       
+       int height = 40;
+       int width = lista_projektow.getWidth()-20;
+       panel_projektow.setSize(width, lista_projektow_dane.size()*height);
+       lista_przyciskow = new ArrayList();
+     
+       
+       for(int i=0; i<lista_projektow_dane.size(); i++)
+       {
+           lista_przyciskow.add(new Projekt_klienta(lista_projektow_dane.get(i)[0],lista_projektow_dane.get(i)[1],lista_projektow_dane.get(i)[2],width,height));
+           panel_projektow.add(lista_przyciskow.get(i).daj_przycisk());
+           lista_przyciskow.get(i).daj_przycisk().addActionListener(this);
+           
+       }         
+    }
+    private void modyfikacja_listy_projektow_w_zaleznosci_od_filtra()
+    {
+        
+        String data1= data1_jTextField2.getText();
+        String data2= data2_jTextField2.getText();
+        String parametr= parametr_jTextField4.getText();
+
+        lista_projektow_dane = SQL.Ekran_Technologa.modyfikacja_listy_projektow_w_zaleznosci_od_filtra(data1,data2,parametr);
+        lista_projektow.remove(panel_projektow);
+        wyswietlenie_listy_projektow_klienta(lista_projektow_dane);
+        lista_projektow.revalidate();
+        panel_projektow.revalidate();
+        lista_projektow.repaint();
+        panel_projektow.repaint();
+    } 
+    private void wyswietlenie_szczegolow_projektu()
+    {
+        ArrayList<String[]> lista_szczegolow_projektu=SQL.Ekran_Technologa.wyswietlenie_szczegolow_projektu(id);
+        typ_jTextField1.setText(lista_szczegolow_projektu.get(0)[0]);
+        wymiary_jTextField5.setText(lista_szczegolow_projektu.get(0)[1]);
+        laczenia_jTextField6.setText(lista_szczegolow_projektu.get(0)[2]);
+        ilosc_jTextField7.setText(lista_szczegolow_projektu.get(0)[3]);
+        rysunek_jTextField8.setText(lista_szczegolow_projektu.get(0)[4]);
+        
+        definicje_zadan_tabela.setEnabled(true);
+        robociznajTextField1.setEnabled(true);
+        materialyjTextField2.setEnabled(true);
+        marzajTextField3.setEnabled(true);   
+        
+    }
+    private void wyswietlenie_projektow_polproduktow()
+    {
+        polprodukty_jComboBox1.removeAllItems();
+        ArrayList<String[]> lista_polproduktow=SQL.Ekran_Technologa.wyswietlenie_projektow_polproduktow(id);
+        for (int i=0; i<lista_polproduktow.size();i++)
+        {
+            polprodukty_jComboBox1.addItem(lista_polproduktow.get(i)[0]); 
+        }
+        
+    }
+    private void wyswietlenie_materialow()
+    {
+        lista_materialow = SQL.Ekran_Technologa.wyswietlenie_materialow(id);
+        
+        DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
+        for (int i=0; i<lista_materialow.size(); i++)
+        {
+            Object[] data = new Object[lista_materialow.get(0).length+1];
+            for(int j=0; j<lista_materialow.get(0).length-1; j++)
+            {
+                data[j]=lista_materialow.get(i)[j+1];
+            }
+            model.addRow(data);            
+        }
+         
+    }
+    private void wyświetlenie_szczegółów_wybranego_półproduktu(String nazwa)
+    {
+        ArrayList<String[]> lista_szczegolow_polproduktu = SQL.Ekran_Technologa.wyświetlenie_szczegółów_wybranego_półproduktu(id, nazwa);
+        nazwa_jTextField8.setText(lista_szczegolow_polproduktu.get(0)[0]);
+        rodzajjTextField9.setText(lista_szczegolow_polproduktu.get(0)[1]);
+        iloscPolproduktujTextField11.setText(lista_szczegolow_polproduktu.get(0)[2]);
+        wymiaryPolproduktujTextField10.setText(lista_szczegolow_polproduktu.get(0)[3]);
+        rysunekPolproduktu_jTextField9.setText(lista_szczegolow_polproduktu.get(0)[4]);
+        
+    }
+    private void dodawanie_definicji_zadań()
+    {        
+        DefaultTableModel model = (DefaultTableModel) definicje_zadan_tabela.getModel();
+        Object[] data = new Object[1];
+        model.addRow(data);            
+    }    
+    class Keychecker extends KeyAdapter {
+
+    @Override
+    public void keyPressed(KeyEvent evt) {
+
+        if(evt.getKeyCode() == KeyEvent.VK_DOWN) dodawanie_definicji_zadań();
+        if(evt.getKeyCode() == KeyEvent.VK_UP) {
+            DefaultTableModel model = (DefaultTableModel) definicje_zadan_tabela.getModel();
+            model.removeRow(model.getRowCount()-1);
+        }
     }
 
+}
+    
+    
+    private void zaaktualizowanie_ilości_materialow()
+    {
+        DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
+        for(int i=0; i<lista_materialow.size(); i++)  {
+            String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
+            SQL.Ekran_Technologa.zaaktualizowanie_ilości_materialow(ilosc, lista_materialow.get(i)[0]);
+        }
+        while(model.getRowCount()!=0) {
+            model.removeRow(model.getRowCount()-1);
+        }
+        
+    }
+    private void utworzenie_definicji_zadań()
+    {
+        DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
+        for(int i=0; i<model.getRowCount(); i++)  {
+            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, NORMAL)));
+        }
+        while(model.getRowCount()!=0) {
+            model.removeRow(model.getRowCount()-1);
+        }
+        definicje_zadan_tabela.setEnabled(false);
+    }
+    private void utworzenie_ceny ()
+    {
+        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robociznajTextField1.getText().toString(),materialyjTextField2.getText().toString(),marzajTextField3.getText().toString());
+        robociznajTextField1.setText("");
+        robociznajTextField1.setEnabled(false);
+        materialyjTextField2.setText("");
+        materialyjTextField2.setEnabled(false);
+        marzajTextField3.setText("");
+        marzajTextField3.setEnabled(false);
+    
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,19 +241,21 @@ public class Ekran_Technologa extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        lista_projektow = new javax.swing.JScrollPane();
+        jTabel2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        data1_jTextField2 = new javax.swing.JTextField();
+        data2_jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        parametr_jTextField4 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Szukaj_przycisk = new javax.swing.JButton();
         dane_użytkownika = new javax.swing.JPanel();
         zalogowano_jako = new javax.swing.JLabel();
         obraz_uzytkownika_label = new javax.swing.JLabel();
-        wylogujButton = new javax.swing.JButton();
+        OdrzucButton = new javax.swing.JButton();
+        wylogujButton1 = new javax.swing.JButton();
+        ZaakceptujButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -48,44 +263,45 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        nazwa_jTextField8 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        rodzajjTextField9 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        wymiaryPolproduktujTextField10 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        iloscPolproduktujTextField11 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        rysunekPolproduktu_jTextField9 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tabela_definicje_zadan = new javax.swing.JTable();
+        definicje_zadan_tabela = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        robociznajTextField1 = new javax.swing.JTextField();
+        materialyjTextField2 = new javax.swing.JTextField();
+        marzajTextField3 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        typ_jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        wymiary_jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        laczenia_jTextField6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        ilosc_jTextField7 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        rysunek_jTextField8 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        polprodukty_jComboBox1 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(200, 200, 200));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -95,60 +311,43 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        lista_projektow.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTabel2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nr", "Data złożenia", "Nazwa Projektu"
+                "Numer", "Data złożenia", "Typ mebla"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-        }
+        ));
+        lista_projektow.setViewportView(jTabel2);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("Od");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        data1_jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        data1_jTextField2.setText("Od");
+        data1_jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                data1_jTextField2ActionPerformed(evt);
             }
         });
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("Do");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        data2_jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        data2_jTextField2.setText("Do");
+        data2_jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                data2_jTextField2ActionPerformed(evt);
             }
         });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("-");
 
-        jTextField4.setText("Nazwa zawiera");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        parametr_jTextField4.setText("Nazwa zawiera");
+        parametr_jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                parametr_jTextField4ActionPerformed(evt);
             }
         });
 
@@ -163,17 +362,17 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(data1_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(data2_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField4)
+                        .addComponent(parametr_jTextField4)
                         .addGap(28, 28, 28))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -182,12 +381,12 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(data1_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(data2_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(parametr_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         Szukaj_przycisk.setText("Szukaj");
@@ -204,14 +403,14 @@ public class Ekran_Technologa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lista_projektow, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(Szukaj_przycisk, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,12 +418,12 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lista_projektow, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Szukaj_przycisk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 570));
@@ -248,10 +447,24 @@ public class Ekran_Technologa extends javax.swing.JFrame {
             java.lang.System.out.println("blad ladowania ikony");
         }
 
-        wylogujButton.setText("Wyloguj");
-        wylogujButton.addActionListener(new java.awt.event.ActionListener() {
+        OdrzucButton.setText("Odrzuć");
+        OdrzucButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wylogujButtonActionPerformed(evt);
+                odrzucButtonActionPerformed(evt);
+            }
+        });
+
+        wylogujButton1.setText("Wyloguj");
+        wylogujButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wylogujButton1ActionPerformed(evt);
+            }
+        });
+
+        ZaakceptujButton2.setText("Zaakceptuj");
+        ZaakceptujButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZaakceptujButton2zaakceptujButtonActionPerformed(evt);
             }
         });
 
@@ -260,26 +473,46 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         dane_użytkownikaLayout.setHorizontalGroup(
             dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(zalogowano_jako, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(wylogujButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dane_użytkownikaLayout.createSequentialGroup()
+                        .addComponent(ZaakceptujButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dane_użytkownikaLayout.createSequentialGroup()
+                        .addComponent(OdrzucButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dane_użytkownikaLayout.createSequentialGroup()
+                    .addContainerGap(162, Short.MAX_VALUE)
+                    .addComponent(wylogujButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(88, 88, 88)))
         );
         dane_użytkownikaLayout.setVerticalGroup(
             dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dane_użytkownikaLayout.createSequentialGroup()
                 .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(dane_użytkownikaLayout.createSequentialGroup()
+                            .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(dane_użytkownikaLayout.createSequentialGroup()
+                            .addComponent(ZaakceptujButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(OdrzucButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                        .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(wylogujButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(1, 1, 1)
+                        .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 1, Short.MAX_VALUE))
+            .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dane_użytkownikaLayout.createSequentialGroup()
+                    .addContainerGap(40, Short.MAX_VALUE)
+                    .addComponent(wylogujButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
-        getContentPane().add(dane_użytkownika, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 220, 90));
+        getContentPane().add(dane_użytkownika, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 350, 90));
 
         jPanel5.setBackground(new java.awt.Color(200, 200, 200));
 
@@ -297,10 +530,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
 
         tabela_materialy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nazwa", "Rodzaj", "Wzór", "Klasa", "Ilość"
@@ -356,50 +586,45 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.add(jLabel13);
 
-        jTextField8.setEditable(false);
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        nazwa_jTextField8.setEditable(false);
+        nazwa_jTextField8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                nazwa_jTextField8ActionPerformed(evt);
             }
         });
-        jPanel7.add(jTextField8);
+        jPanel7.add(nazwa_jTextField8);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Rodzaj");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.add(jLabel11);
 
-        jTextField9.setEditable(false);
-        jPanel7.add(jTextField9);
+        rodzajjTextField9.setEditable(false);
+        jPanel7.add(rodzajjTextField9);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Wymiary gabarytowe");
         jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.add(jLabel12);
 
-        jTextField10.setEditable(false);
-        jPanel7.add(jTextField10);
+        wymiaryPolproduktujTextField10.setEditable(false);
+        jPanel7.add(wymiaryPolproduktujTextField10);
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Ilość");
         jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.add(jLabel14);
 
-        jTextField11.setEditable(false);
-        jPanel7.add(jTextField11);
+        iloscPolproduktujTextField11.setEditable(false);
+        jPanel7.add(iloscPolproduktujTextField11);
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Rysunek");
         jLabel22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.add(jLabel22);
 
-        jButton3.setText("Pokaż");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel7.add(jButton3);
+        rysunekPolproduktu_jTextField9.setEditable(false);
+        jPanel7.add(rysunekPolproduktu_jTextField9);
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Szczegóły Wybranego Półproduktu");
@@ -427,34 +652,30 @@ public class Ekran_Technologa extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
         );
 
         getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, -1, 180));
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        tabela_definicje_zadan.setModel(new javax.swing.table.DefaultTableModel(
+        definicje_zadan_tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Definicja Zadań"
             }
         ));
-        jScrollPane4.setViewportView(tabela_definicje_zadan);
+        jScrollPane4.setViewportView(definicje_zadan_tabela);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -484,22 +705,11 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         jLabel18.setText("marża");
         jLabel18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel9.add(jLabel18);
+        jPanel9.add(robociznajTextField1);
+        jPanel9.add(materialyjTextField2);
+        jPanel9.add(marzajTextField3);
 
-        jTextField12.setText("robocizna");
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
-            }
-        });
-        jPanel9.add(jTextField12);
-
-        jTextField13.setText("materiały");
-        jPanel9.add(jTextField13);
-
-        jTextField14.setText("marża");
-        jPanel9.add(jTextField14);
-
-        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 730, 320, 60));
+        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 730, 330, 60));
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Ustal Cenę");
@@ -508,7 +718,7 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel21.setMaximumSize(new java.awt.Dimension(300, 18));
         jLabel21.setMinimumSize(new java.awt.Dimension(200, 30));
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 710, 320, 20));
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 710, 330, 20));
 
         jPanel4.setBackground(new java.awt.Color(200, 200, 200));
 
@@ -520,63 +730,57 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel5);
 
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        typ_jTextField1.setEditable(false);
+        typ_jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                typ_jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1);
+        jPanel2.add(typ_jTextField1);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Wymiary gabatytowe");
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel6);
 
-        jTextField5.setEditable(false);
-        jPanel2.add(jTextField5);
+        wymiary_jTextField5.setEditable(false);
+        jPanel2.add(wymiary_jTextField5);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Łączenia");
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel7);
 
-        jTextField6.setEditable(false);
-        jPanel2.add(jTextField6);
+        laczenia_jTextField6.setEditable(false);
+        jPanel2.add(laczenia_jTextField6);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Ilość");
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel9);
 
-        jTextField7.setEditable(false);
-        jPanel2.add(jTextField7);
+        ilosc_jTextField7.setEditable(false);
+        jPanel2.add(ilosc_jTextField7);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Rysunek");
         jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel15);
 
-        jButton2.setText("Pokaż");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2);
+        rysunek_jTextField8.setEditable(false);
+        jPanel2.add(rysunek_jTextField8);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Półprodukty ");
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel8);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        polprodukty_jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                polprodukty_jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1);
+        jPanel2.add(polprodukty_jComboBox1);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Szczegóły Projektu");
@@ -614,50 +818,48 @@ public class Ekran_Technologa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void data1_jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data1_jTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_data1_jTextField2ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void data2_jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data2_jTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_data2_jTextField2ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void parametr_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametr_jTextField4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_parametr_jTextField4ActionPerformed
 
     private void Szukaj_przyciskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Szukaj_przyciskActionPerformed
-        // TODO add your handling code here:
+        modyfikacja_listy_projektow_w_zaleznosci_od_filtra();        
     }//GEN-LAST:event_Szukaj_przyciskActionPerformed
 
-    private void wylogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujButtonActionPerformed
+    private void odrzucButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odrzucButtonActionPerformed
         new Ekran_glowny().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_wylogujButtonActionPerformed
+    }//GEN-LAST:event_odrzucButtonActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void polprodukty_jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polprodukty_jComboBox1ActionPerformed
+        wyświetlenie_szczegółów_wybranego_półproduktu(polprodukty_jComboBox1.getSelectedItem().toString());
+    }//GEN-LAST:event_polprodukty_jComboBox1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void typ_jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typ_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_typ_jTextField1ActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void nazwa_jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nazwa_jTextField8ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_nazwa_jTextField8ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void wylogujButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_wylogujButton1ActionPerformed
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void ZaakceptujButton2zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZaakceptujButton2zaakceptujButtonActionPerformed
+        zaaktualizowanie_ilości_materialow();
+        utworzenie_definicji_zadań();
+        utworzenie_ceny();
+    }//GEN-LAST:event_ZaakceptujButton2zaakceptujButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -695,11 +897,15 @@ public class Ekran_Technologa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton OdrzucButton;
     private javax.swing.JButton Szukaj_przycisk;
+    private javax.swing.JButton ZaakceptujButton2;
     private javax.swing.JPanel dane_użytkownika;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField data1_jTextField2;
+    private javax.swing.JTextField data2_jTextField2;
+    private javax.swing.JTable definicje_zadan_tabela;
+    private javax.swing.JTextField iloscPolproduktujTextField11;
+    private javax.swing.JTextField ilosc_jTextField7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -730,28 +936,27 @@ public class Ekran_Technologa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable jTabel2;
+    private javax.swing.JTextField laczenia_jTextField6;
+    private javax.swing.JScrollPane lista_projektow;
+    private javax.swing.JTextField marzajTextField3;
+    private javax.swing.JTextField materialyjTextField2;
+    private javax.swing.JTextField nazwa_jTextField8;
     private javax.swing.JLabel obraz_uzytkownika_label;
-    private javax.swing.JTable tabela_definicje_zadan;
+    private javax.swing.JTextField parametr_jTextField4;
+    private javax.swing.JComboBox<String> polprodukty_jComboBox1;
+    private javax.swing.JTextField robociznajTextField1;
+    private javax.swing.JTextField rodzajjTextField9;
+    private javax.swing.JTextField rysunekPolproduktu_jTextField9;
+    private javax.swing.JTextField rysunek_jTextField8;
     private javax.swing.JTable tabela_materialy;
-    private javax.swing.JButton wylogujButton;
+    private javax.swing.JTextField typ_jTextField1;
+    private javax.swing.JButton wylogujButton1;
+    private javax.swing.JTextField wymiaryPolproduktujTextField10;
+    private javax.swing.JTextField wymiary_jTextField5;
     private javax.swing.JLabel zalogowano_jako;
     // End of variables declaration//GEN-END:variables
+
 }

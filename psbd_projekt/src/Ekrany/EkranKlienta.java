@@ -4,13 +4,84 @@
  */
 package Ekrany;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.table.DefaultTableModel;
+import Dodatkowe.dodanyProjekt;
 /**
  *
  * @author huawei
  */
 public class EkranKlienta extends javax.swing.JFrame {
     int id_klienta;
-    java.lang.String login_klienta;  
+    java.lang.String login_klienta;
+    int licznik = 0;
+    
+    /*public class dodanyProjekt{
+        
+        String Id_projektu, Nazwa, Typ, Cena, Material, OpcjonalneCzesci;
+        
+        public dodanyProjekt(String Id_projektu, String Nazwa, String Typ, String Cena, String Material, String OpcjonalneCzesci){
+            this.setId(Id_projektu);
+            this.setNazwa(Nazwa);
+            this.setTyp(Typ);
+            this.setCena(Cena);
+            this.setMaterial(Material);
+            this.setOpcjonalneCzesci(OpcjonalneCzesci);
+        }
+        
+        public void setId(String Id_projektu){this.Id_projektu = Id_projektu;}
+        public void setNazwa(String Nazwa){this.Nazwa = Nazwa;}
+        public void setTyp(String Typ){this.Typ = Typ;}
+        public void setCena(String Cena){this.Cena = Cena;}
+        public void setMaterial(String Material){this.Material = Material;}
+        public void setOpcjonalneCzesci(String OpcjonalneCzesci){this.OpcjonalneCzesci = OpcjonalneCzesci;}
+        
+    }*/
+    
+    ArrayList<dodanyProjekt> koszyk;
+    
+    public void setKoszyk(ArrayList<dodanyProjekt> k){
+        this.koszyk = k;
+    }
+    
+    public void DbWyswietlKatalog(String temp, String filtr){
+        Object[] tab;
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            temp = '"'+temp+'"';
+            String zapytanie = 
+                    "SELECT tab1.Id_Proj_katalog, projekt_z_katalogu.Nazwa, typ_mebla.Nazwa, (tab1.Marza + COALESCE(tab1.CenaPolProd,0) + tab2.CenaMaterialow + tab3.CenaZadan) AS KosztCalkowity FROM projekt_z_katalogu\n" +
+                    "LEFT JOIN\n" +
+                    "(SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(projekt_z_katalogu.Marza) AS Marza, SUM(projekt_polproduktu.cena) AS CenaPolprod  FROM projekt_z_katalogu\n" +
+                    "LEFT JOIN projekt_polproduktu ON projekt_polproduktu.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog\n" +
+                    "GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab1 USING (Id_Proj_katalog)\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(material.Cena) AS CenaMaterialow FROM projekt_z_katalogu\n" +
+                    "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog\n" +
+                    "LEFT JOIN material ON material.Id_Materialu = material_proj_katalog.Id_Materialu\n" +
+                    "GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab2 USING (Id_Proj_katalog)\n" +
+                    "LEFT JOIN (\n" +
+                    "SELECT projekt_z_katalogu.Id_Proj_katalog, SUM(definicja_zadania.Cena) AS CenaZadan FROM firma.projekt_z_katalogu\n" +
+                    "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog\n" +
+                    "GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab3 USING (Id_Proj_katalog)\n" +
+                    "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla\n" +
+                    filtr+"WHERE typ_mebla.Nazwa = "+temp;
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4)};
+                //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.addRow(tab);
+            }
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
     /**
      * Creates new form EkranKlienta
      */
@@ -18,6 +89,9 @@ public class EkranKlienta extends javax.swing.JFrame {
         initComponents();
         id_klienta = 0;
         login_klienta = "Nieznany";  
+        DbWyswietlKatalog(" ", " -- ");
+        koszyk = new ArrayList<>();
+    
     }
     
     public void  setCustomer(int id, String login){
@@ -54,10 +128,10 @@ public class EkranKlienta extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        materialBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton9 = new javax.swing.JButton();
+        opcjonalneCzesciBox = new javax.swing.JComboBox<>();
+        dodajDoKoszykaButton = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         kategorie_comb_box = new javax.swing.JComboBox<>();
@@ -181,13 +255,10 @@ public class EkranKlienta extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nr", "Nazwa", "Typ", "Ilość"
+                "Nr", "Nazwa", "Typ", "Cena"
             }
         ) {
             Class[] types = new Class [] {
@@ -214,14 +285,14 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel9.setText("Materiał:");
         jPanel2.add(jLabel9);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        materialBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        materialBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        materialBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                materialBoxActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox3);
+        jPanel2.add(materialBox);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Opcjonalne części:");
@@ -229,17 +300,17 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(jLabel7);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel2.add(jComboBox2);
+        opcjonalneCzesciBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        opcjonalneCzesciBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel2.add(opcjonalneCzesciBox);
 
-        jButton9.setText("Dodaj do koszyka");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        dodajDoKoszykaButton.setText("Dodaj do koszyka");
+        dodajDoKoszykaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                dodajDoKoszykaButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton9);
+        jPanel2.add(dodajDoKoszykaButton);
 
         jButton10.setText("Odrzuć");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -300,12 +371,17 @@ public class EkranKlienta extends javax.swing.JFrame {
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, -1, 640));
 
-        kategorie_comb_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stoły", "Krzesła", "Fotele", "Łóżka", "Sofy",
+        kategorie_comb_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wszystkie" ,"Stoły", "Krzesła", "Fotele", "Łóżka", "Sofy",
             "Biurka", "Szafy", "Komody", "Szafki nocne", "Narożniki", "Regały", "Kredensy"}));
-kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        kategorie_comb_boxActionPerformed(evt);
+kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
+    public void mousePressed(java.awt.event.MouseEvent evt) {
+        kategorie_comb_boxMousePressed(evt);
     }
+    });
+    kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            kategorie_comb_boxActionPerformed(evt);
+        }
     });
     getContentPane().add(kategorie_comb_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 140, 30));
 
@@ -321,8 +397,11 @@ kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
     }//GEN-LAST:event_wylogujButtonActionPerformed
 
     private void historiaZamowienButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historiaZamowienButtonActionPerformed
-        new Ekran_historii_zamowien().setVisible(true);
-        this.setVisible(false);
+        Ekran_historii_zamowien histZam = null;
+        histZam = new Ekran_historii_zamowien();
+        histZam.setCustomer(id_klienta, login_klienta);
+        histZam.setVisible(true);
+        //this.setVisible(false);
     }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
     private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
@@ -331,25 +410,100 @@ kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
     }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
     private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
-        new Ekran_szczegolow_zamowienia().setVisible(true);
-        this.setVisible(false);
+        Ekran_szczegolow_zamowienia ekranSZ = new Ekran_szczegolow_zamowienia();
+        ekranSZ.setKoszyk(koszyk);
+        ekranSZ.koszykDoTabeli();
+        ekranSZ.setVisible(true);
+        ekranSZ.setEkranKlienta(this);
+        
+        //this.setVisible(false);
     }//GEN-LAST:event_koszykButtonActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void dodajDoKoszykaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajDoKoszykaButtonActionPerformed
+        
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        String numer = jTable1.getModel().getValueAt(row, column).toString();
+        
+        column = 1;
+        row = jTable1.getSelectedRow();
+        String nazwa = jTable1.getModel().getValueAt(row, column).toString();
+        
+        column = 2;
+        row = jTable1.getSelectedRow();
+        String typ = jTable1.getModel().getValueAt(row, column).toString();
+        
+        column = 3;
+        row = jTable1.getSelectedRow();
+        String cena = jTable1.getModel().getValueAt(row, column).toString();
+        
+        String material = materialBox.getSelectedItem().toString();
+        
+        String opcj = opcjonalneCzesciBox.getSelectedItem().toString();
+        
+        koszyk.add(new dodanyProjekt(numer, nazwa, typ, cena, material, opcj));
+    }//GEN-LAST:event_dodajDoKoszykaButtonActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void materialBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_materialBoxActionPerformed
 
     private void kategorie_comb_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategorie_comb_boxActionPerformed
-        // TODO add your handling code here:
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for(int i=1; i<100; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        String kategoria = kategorie_comb_box.getSelectedItem().toString();
+        
+        switch(kategoria){
+            case "Stoły": kategoria = "Stół";
+            break;
+            case "Krzesła": kategoria = "Krzesło";
+            break;
+            case "Fotele": kategoria = "Fotel";
+            break;
+            case "Łóżka": kategoria = "Łóżko";
+            break;
+            case "Sofy": kategoria = "Sofa";
+            break;
+            case "Biurka": kategoria = "Biurko";
+            break;
+            case "Szafy": kategoria = "Szafa";
+            break;
+            case "Komody": kategoria = "Komoda";
+            break;
+            case "Szafki nocne": kategoria = "Szafka nocna";
+            break;
+            case "Narożniki": kategoria = "Narożnik";
+            break;
+            case "Regały": kategoria = "Regał";
+            break;
+            case "Kredensy": kategoria = "Kredens";
+            break;
+            
+        }
+        
+        if(kategoria.equals("Wszystkie")){
+            DbWyswietlKatalog(kategoria, " -- ");
+        }else{
+            DbWyswietlKatalog(kategoria, " ");
+        }
+        
+        
     }//GEN-LAST:event_kategorie_comb_boxActionPerformed
+
+    private void kategorie_comb_boxMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kategorie_comb_boxMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kategorie_comb_boxMousePressed
 
     /**
      * @param args the command line arguments
@@ -388,12 +542,10 @@ kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dane_użytkownika;
+    private javax.swing.JButton dodajDoKoszykaButton;
     private javax.swing.JButton historiaZamowienButton;
     private javax.swing.JLabel ikona_wozka_sklepowego;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -408,8 +560,10 @@ kategorie_comb_box.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton koszykButton;
     private javax.swing.JPanel koszyk_pane;
     private javax.swing.JLabel l_rzeczy_w_koszyku;
+    private javax.swing.JComboBox<String> materialBox;
     private javax.swing.JLabel nazwa_użytkownika;
     private javax.swing.JLabel obraz_uzytkownika_label;
+    private javax.swing.JComboBox<String> opcjonalneCzesciBox;
     private javax.swing.JButton wlasnyProjektButton;
     private javax.swing.JButton wylogujButton;
     private javax.swing.JLabel zalogowano_jako;

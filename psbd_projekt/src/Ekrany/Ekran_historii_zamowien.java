@@ -18,6 +18,8 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     String StanZamowienia = null;
     String IdMebla = null;
     String IdZamowienia = null;
+    int IdKlienta = 3;
+    String login_klienta = null;
 
     /**
      * Creates new form Ekran_historii_zamowien
@@ -26,10 +28,15 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         initComponents();
     }
     
+    public void  setCustomer(int id, String login){
+        this.IdKlienta = id;
+        this.login_klienta = login;
+        
+    }
+    
     public void DbHistoriaZamowien(){
         
         Object[] tab;
-        int IdKlienta = 3;
         
         try{  
             Connection con=DriverManager.getConnection(  
@@ -432,7 +439,9 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-        new EkranKlienta().setVisible(true);
+        //EkranKlienta klient = new EkranKlienta();
+        //klient.setCustomer(IdKlienta, login_klienta);
+        //klient.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 
