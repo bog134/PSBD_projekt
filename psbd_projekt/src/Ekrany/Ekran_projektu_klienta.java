@@ -4,15 +4,31 @@
  */
 package Ekrany;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+
+import Dodatkowe.*;
+
+// INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Ceny, Id_Typu_mebla, Id_Laczenia, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc, Nazwa_pliku_rysunku) VALUES
+// (1, NULL, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
+
+
 /**
  *
  * @author Maciek
  */
 public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
-    /**
+    ArrayList<ProjektKlienta> koszyk;
+    ProjektKlienta projekt;
+
+
+    /**z
      * Creates new form Ekran_projektu_klienta
      */
+    
     public Ekran_projektu_klienta() {
         initComponents();
     }
@@ -35,39 +51,51 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        tarcicaBox = new javax.swing.JComboBox<>();
+        drewnoBox = new javax.swing.JComboBox<>();
         typMeblaBox = new javax.swing.JComboBox<>();
         tkaninaObiciowaBox = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
         okleinaBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         plytaMeblowaBox = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        dodaj_rysunek_projektu = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        laczeniaBox = new javax.swing.JComboBox<>();
         piankaTapicerskaBox = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        wymiaryGabarytowe = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        polp_nazwa = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox8 = new javax.swing.JComboBox<>();
+        polp_rodzaj = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        dodaj_rysunek_polp = new javax.swing.JButton();
+        dodaj_polp_button = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        rysunek_polp_nazwa = new javax.swing.JTextField();
         powrotButton = new javax.swing.JButton();
+        dlugosc_polp = new javax.swing.JTextField();
+        szerokosc_polp = new javax.swing.JTextField();
+        wysokosc_polp = new javax.swing.JTextField();
+        szerkosc_mebla = new javax.swing.JTextField();
+        wysokosc_mebla = new javax.swing.JTextField();
+        dlugosc_mebla = new javax.swing.JTextField();
+        jButton8 = new javax.swing.JButton();
+        dodaj_projekt = new javax.swing.JButton();
+        liczba_sztuk_polp = new javax.swing.JSpinner();
+        message_label = new javax.swing.JLabel();
+        rysunek_nazwa = new javax.swing.JTextField();
+        liczba_sztuk1 = new javax.swing.JSpinner();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,31 +106,31 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Dodawanie półproduktów");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 350, 50));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 640, 540, 10));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 340, 30));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 540, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Tarcica");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 150, 40));
+        jLabel2.setText("Rodzaj drewna");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 150, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Typ");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 180, 40));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 180, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Materiały:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 180, 30));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 180, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Tkanina obiciowa");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 150, 40));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 150, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Płyta meblowa");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 150, 40));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 150, 30));
 
-        tarcicaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Deska dębowa", "Drewno bukowe", "Drewno sosnowe", "Drewno brzozowe", "Drewno hebanowe" }));
-        jPanel2.add(tarcicaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 220, 40));
+        drewnoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Deska dębowa", "Drewno bukowe", "Drewno sosnowe", "Drewno brzozowe", "Drewno hebanowe" }));
+        jPanel2.add(drewnoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 220, 30));
 
         typMeblaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Stol", "Krzeslo", "Fotel", "Lozko", "Sofa", "Biurko", "Szafa", "Komoda", "Szafka nocna", "Naroznik", "Regal", "Kredens" }));
         typMeblaBox.addActionListener(new java.awt.event.ActionListener() {
@@ -110,319 +138,480 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
                 typMeblaBoxActionPerformed(evt);
             }
         });
-        jPanel2.add(typMeblaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 220, 40));
+        jPanel2.add(typMeblaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 220, 30));
 
-        tkaninaObiciowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flok", "Welwet", "Ekoskóra", "Szenil" }));
-        jPanel2.add(tkaninaObiciowaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 220, 40));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tkaninaObiciowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Flok", "Welwet", "Ekoskóra", "Szenil" }));
+        tkaninaObiciowaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tkaninaObiciowaBoxActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 850, 150, 40));
+        jPanel2.add(tkaninaObiciowaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 220, 30));
 
-        okleinaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fornir naturalny", "Fornir modyfikowany", "Okleina PCV" }));
-        jPanel2.add(okleinaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 220, 40));
+        okleinaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Fornir naturalny", "Fornir modyfikowany", "Okleina PCV" }));
+        jPanel2.add(okleinaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 220, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Okleina");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 410, 150, 40));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 150, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Pianka tapicerska");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, 150, 40));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 150, 30));
 
-        plytaMeblowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Płyta wiórowa", "Płyta paździerzowa", "Płyta pilśniowa", "Płyta MDF" }));
-        jPanel2.add(plytaMeblowaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 220, 40));
+        plytaMeblowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Płyta wiórowa", "Płyta paździerzowa", "Płyta pilśniowa", "Płyta MDF" }));
+        jPanel2.add(plytaMeblowaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 220, 30));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton3.setText("+");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        dodaj_rysunek_projektu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        dodaj_rysunek_projektu.setText("+");
+        dodaj_rysunek_projektu.setHideActionText(true);
+        dodaj_rysunek_projektu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dodaj_rysunek_projektu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                dodaj_rysunek_projektuActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 50, 40));
+        jPanel2.add(dodaj_rysunek_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 50, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Liczba sztuk");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 860, 180, 30));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 660, 110, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Łączenia");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 180, 30));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 150, 30));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wkręty", "Klej", "Wciskowe", "Kołki", "Mimośrody i trzpienie", "Gwintowane" }));
-        jPanel2.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 220, 40));
+        laczeniaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Wkręty", "Klej", "Wciskowe", "Kołki", "Mimośrody i trzpienie", "Gwintowane" }));
+        jPanel2.add(laczeniaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 220, 30));
 
-        piankaTapicerskaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pianka poliuretanowa", "Pianka wysokoelastyczna", "Pianka polieterowa"}));
-        jPanel2.add(piankaTapicerskaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 220, 40));
+        piankaTapicerskaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Pianka poliuretanowa", "Pianka wysokoelastyczna", "Pianka polieterowa"}));
+        jPanel2.add(piankaTapicerskaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 220, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Wymiary gabarytowe [mm]");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 210, 40));
-
-        wymiaryGabarytowe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wymiaryGabarytoweActionPerformed(evt);
-            }
-        });
-        jPanel2.add(wymiaryGabarytowe, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 220, 40));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 220, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel12.setText("Dodawanie własnego projektu");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 50));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 540, 10));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 350, -1));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 540, 10));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Nazwa");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, 180, 40));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 70, 30));
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        polp_nazwa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                polp_nazwaActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 650, 220, 40));
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 700, 220, 40));
+        jPanel2.add(polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, 220, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("Wymiary gabarytowe");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 700, 180, 40));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 180, 30));
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stelaż", "Rama", "Front", "Dekory"}));
-        jComboBox8.addActionListener(new java.awt.event.ActionListener() {
+        polp_rodzaj.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stelaż", "Rama", "Front", "Dekory"}));
+        polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox8ActionPerformed(evt);
+                polp_rodzajActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 750, 220, 40));
+        jPanel2.add(polp_rodzaj, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 580, 220, 30));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Rodzaj");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 750, 180, 30));
-
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton4.setText("Dodaj projekt");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 950, 270, 40));
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 800, 150, 40));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 580, 70, 30));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Rysunek");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 800, 180, 30));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, 80, 30));
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton5.setText("+");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        dodaj_rysunek_polp.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        dodaj_rysunek_polp.setText("+");
+        dodaj_rysunek_polp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                dodaj_rysunek_polpActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 800, 50, 40));
+        jPanel2.add(dodaj_rysunek_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, 50, 30));
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setText("Dodaj półprodukt");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        dodaj_polp_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dodaj_polp_button.setText("Dodaj półprodukt");
+        dodaj_polp_button.setEnabled(false);
+        dodaj_polp_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                dodaj_polp_buttonActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 900, 150, 30));
+        jPanel2.add(dodaj_polp_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 700, 150, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel17.setText("Rysunek");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 180, 30));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 150, 30));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel18.setText("Liczba sztuk");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 570, 180, 30));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 150, 30));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        rysunek_polp_nazwa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                rysunek_polp_nazwaActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, 150, 40));
+        jPanel2.add(rysunek_polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 620, 160, 30));
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 150, 40));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 1000));
         powrotButton.setText("Powrot");
         powrotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 powrotButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 110, 40));
+        jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 90, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 970));
+        dlugosc_polp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dlugosc_polpActionPerformed(evt);
+            }
+        });
+        jPanel2.add(dlugosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, 80, 30));
+
+        szerokosc_polp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szerokosc_polpActionPerformed(evt);
+            }
+        });
+        jPanel2.add(szerokosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 550, 80, 30));
+
+        wysokosc_polp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wysokosc_polpActionPerformed(evt);
+            }
+        });
+        jPanel2.add(wysokosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, 80, 30));
+
+        szerkosc_mebla.setToolTipText("");
+        szerkosc_mebla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szerkosc_meblaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(szerkosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 80, 30));
+
+        wysokosc_mebla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wysokosc_meblaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(wysokosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 80, 30));
+
+        dlugosc_mebla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dlugosc_meblaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(dlugosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 80, 30));
+
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jButton8.setText("Dodaj projekt do koszyka");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 330, 40));
+
+        dodaj_projekt.setText("Dodaj projekt");
+        dodaj_projekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dodaj_projektActionPerformed(evt);
+            }
+        });
+        jPanel2.add(dodaj_projekt, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 200, 30));
+
+        liczba_sztuk_polp.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+        jPanel2.add(liczba_sztuk_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 660, 160, 30));
+
+        message_label.setForeground(new java.awt.Color(200, 0, 0));
+        message_label.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
+
+        rysunek_nazwa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rysunek_nazwaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rysunek_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 160, 30));
+
+        liczba_sztuk1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+        jPanel2.add(liczba_sztuk1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
+
+        jLabel19.setText("długość:");
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 20));
+
+        jLabel20.setText("szerokość:");
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, 20));
+
+        jLabel21.setText("wysokość:");
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, 20));
+
+        jLabel22.setText("długość:");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, -1, 20));
+
+        jLabel23.setText("wysokość:");
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 530, -1, 20));
+
+        jLabel24.setText("szerokość:");
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, 60, 20));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 810));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void dodaj_rysunek_projektuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_rysunek_projektuActionPerformed
+        JFileChooser file_chooser = new JFileChooser();
+        file_chooser.showOpenDialog(null);
+        File file = file_chooser.getSelectedFile();
+        rysunek_nazwa.setText(file.getName());
+    }//GEN-LAST:event_dodaj_rysunek_projektuActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void polp_nazwaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polp_nazwaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void wymiaryGabarytoweActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wymiaryGabarytoweActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_wymiaryGabarytoweActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_polp_nazwaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void dodaj_rysunek_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_rysunek_polpActionPerformed
+        JFileChooser file_chooser = new JFileChooser();
+        file_chooser.showOpenDialog(null);
+        File file = file_chooser.getSelectedFile();
+        rysunek_polp_nazwa.setText(file.getName());
+    }//GEN-LAST:event_dodaj_rysunek_polpActionPerformed
 
     private void typMeblaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typMeblaBoxActionPerformed
         if (evt.getSource()==typMeblaBox){
             if(typMeblaBox.getSelectedItem()=="Stol"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(true);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(false);
+
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                plytaMeblowaBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Krzeslo"){
-                tkaninaObiciowaBox.setEnabled(false);
+                tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(true);
-                piankaTapicerskaBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
+                piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
+
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
             }else if(typMeblaBox.getSelectedItem()=="Fotel"){
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Lozko"){
-                tkaninaObiciowaBox.setEnabled(false);
+                tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(true);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(false);
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Sofa"){
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Biurko"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Szafa"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Komoda"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Szafka nocna"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+                
             }else if(typMeblaBox.getSelectedItem()=="Naroznik"){
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
             }else if(typMeblaBox.getSelectedItem()=="Regal"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                tarcicaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+                
             }else if(typMeblaBox.getSelectedItem()=="Kredens"){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(false);
-                tarcicaBox.setEnabled(true);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(false);
+
+                tkaninaObiciowaBox.setSelectedIndex(0);
+                plytaMeblowaBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
             }
         }
     }//GEN-LAST:event_typMeblaBoxActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void dodaj_polp_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_polp_buttonActionPerformed
+        if (polp_nazwa.getText().equals("") || szerokosc_polp.getText().equals("") || wysokosc_polp.getText().equals("") ||
+            dlugosc_polp.getText().equals("") || liczba_sztuk_polp.getValue() == "0") {
+           message_label.setText("Wprowadz wszystkie wymagane dane półproduktu");
+        } else {
+            projekt.dodajPolprodukt(koszyk.size(), polp_rodzaj.getSelectedIndex()+1, polp_nazwa.getText(), szerokosc_polp.getText(), wysokosc_polp.getText(), dlugosc_polp.getText(), rysunek_polp_nazwa.getText());
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        }
+    }//GEN-LAST:event_dodaj_polp_buttonActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void rysunek_polp_nazwaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rysunek_polp_nazwaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_rysunek_polp_nazwaActionPerformed
 
-    private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
+    private void polp_rodzajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polp_rodzajActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox8ActionPerformed
+    }//GEN-LAST:event_polp_rodzajActionPerformed
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
         new EkranKlienta().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
+
+    private void dlugosc_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dlugosc_polpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dlugosc_polpActionPerformed
+
+    private void szerokosc_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szerokosc_polpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_szerokosc_polpActionPerformed
+
+    private void wysokosc_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wysokosc_polpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wysokosc_polpActionPerformed
+
+    private void szerkosc_meblaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szerkosc_meblaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_szerkosc_meblaActionPerformed
+
+    private void wysokosc_meblaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wysokosc_meblaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wysokosc_meblaActionPerformed
+
+    private void dlugosc_meblaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dlugosc_meblaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dlugosc_meblaActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void dodaj_projektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_projektActionPerformed
+        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk_polp.getValue() == 0 ||
+            wysokosc_mebla.getText().equals("") || szerkosc_mebla.getText().equals("") || dlugosc_mebla.getText().equals("") || laczeniaBox.getSelectedIndex() == 0) {
+            System.out.println("Nieprawidłowe dane");
+            message_label.setText("Wprowadz wszystkie wymagane dane");
+        } else {
+            message_label.setText("");
+            projekt = new ProjektKlienta(koszyk.size(), typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
+            wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
+
+            dodaj_polp_button.setEnabled(true);
+        }
+        
+        // projekt = new ProjektKlienta();
+    }//GEN-LAST:event_dodaj_projektActionPerformed
+
+    private void rysunek_nazwaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rysunek_nazwaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rysunek_nazwaActionPerformed
+
+    private void tkaninaObiciowaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkaninaObiciowaBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tkaninaObiciowaBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,12 +649,14 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JTextField dlugosc_mebla;
+    private javax.swing.JTextField dlugosc_polp;
+    private javax.swing.JButton dodaj_polp_button;
+    private javax.swing.JButton dodaj_projekt;
+    private javax.swing.JButton dodaj_rysunek_polp;
+    private javax.swing.JButton dodaj_rysunek_projektu;
+    private javax.swing.JComboBox<String> drewnoBox;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -476,7 +667,13 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -488,19 +685,23 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JComboBox<String> laczeniaBox;
+    private javax.swing.JSpinner liczba_sztuk1;
+    private javax.swing.JSpinner liczba_sztuk_polp;
+    private javax.swing.JLabel message_label;
     private javax.swing.JComboBox<String> okleinaBox;
     private javax.swing.JComboBox<String> piankaTapicerskaBox;
     private javax.swing.JComboBox<String> plytaMeblowaBox;
+    private javax.swing.JTextField polp_nazwa;
+    private javax.swing.JComboBox<String> polp_rodzaj;
     private javax.swing.JButton powrotButton;
-    private javax.swing.JComboBox<String> tarcicaBox;
+    private javax.swing.JTextField rysunek_nazwa;
+    private javax.swing.JTextField rysunek_polp_nazwa;
+    private javax.swing.JTextField szerkosc_mebla;
+    private javax.swing.JTextField szerokosc_polp;
     private javax.swing.JComboBox<String> tkaninaObiciowaBox;
     private javax.swing.JComboBox<String> typMeblaBox;
-    private javax.swing.JTextField wymiaryGabarytowe;
+    private javax.swing.JTextField wysokosc_mebla;
+    private javax.swing.JTextField wysokosc_polp;
     // End of variables declaration//GEN-END:variables
 }
