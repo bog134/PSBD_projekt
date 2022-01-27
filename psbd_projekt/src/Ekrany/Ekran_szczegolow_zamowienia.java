@@ -5,7 +5,15 @@
 package Ekrany;
 
 import Dodatkowe.dodanyProjekt;
+import java.awt.Frame;
+import java.sql.Connection;
+
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,6 +25,108 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     ArrayList<dodanyProjekt> koszyk;
     EkranKlienta klient;
     
+    public String DbznajdzIdOpcjCzesci(String nazwa, String id_k){
+        String id = null;
+        
+        nazwa = '"' + nazwa+ '"';
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT Id_Opcj_czesci FROM firma.opcjonalna_czesc\n" +
+                    "WHERE Nazwa = "+nazwa+" && Id_Proj_katalog ="+id_k;
+
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+               id = rs.getString(1);
+            }
+          
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+        
+        return id;
+    }
+    
+    public void DbskladanieZamowienia(){
+            
+     
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Klienta, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES\n" +
+                    "("+klient.id_klienta+", 1,CURTIME() , NULL);";
+            
+           
+            stmt.executeUpdate(zapytanie);
+            
+            int id_buff = 0;
+            int id_buff_meb = 0;
+            
+            zapytanie = "SELECT last_insert_id()";
+            
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+                id_buff = rs.getInt(1);
+            }
+            
+            for(int i=0; i<koszyk.size();i++){
+                zapytanie ="INSERT INTO MEBEL (Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog, Id_Opcj_czesci, Wykonany) VALUES\n" +
+                        "("+id_buff+", NULL, "+koszyk.get(i).getId()+", "+DbznajdzIdOpcjCzesci(koszyk.get(i).getOpcjonalneCzesci(), koszyk.get(i).getId())+", FALSE);";
+            
+                stmt.executeUpdate(zapytanie);
+                
+                zapytanie = "SELECT last_insert_id()";
+                rs=stmt.executeQuery(zapytanie);  
+                while(rs.next()){
+                id_buff_meb = rs.getInt(1);
+                }
+                
+                ArrayList<Integer> temp = new ArrayList<>();
+                
+                zapytanie = "SELECT Id_Materialu FROM firma.material_proj_katalog\n" +
+                            "WHERE Id_Proj_katalog =" +koszyk.get(i).getId();
+                rs=stmt.executeQuery(zapytanie);
+                while(rs.next()){
+                    temp.add(rs.getInt(1));
+                    
+                }
+                
+                for(int j=0; j<temp.size(); j++){
+                    zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
+                    "("+temp.get(j)+","+id_buff_meb+")";
+            
+                    stmt.executeUpdate(zapytanie);
+                }
+                
+                 ArrayList<Integer> temp1 = new ArrayList<>();
+                
+                zapytanie = "SELECT Id_Proj_polprod FROM firma.projekt_polproduktu\n" +
+                            "WHERE Id_Proj_katalog =" +koszyk.get(i).getId();
+                rs=stmt.executeQuery(zapytanie);
+                while(rs.next()){
+                    temp1.add(rs.getInt(1));
+                    
+                }
+                
+                for(int j=0; j<temp1.size(); j++){
+                    zapytanie ="INSERT INTO POLPRODUKT (Id_Proj_polprod, Id_Mebla) VALUES\n" +
+                    "("+temp1.get(j)+","+id_buff_meb+")";
+            
+                    stmt.executeUpdate(zapytanie);
+                }
+                
+                
+            }
+          
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+    }
+    
     public void setKoszyk(ArrayList<dodanyProjekt> k){
         this.koszyk = k;
     }
@@ -24,6 +134,8 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     public void setEkranKlienta(EkranKlienta kl){
         this.klient = kl;
     }
+    
+    
 
 
     /**
@@ -69,7 +181,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         powrotButton = new javax.swing.JButton();
         usunButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        zlozZamowienieButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
@@ -116,14 +228,14 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         });
         jPanel2.add(usunButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 150, 50));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Złóż zamówienie");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        zlozZamowienieButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        zlozZamowienieButton.setText("Złóż zamówienie");
+        zlozZamowienieButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                zlozZamowienieButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 150, 50));
+        jPanel2.add(zlozZamowienieButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 150, 50));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,15 +288,22 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
         klient.setKoszyk(koszyk);
+        klient.updateLiczbewKoszyku();
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void zlozZamowienieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zlozZamowienieButtonActionPerformed
+        DbskladanieZamowienia();
+        JOptionPane.showMessageDialog(new Frame(), "Zamowienie zlozone.", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        this.setVisible(false);
+    }//GEN-LAST:event_zlozZamowienieButtonActionPerformed
 
     private void usunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunButtonActionPerformed
 
+        
+        System.out.println(jTable2.getSelectedRow());
+        
+        koszyk.remove(jTable2.getSelectedRow());
         try{
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             for(int i=1; i<10; i++){
@@ -194,9 +313,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             e.getStackTrace();
         }
         
-        System.out.println(jTable2.getSelectedRow());
         
-        koszyk.remove(jTable2.getSelectedRow()+1);
         
         koszykDoTabeli();
     }//GEN-LAST:event_usunButtonActionPerformed
@@ -237,7 +354,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -248,5 +364,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JButton powrotButton;
     private javax.swing.JButton usunButton;
+    private javax.swing.JButton zlozZamowienieButton;
     // End of variables declaration//GEN-END:variables
 }
