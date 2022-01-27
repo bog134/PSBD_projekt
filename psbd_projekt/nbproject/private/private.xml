@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Studia/PSB/Projekt/PSBD_projekt/psbd_projekt/src/Ekrany/Ekran_rejestracji.java</file>
-            <file>file:/D:/Studia/PSB/Projekt/PSBD_projekt/psbd_projekt/src/SQL/MySqlconnection.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Ekrany/Ekran_historii_zamowien.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Ekrany/Ekran_szczegolow_zamowienia.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Ekrany/EkranKlienta.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Ekrany/Ekran_projektu_klienta.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Ekrany/Ekran_glowny.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Ekrany/Arkusz_Reklamacyjny.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/Dodatkowe/dodanyProjekt.java</file>
+            <file>file:/D:/Biblioteki/Documents/GitHub/PSBD_projekt/psbd_projekt/src/SQL/MySqlconnection.java</file>
         </group>
     </open-files>
 </project-private>
