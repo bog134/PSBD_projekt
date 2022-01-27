@@ -2,60 +2,19 @@ package Ekrany;
 package SQL.Ekran_Technologa;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-class Projekt_klienta extends JButton {
-   
-    private JButton b1;
-    private JLabel l1;
-    private String id;
-    
-    Projekt_klienta(String id, String data, String typ, int button_width, int button_height)
-    {
-        this.id=id;   
-        
-        String text = " " +id + "                                         " + data + "                        " + typ;
-        l1 = new JLabel(text);
-        b1 = new JButton();
-        b1.add(l1);       
-     
-        b1.setContentAreaFilled(false);      
-        b1.setBorder(BorderFactory.createBevelBorder(0));
-    } 
-    
-    public String daj_id()
-    {
-        return id;
-    }
-    
-    public JButton daj_przycisk()
-    {
-        return b1;
-    }
-    
-};
+public class Ekran_Technologa extends javax.swing.JFrame{
 
-
-
-public class Ekran_Technologa extends javax.swing.JFrame implements ActionListener {
-
-    private JPanel panel_projektow;
     private String id_techn="2";
     private String id;
-    private ArrayList<Projekt_klienta> lista_przyciskow;
     private ArrayList<String[]> lista_projektow_dane;
     private ArrayList<String[]> lista_materialow;
     /**
@@ -64,49 +23,34 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
     public Ekran_Technologa() {
         initComponents();
         lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
-        wyswietlenie_listy_projektow_klienta(lista_projektow_dane);
+        wyswietlenie_listy_projektow_klienta();
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    private void wyswietlenie_listy_projektow_klienta()
+    {     
+        DefaultTableModel model = (DefaultTableModel) lista_projektow_jTabel2.getModel();
         
-        Object source = e.getSource();  
+        while(model.getRowCount()!=0) {
+        model.removeRow(model.getRowCount()-1);
+        }
         
-        for(int i=0; i<lista_przyciskow.size(); i++)
+        for (int i=0; i<lista_projektow_dane.size(); i++)
         {
-            if(source==lista_przyciskow.get(i).daj_przycisk()) 
+            Object[] data = new Object[lista_projektow_dane.get(0).length];
+            for(int j=0; j<lista_projektow_dane.get(0).length; j++)
             {
-                id=lista_przyciskow.get(i).daj_id();
-                wyswietlenie_szczegolow_projektu();
-                wyswietlenie_projektow_polproduktow();
-                wyswietlenie_materialow();
-                dodawanie_definicji_zadań();
-                definicje_zadan_tabela.addKeyListener(new Keychecker());
-
+                data[j]=lista_projektow_dane.get(i)[j];
             }
-        }  
-    }
-    
-    private void wyswietlenie_listy_projektow_klienta(ArrayList<String[]> lista_projektow_dane)
-    {
-       panel_projektow = new JPanel(new GridLayout(0,1,0,0));
-       lista_projektow.setLayout(null);
-       lista_projektow.add(panel_projektow);
-       panel_projektow.setLocation(3, 25);       
-       
-       int height = 40;
-       int width = lista_projektow.getWidth()-20;
-       panel_projektow.setSize(width, lista_projektow_dane.size()*height);
-       lista_przyciskow = new ArrayList();
-     
-       
-       for(int i=0; i<lista_projektow_dane.size(); i++)
-       {
-           lista_przyciskow.add(new Projekt_klienta(lista_projektow_dane.get(i)[0],lista_projektow_dane.get(i)[1],lista_projektow_dane.get(i)[2],width,height));
-           panel_projektow.add(lista_przyciskow.get(i).daj_przycisk());
-           lista_przyciskow.get(i).daj_przycisk().addActionListener(this);
-           
-       }         
+            model.addRow(data);            
+        }
+        robociznajTextField1.setText("");
+        robociznajTextField1.setEnabled(false);
+        materialyjTextField2.setText("");
+        materialyjTextField2.setEnabled(false);
+        marzajTextField3.setText("");
+        marzajTextField3.setEnabled(false);
+        
+
     }
     private void modyfikacja_listy_projektow_w_zaleznosci_od_filtra()
     {
@@ -116,12 +60,7 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
         String parametr= parametr_jTextField4.getText();
 
         lista_projektow_dane = SQL.Ekran_Technologa.modyfikacja_listy_projektow_w_zaleznosci_od_filtra(data1,data2,parametr);
-        lista_projektow.remove(panel_projektow);
-        wyswietlenie_listy_projektow_klienta(lista_projektow_dane);
-        lista_projektow.revalidate();
-        panel_projektow.revalidate();
-        lista_projektow.repaint();
-        panel_projektow.repaint();
+        wyswietlenie_listy_projektow_klienta();
     } 
     private void wyswietlenie_szczegolow_projektu()
     {
@@ -195,40 +134,82 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
 }
     
     
-    private void zaaktualizowanie_ilości_materialow()
+    private void zaaktualizowanie_ilości_materialow() throws Exception
     {
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for(int i=0; i<lista_materialow.size(); i++)  {
             String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
+            if (ilosc==null) throw new Exception("Nie wypelniono ilosci materialow");
             SQL.Ekran_Technologa.zaaktualizowanie_ilości_materialow(ilosc, lista_materialow.get(i)[0]);
         }
+        
+    }
+    private void utworzenie_definicji_zadań() throws Exception
+    {
+        DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
+        if (model.getRowCount()==0) throw new Exception("Nie wypelniono definicji zadan");
+        for(int i=0; i<model.getRowCount(); i++)  {
+            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, NORMAL)));
+        }
+    }
+    private void utworzenie_ceny () throws Exception
+    {
+        String robocizna=robociznajTextField1.getText().toString();
+        String materialy=materialyjTextField2.getText().toString();
+        String marza=marzajTextField3.getText().toString();
+        
+        if ("".equals(robocizna) || "".equals(materialy) || "".equals(marza)) throw new Exception("Nie wypelniono ceny");
+        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robocizna,materialy,marza);
+    
+    }
+    private void czyszczenie()
+    {
+        typ_jTextField1.setText("");
+        wymiary_jTextField5.setText("");
+        laczenia_jTextField6.setText("");
+        ilosc_jTextField7.setText("");
+        rysunek_jTextField8.setText("");
+        try {
+        polprodukty_jComboBox1.removeAllItems();
+        } catch(Exception e){};
+        
+        DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         while(model.getRowCount()!=0) {
             model.removeRow(model.getRowCount()-1);
         }
         
-    }
-    private void utworzenie_definicji_zadań()
-    {
-        DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
-        for(int i=0; i<model.getRowCount(); i++)  {
-            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, NORMAL)));
-        }
+        nazwa_jTextField8.setText("");
+        rodzajjTextField9.setText("");
+        iloscPolproduktujTextField11.setText("");
+        wymiaryPolproduktujTextField10.setText("");
+        rysunekPolproduktu_jTextField9.setText("");
+        
+        model = (DefaultTableModel)definicje_zadan_tabela.getModel();
         while(model.getRowCount()!=0) {
             model.removeRow(model.getRowCount()-1);
         }
         definicje_zadan_tabela.setEnabled(false);
-    }
-    private void utworzenie_ceny ()
-    {
-        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robociznajTextField1.getText().toString(),materialyjTextField2.getText().toString(),marzajTextField3.getText().toString());
+        
         robociznajTextField1.setText("");
         robociznajTextField1.setEnabled(false);
         materialyjTextField2.setText("");
         materialyjTextField2.setEnabled(false);
         marzajTextField3.setText("");
         marzajTextField3.setEnabled(false);
-    
     }
+    public void pokaz_komunikat(String komunikat)
+    {
+        JDialog dialog = new JDialog();
+        jPanel1.add(dialog);
+        dialog.setLayout(new GridLayout(1,0));
+        JLabel l = new JLabel(komunikat, SwingConstants.CENTER);
+        dialog.add(l);
+        dialog.setSize(400,100);
+        dialog.setVisible(true);
+        
+    }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -242,7 +223,7 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lista_projektow = new javax.swing.JScrollPane();
-        jTabel2 = new javax.swing.JTable();
+        lista_projektow_jTabel2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         data1_jTextField2 = new javax.swing.JTextField();
         data2_jTextField2 = new javax.swing.JTextField();
@@ -250,6 +231,7 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
         parametr_jTextField4 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Szukaj_przycisk = new javax.swing.JButton();
+        pokaz_wszystko_Szukaj_przycisk1 = new javax.swing.JButton();
         dane_użytkownika = new javax.swing.JPanel();
         zalogowano_jako = new javax.swing.JLabel();
         obraz_uzytkownika_label = new javax.swing.JLabel();
@@ -313,7 +295,7 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
 
         lista_projektow.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTabel2.setModel(new javax.swing.table.DefaultTableModel(
+        lista_projektow_jTabel2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -321,7 +303,12 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
                 "Numer", "Data złożenia", "Typ mebla"
             }
         ));
-        lista_projektow.setViewportView(jTabel2);
+        lista_projektow_jTabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lista_projektow_jTabel2MouseClicked(evt);
+            }
+        });
+        lista_projektow.setViewportView(lista_projektow_jTabel2);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -353,6 +340,13 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
 
         jLabel4.setText("Data:");
 
+        Szukaj_przycisk.setText("Szukaj");
+        Szukaj_przycisk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Szukaj_przyciskActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -360,39 +354,44 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(data1_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(data2_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(parametr_jTextField4)
-                        .addGap(28, 28, 28))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(parametr_jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(data1_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(data2_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Szukaj_przycisk, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(data1_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(data2_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(parametr_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Szukaj_przycisk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(data1_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(data2_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(parametr_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        Szukaj_przycisk.setText("Szukaj");
-        Szukaj_przycisk.addActionListener(new java.awt.event.ActionListener() {
+        pokaz_wszystko_Szukaj_przycisk1.setText("Pokaż wszystko");
+        pokaz_wszystko_Szukaj_przycisk1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Szukaj_przyciskActionPerformed(evt);
+                pokaz_wszystko_Szukaj_przycisk1ActionPerformed(evt);
             }
         });
 
@@ -402,15 +401,15 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lista_projektow, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(Szukaj_przycisk, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pokaz_wszystko_Szukaj_przycisk1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +421,7 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Szukaj_przycisk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pokaz_wszystko_Szukaj_przycisk1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -474,42 +473,32 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
             dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dane_użytkownikaLayout.createSequentialGroup()
                 .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                        .addComponent(ZaakceptujButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                        .addComponent(OdrzucButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dane_użytkownikaLayout.createSequentialGroup()
-                    .addContainerGap(162, Short.MAX_VALUE)
-                    .addComponent(wylogujButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(88, 88, 88)))
+                    .addComponent(ZaakceptujButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OdrzucButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(zalogowano_jako, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dane_użytkownikaLayout.createSequentialGroup()
+                        .addComponent(wylogujButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         dane_użytkownikaLayout.setVerticalGroup(
             dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                            .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                            .addComponent(ZaakceptujButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(OdrzucButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(dane_użytkownikaLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 1, Short.MAX_VALUE))
-            .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dane_użytkownikaLayout.createSequentialGroup()
-                    .addContainerGap(40, Short.MAX_VALUE)
-                    .addComponent(wylogujButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ZaakceptujButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(zalogowano_jako, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(dane_użytkownikaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OdrzucButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wylogujButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 6, Short.MAX_VALUE))
+            .addGroup(dane_użytkownikaLayout.createSequentialGroup()
+                .addComponent(obraz_uzytkownika_label, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(dane_użytkownika, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 350, 90));
@@ -835,8 +824,15 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
     }//GEN-LAST:event_Szukaj_przyciskActionPerformed
 
     private void odrzucButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odrzucButtonActionPerformed
-        new Ekran_glowny().setVisible(true);
-        this.setVisible(false);
+        try {
+            if(id==null) throw new Exception("Nie wybrano projektu");
+            czyszczenie();
+            lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
+            SQL.Ekran_Technologa.odrzucenie_zamowienia_na_meble(id);
+            id=null;
+            lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
+            wyswietlenie_listy_projektow_klienta();
+        } catch (Exception e) { JOptionPane.showMessageDialog(null,e.getMessage(),"", JOptionPane.INFORMATION_MESSAGE);}
     }//GEN-LAST:event_odrzucButtonActionPerformed
 
     private void polprodukty_jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polprodukty_jComboBox1ActionPerformed
@@ -852,14 +848,45 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
     }//GEN-LAST:event_nazwa_jTextField8ActionPerformed
 
     private void wylogujButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wylogujButton1ActionPerformed
-        // TODO add your handling code here:
+        czyszczenie(); 
+        id=null;
+        new Ekran_glowny().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_wylogujButton1ActionPerformed
 
     private void ZaakceptujButton2zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZaakceptujButton2zaakceptujButtonActionPerformed
+        try {
         zaaktualizowanie_ilości_materialow();
         utworzenie_definicji_zadań();
         utworzenie_ceny();
+        SQL.Ekran_Technologa.zaakceptowanie_zamowienia_na_meble(id);
+        czyszczenie();
+        id=null;
+        lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
+        wyswietlenie_listy_projektow_klienta();
+        } catch (Exception e) {
+            if(e.getMessage()==null)
+                JOptionPane.showMessageDialog(null, "Nie wypelniono wszystkich pol","", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, e.getMessage(),"Tytul", JOptionPane.INFORMATION_MESSAGE);
+        }           
     }//GEN-LAST:event_ZaakceptujButton2zaakceptujButtonActionPerformed
+
+    private void lista_projektow_jTabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_projektow_jTabel2MouseClicked
+        
+        int row = lista_projektow_jTabel2.getSelectedRow();
+        id = lista_projektow_jTabel2.getModel().getValueAt(row,0).toString();      
+        wyswietlenie_szczegolow_projektu();
+        wyswietlenie_projektow_polproduktow();
+        wyswietlenie_materialow();
+        dodawanie_definicji_zadań();
+        definicje_zadan_tabela.addKeyListener(new Keychecker());
+    }//GEN-LAST:event_lista_projektow_jTabel2MouseClicked
+
+    private void pokaz_wszystko_Szukaj_przycisk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pokaz_wszystko_Szukaj_przycisk1ActionPerformed
+        lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
+        wyswietlenie_listy_projektow_klienta();
+    }//GEN-LAST:event_pokaz_wszystko_Szukaj_przycisk1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -938,14 +965,15 @@ public class Ekran_Technologa extends javax.swing.JFrame implements ActionListen
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTabel2;
     private javax.swing.JTextField laczenia_jTextField6;
     private javax.swing.JScrollPane lista_projektow;
+    private javax.swing.JTable lista_projektow_jTabel2;
     private javax.swing.JTextField marzajTextField3;
     private javax.swing.JTextField materialyjTextField2;
     private javax.swing.JTextField nazwa_jTextField8;
     private javax.swing.JLabel obraz_uzytkownika_label;
     private javax.swing.JTextField parametr_jTextField4;
+    private javax.swing.JButton pokaz_wszystko_Szukaj_przycisk1;
     private javax.swing.JComboBox<String> polprodukty_jComboBox1;
     private javax.swing.JTextField robociznajTextField1;
     private javax.swing.JTextField rodzajjTextField9;
