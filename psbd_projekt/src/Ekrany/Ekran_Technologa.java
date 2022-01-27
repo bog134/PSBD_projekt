@@ -197,17 +197,6 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         marzajTextField3.setText("");
         marzajTextField3.setEnabled(false);
     }
-    public void pokaz_komunikat(String komunikat)
-    {
-        JDialog dialog = new JDialog();
-        jPanel1.add(dialog);
-        dialog.setLayout(new GridLayout(1,0));
-        JLabel l = new JLabel(komunikat, SwingConstants.CENTER);
-        dialog.add(l);
-        dialog.setSize(400,100);
-        dialog.setVisible(true);
-        
-    }
     
     
     
