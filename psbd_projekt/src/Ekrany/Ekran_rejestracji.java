@@ -4,6 +4,9 @@
  */
 package Ekrany;
 
+import java.sql.ResultSet;
+import java.sql.*;  
+
 /**
  *
  * @author Maciek
@@ -16,6 +19,86 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     public Ekran_rejestracji() {
         initComponents();
     }
+
+
+    private boolean sprawdz_login(String login) {
+        boolean login_poprawny = false;
+
+        try{  
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt = con.createStatement();
+            String zapytanie =
+                "SELECT Login\n"+
+                "FROM (\n"+
+                    "SELECT klient.Login\n"+
+                    "FROM klient\n"+
+                    "UNION\n" +
+                    "SELECT pracownik.Login AS Login\n"+
+                    "FROM pracownik\n"+
+                ") tab\n"+
+                "WHERE Login = '"+ login +"' \n";
+            ResultSet rs = stmt.executeQuery(zapytanie);
+            if(rs.next()) {
+                // System.out.println("Uzytkownik o danym loginie już istnieje");
+            } else {
+                // System.out.println("Login poprawny");
+                login_poprawny = true;
+            }
+
+            con.close(); 
+        } catch(Exception e) { 
+            System.out.println(e.getMessage());
+        }  
+        return login_poprawny;   
+    }  
+
+    private boolean sprawdz_email(String email) {
+        boolean email_poprawny = false;
+
+        try{  
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt = con.createStatement();
+            String zapytanie =
+                "SELECT klient.Email\n"+
+                "FROM klient\n"+
+                "WHERE Email = '"+ email +"' \n";
+            ResultSet rs = stmt.executeQuery(zapytanie);
+            if(rs.next()) {
+                // System.out.println("Uzytkownik o danym adresie email już istnieje");
+            } else {
+                // System.out.println("email poprawny");
+                email_poprawny = true;
+            }
+
+            con.close(); 
+        } catch(Exception e) { 
+            System.out.println(e.getMessage());
+        }  
+        return email_poprawny;   
+    }  
+
+    private boolean rejestracja(String imie, String nazwisko, String nr_telefonu, String email, String kraj, 
+        String kod_pocztowy, String miejscowosc, String ulica, String nr_domu, String nr_mieszkania, String login, String haslo) {
+        boolean rejestracja_sie_powiodla = false;
+
+        try{  
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt = con.createStatement();
+            String zapytanie =
+                        "INSERT INTO klient (Imie, Nazwisko, Numer_telefonu, Email, Adres_Kraj, " +
+                        "Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania, Login, Haslo) " +
+                        "VALUES ('" + imie + "', '" + nazwisko +"', '" + nr_telefonu + "', '" +
+                        email + "', '"  + kraj + "', '" + kod_pocztowy + "', '" + miejscowosc + "', '" + ulica + "', '" + nr_domu + "', '" + nr_mieszkania + "', '" + login + "', '" + haslo +"');\n";
+            
+            stmt.executeUpdate(zapytanie); 
+            con.close(); 
+        } catch(Exception e) { 
+            System.out.println(e.getMessage());
+        }  
+
+        return rejestracja_sie_powiodla;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,17 +113,17 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        kraj__textF = new javax.swing.JTextField();
+        imie_textF = new javax.swing.JTextField();
+        email_textF = new javax.swing.JTextField();
+        login_textF = new javax.swing.JTextField();
+        haslo_textF = new javax.swing.JTextField();
+        pow_haslo_textF = new javax.swing.JTextField();
+        Nazwisko_textF = new javax.swing.JTextField();
+        ulica_textF = new javax.swing.JTextField();
+        nr_mieszkania_textF = new javax.swing.JTextField();
+        kod_pocztowy_textF = new javax.swing.JTextField();
+        miaso__textF = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,12 +135,13 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        nr_domu_textF = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        zarejestruj_button = new javax.swing.JButton();
         powrotButton = new javax.swing.JButton();
-        jTextField13 = new javax.swing.JTextField();
+        nr_telefonu_textF = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        message_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -72,17 +156,17 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jLabel1.setText("Rejestracja");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, 50));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 470, 20));
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 220, 40));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 220, 40));
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 220, 40));
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 220, 40));
-        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 220, 40));
-        jPanel2.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 220, 40));
-        jPanel2.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 220, 40));
-        jPanel2.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 220, 40));
-        jPanel2.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 100, 40));
-        jPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 220, 40));
-        jPanel2.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 220, 40));
+        jPanel2.add(kraj__textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 220, 40));
+        jPanel2.add(imie_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 220, 40));
+        jPanel2.add(email_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 220, 40));
+        jPanel2.add(login_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 220, 40));
+        jPanel2.add(haslo_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 220, 40));
+        jPanel2.add(pow_haslo_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 220, 40));
+        jPanel2.add(Nazwisko_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 220, 40));
+        jPanel2.add(ulica_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 220, 40));
+        jPanel2.add(nr_mieszkania_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 100, 40));
+        jPanel2.add(kod_pocztowy_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 220, 40));
+        jPanel2.add(miaso__textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 220, 40));
 
         jLabel2.setText("Powtórz hasło:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
@@ -116,14 +200,19 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
 
         jLabel12.setText("Miasto:");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, -1, -1));
-        jPanel2.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 100, 40));
+        jPanel2.add(nr_domu_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 100, 40));
 
         jLabel13.setText("Nr domu");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("Zarejestruj się");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 570, 220, 70));
+        zarejestruj_button.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        zarejestruj_button.setText("Zarejestruj się");
+        zarejestruj_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zarejestruj_buttonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(zarejestruj_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 570, 220, 70));
 
         powrotButton.setText("Powrót");
         powrotButton.addActionListener(new java.awt.event.ActionListener() {
@@ -132,10 +221,16 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
             }
         });
         jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 100, 40));
-        jPanel2.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 220, 40));
+        jPanel2.add(nr_telefonu_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 220, 40));
 
         jLabel14.setText("Numer telefonu:");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
+
+        message_label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        message_label.setForeground(new java.awt.Color(204, 0, 0));
+        message_label.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        message_label.setToolTipText("");
+        jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 520, 310, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 500, 720));
 
@@ -148,6 +243,55 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         new Ekran_glowny().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed
+
+    private void zarejestruj_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zarejestruj_buttonActionPerformed
+        if (imie_textF.getText().equals("") || Nazwisko_textF.getText().equals("") || 
+            email_textF.getText().equals("") || ulica_textF.getText().equals("") || 
+            login_textF.getText().equals("") || nr_domu_textF.getText().equals("") ||
+            haslo_textF.getText().equals("") || kod_pocztowy_textF.getText().equals("") || 
+            pow_haslo_textF.getText().equals("") || miaso__textF.getText().equals("") || 
+            nr_telefonu_textF.getText().equals("") || kraj__textF.getText().equals("")) {
+                message_label.setForeground(new java.awt.Color(204, 0, 0));
+                message_label.setText("Wprowadz wszystkie wymagane dane logowania");
+        } else {
+            if ((pow_haslo_textF.getText().equals(haslo_textF.getText()) == false)) {
+                message_label.setForeground(new java.awt.Color(204, 0, 0));
+                message_label.setText("Wprowadzone hasła różnią się od siebie");
+            } else {
+                message_label.setForeground(new java.awt.Color(204, 0, 0));
+                message_label.setText("");
+
+                if (sprawdz_login(login_textF.getText())) {
+                    if(sprawdz_email(email_textF.getText())){
+                        rejestracja(imie_textF.getText(), Nazwisko_textF.getText(), nr_telefonu_textF.getText(), email_textF.getText(), 
+                        kraj__textF.getText(), kod_pocztowy_textF.getText(), miaso__textF.getText(), ulica_textF.getText(), 
+                        nr_domu_textF.getText(), nr_mieszkania_textF.getText(), login_textF.getText(), haslo_textF.getText());
+                         
+                        message_label.setForeground(new java.awt.Color(52, 191, 89));
+                        message_label.setText("Zarejestrowano");                       
+                    } else {
+                        message_label.setForeground(new java.awt.Color(204, 0, 0));
+                        message_label.setText("Użytkownik o podanym adresie email już istnieje");
+                    }
+
+                } else {
+                    message_label.setForeground(new java.awt.Color(204, 0, 0));
+                    message_label.setText("Użytkownik o podanej nazwie już istnieje");
+                }
+
+                // if (rejestracja(imie_textF.getText(), Nazwisko_textF.getText(), nr_telefonu_textF.getText(), email_textF.getText(), 
+                //     kraj__textF.getText(), kod_pocztowy_textF.getText(), miaso__textF.getText(), ulica_textF.getText(), nr_domu_textF.getText(), 
+                //     nr_mieszkania_textF.getText(), login_textF.getText(), haslo_textF.getText()) == true ) {
+
+                //     message_label.setForeground(new java.awt.Color(52, 191, 89));
+                //     message_label.setText("Zarejestrowano");
+                // } else {
+                //     message_label.setForeground(new java.awt.Color(204, 0, 0));
+                //     message_label.setText("Użytkownik o podanej nazwie już istnieje");
+                // }
+            }
+        }
+    }//GEN-LAST:event_zarejestruj_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +329,10 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField Nazwisko_textF;
+    private javax.swing.JTextField email_textF;
+    private javax.swing.JTextField haslo_textF;
+    private javax.swing.JTextField imie_textF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -203,19 +350,17 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField kod_pocztowy_textF;
+    private javax.swing.JTextField kraj__textF;
+    private javax.swing.JTextField login_textF;
+    private javax.swing.JLabel message_label;
+    private javax.swing.JTextField miaso__textF;
+    private javax.swing.JTextField nr_domu_textF;
+    private javax.swing.JTextField nr_mieszkania_textF;
+    private javax.swing.JTextField nr_telefonu_textF;
+    private javax.swing.JTextField pow_haslo_textF;
     private javax.swing.JButton powrotButton;
+    private javax.swing.JTextField ulica_textF;
+    private javax.swing.JButton zarejestruj_button;
     // End of variables declaration//GEN-END:variables
 }
