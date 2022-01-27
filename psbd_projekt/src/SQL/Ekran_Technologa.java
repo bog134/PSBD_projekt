@@ -71,7 +71,7 @@ public class Ekran_Technologa {
                 "JOIN zamowienie_na_meble USING (Id_Zamowienia)\n" +
                 "JOIN typ_mebla USING (Id_Typu_mebla)\n" +
                 "\n" +
-                "WHERE zamowienie_na_meble.Id_Zamowienia=3 \n" +
+                "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 \n" +
                 "GROUP BY Id_Proj_klient;";
         
         return pobierz_z_bazy_danych(zapytanie);
@@ -87,7 +87,7 @@ public class Ekran_Technologa {
             "JOIN zamowienie_na_meble USING (Id_Zamowienia)\n" +
             "JOIN typ_mebla USING (Id_Typu_mebla)\n" +
             "\n" +
-            "WHERE zamowienie_na_meble.Id_Zamowienia=3 AND (zamowienie_na_meble.Czas_realizacji_Data_zlozenia \n" +
+            "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 AND (zamowienie_na_meble.Czas_realizacji_Data_zlozenia \n" +
             "BETWEEN DATE('" + data1+ "') AND DATE('" + data2+ "') OR typ_mebla.Nazwa LIKE '" + parametr + "%');";
         
         return pobierz_z_bazy_danych(zapytanie);
@@ -188,7 +188,36 @@ public class Ekran_Technologa {
 
         dodaj_do_bazy_danych(zapytanie);
     }
+    static public void zaakceptowanie_zamowienia_na_meble(String id)
+    {       
+        String zapytanie = 
+                "UPDATE zamowienie_na_meble\n" +
+                "SET Id_Stanu_Realizacji=4\n" +
+                "WHERE Id_Zamowienia =\n" +
+                "(\n" +
+                "	SELECT DISTINCT mebel.Id_Zamowienia\n" +
+                "	FROM mebel\n" +
+                "	JOIN projekt_klienta USING (Id_Proj_klient)\n" +
+                "	WHERE projekt_klienta.Id_Proj_klient=" + id + "\n" +
+                ");"; 
 
+        dodaj_do_bazy_danych(zapytanie);
+    }
+    static public void odrzucenie_zamowienia_na_meble(String id)
+    {       
+        String zapytanie = 
+                "UPDATE zamowienie_na_meble\n" +
+                "SET Id_Stanu_Realizacji=5\n" +
+                "WHERE Id_Zamowienia =\n" +
+                "(\n" +
+                "	SELECT DISTINCT mebel.Id_Zamowienia\n" +
+                "	FROM mebel\n" +
+                "	JOIN projekt_klienta USING (Id_Proj_klient)\n" +
+                "	WHERE projekt_klienta.Id_Proj_klient=" + id + "\n" +
+                ");"; 
+
+        dodaj_do_bazy_danych(zapytanie);
+    }
 }  
     
 
