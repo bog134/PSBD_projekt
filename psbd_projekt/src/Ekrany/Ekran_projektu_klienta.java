@@ -24,13 +24,22 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     ArrayList<ProjektKlienta> koszyk;
     ProjektKlienta projekt;
 
+    EkranKlienta ekran_klienta;
+
 
     /**z
      * Creates new form Ekran_projektu_klienta
      */
-    
     public Ekran_projektu_klienta() {
         initComponents();
+    }
+
+    public void setKoszyk(ArrayList<ProjektKlienta> koszyk) {
+        this.koszyk = koszyk;
+    }
+
+    public void setEkranKlienta(EkranKlienta ekran_klienta) {
+        this.ekran_klienta = ekran_klienta;
     }
 
     /**
@@ -84,7 +93,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         szerkosc_mebla = new javax.swing.JTextField();
         wysokosc_mebla = new javax.swing.JTextField();
         dlugosc_mebla = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
+        dodaj_do_koszyka = new javax.swing.JButton();
         dodaj_projekt = new javax.swing.JButton();
         liczba_sztuk_polp = new javax.swing.JSpinner();
         message_label = new javax.swing.JLabel();
@@ -312,14 +321,14 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         });
         jPanel2.add(dlugosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 80, 30));
 
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton8.setText("Dodaj projekt do koszyka");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        dodaj_do_koszyka.setText("Dodaj projekt do koszyka");
+        dodaj_do_koszyka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                dodaj_do_koszykaActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 330, 40));
+        jPanel2.add(dodaj_do_koszyka, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 330, 40));
 
         dodaj_projekt.setText("Dodaj projekt");
         dodaj_projekt.addActionListener(new java.awt.event.ActionListener() {
@@ -557,8 +566,10 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_polp_rodzajActionPerformed
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-        new EkranKlienta().setVisible(true);
+        ekran_klienta.setVisible(true);
+        ekran_klienta.setKoszykProjektowKlienta(koszyk);
         this.setVisible(false);
+
     }//GEN-LAST:event_powrotButtonActionPerformed
 
     private void dlugosc_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dlugosc_polpActionPerformed
@@ -585,21 +596,30 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dlugosc_meblaActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void dodaj_do_koszykaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_do_koszykaActionPerformed
+        try {
+            koszyk.add(projekt);
+            System.out.print("dodano do koszyka");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }//GEN-LAST:event_dodaj_do_koszykaActionPerformed
 
     private void dodaj_projektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_projektActionPerformed
-        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk_polp.getValue() == 0 ||
+        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk1.getValue() == 0 ||
             wysokosc_mebla.getText().equals("") || szerkosc_mebla.getText().equals("") || dlugosc_mebla.getText().equals("") || laczeniaBox.getSelectedIndex() == 0) {
             System.out.println("Nieprawidłowe dane");
             message_label.setText("Wprowadz wszystkie wymagane dane");
         } else {
-            message_label.setText("");
-            projekt = new ProjektKlienta(koszyk.size(), typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
-            wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
-
-            dodaj_polp_button.setEnabled(true);
+            try {
+                message_label.setText("");
+                projekt = new ProjektKlienta(koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
+                wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
+                dodaj_polp_button.setEnabled(true);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         
         // projekt = new ProjektKlienta();
@@ -651,12 +671,12 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dlugosc_mebla;
     private javax.swing.JTextField dlugosc_polp;
+    private javax.swing.JButton dodaj_do_koszyka;
     private javax.swing.JButton dodaj_polp_button;
     private javax.swing.JButton dodaj_projekt;
     private javax.swing.JButton dodaj_rysunek_polp;
     private javax.swing.JButton dodaj_rysunek_projektu;
     private javax.swing.JComboBox<String> drewnoBox;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

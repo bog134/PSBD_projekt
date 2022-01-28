@@ -16,24 +16,23 @@ import Dodatkowe.*;
 // (1, NULL, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
 
 
-public final class ProjektKlienta {
+public class ProjektKlienta {
     int id_projektu, id_typu, id_laczenia;
     String szerokosc, wysokosc, dlugosc, rysunek_nazwa;
 
     ArrayList<Polprodukt> polprodukty;
          
     public ProjektKlienta(int id_projektu, int id_typu, int id_laczenia, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa) {
-            setId(id_projektu);
-            setIdTypu(id_typu);
-            setIdLaczenia(id_laczenia);
+        this.id_projektu = id_projektu;
+        this.id_typu = id_typu;
+        this.id_laczenia = id_laczenia;
+        this.szerokosc = szerokosc;
+        this.wysokosc = wysokosc;
+        this.dlugosc = dlugosc;
+        this.rysunek_nazwa = rysunek_nazwa;
 
-            setSzerokosc(szerokosc);
-            setWysokosc(wysokosc);
-            setDlugosc(dlugosc);
-            setRysunekNazwa(rysunek_nazwa);
-
-            polprodukty = new ArrayList<Polprodukt>();
-        }
+        polprodukty = new ArrayList<Polprodukt>();
+    }
 
     public ProjektKlienta() {
             setId(0);
@@ -52,14 +51,9 @@ public final class ProjektKlienta {
         polprodukty.add(new Polprodukt(id_projektu, id_rodzaju, nazwa, szerokosc, wysokosc, dlugosc, rysunek_nazwa));
     }
 
-
     public void getPolprodukty() {
 
     }
-
-
-
-
 
     public void setId(int id_projektu) {this.id_projektu = id_projektu;}
     public void setIdTypu(int id_typu) {this.id_typu = id_typu;}
