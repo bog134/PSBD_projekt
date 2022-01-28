@@ -135,9 +135,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         this.klient = kl;
     }
     
-    
-
-
     /**
      * Creates new form Ekran_szczegolow_zamowienia
      */
