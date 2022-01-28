@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import Dodatkowe.*;
 
@@ -24,13 +25,49 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     ArrayList<ProjektKlienta> koszyk;
     ProjektKlienta projekt;
 
+    EkranKlienta ekran_klienta;
+
+
+    public void clearFrameContent() {
+        typMeblaBox.setSelectedIndex(0);
+        szerkosc_mebla.setText("");
+        wysokosc_mebla.setText("");
+        dlugosc_mebla.setText("");
+
+        tkaninaObiciowaBox.setSelectedIndex(0);
+        plytaMeblowaBox.setSelectedIndex(0);
+        drewnoBox.setSelectedIndex(0);
+        piankaTapicerskaBox.setSelectedIndex(0);
+        okleinaBox.setSelectedIndex(0);
+        laczeniaBox.setSelectedIndex(0);
+        rysunek_nazwa.setText("");
+        liczba_sztuk_projektu.setValue(0);
+
+        polp_nazwa.setText("");
+        szerokosc_polp.setText("");
+        wysokosc_polp.setText("");
+        dlugosc_polp.setText("");
+        rysunek_polp_nazwa.setText("");
+        liczba_sztuk_polp.setValue(0);
+
+
+        dodaj_do_koszyka.setEnabled(false);
+        dodaj_polp_button.setEnabled(false);
+    }
 
     /**z
      * Creates new form Ekran_projektu_klienta
      */
-    
     public Ekran_projektu_klienta() {
         initComponents();
+    }
+
+    public void setKoszyk(ArrayList<ProjektKlienta> koszyk) {
+        this.koszyk = koszyk;
+    }
+
+    public void setEkranKlienta(EkranKlienta ekran_klienta) {
+        this.ekran_klienta = ekran_klienta;
     }
 
     /**
@@ -84,18 +121,19 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         szerkosc_mebla = new javax.swing.JTextField();
         wysokosc_mebla = new javax.swing.JTextField();
         dlugosc_mebla = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
+        dodaj_do_koszyka = new javax.swing.JButton();
         dodaj_projekt = new javax.swing.JButton();
         liczba_sztuk_polp = new javax.swing.JSpinner();
-        message_label = new javax.swing.JLabel();
+        message_label2 = new javax.swing.JLabel();
         rysunek_nazwa = new javax.swing.JTextField();
-        liczba_sztuk1 = new javax.swing.JSpinner();
+        liczba_sztuk_projektu = new javax.swing.JSpinner();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        message_label1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -312,14 +350,15 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         });
         jPanel2.add(dlugosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 80, 30));
 
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton8.setText("Dodaj projekt do koszyka");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        dodaj_do_koszyka.setText("Dodaj projekt do koszyka");
+        dodaj_do_koszyka.setEnabled(false);
+        dodaj_do_koszyka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                dodaj_do_koszykaActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 330, 40));
+        jPanel2.add(dodaj_do_koszyka, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 330, 40));
 
         dodaj_projekt.setText("Dodaj projekt");
         dodaj_projekt.addActionListener(new java.awt.event.ActionListener() {
@@ -332,9 +371,9 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         liczba_sztuk_polp.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
         jPanel2.add(liczba_sztuk_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 660, 160, 30));
 
-        message_label.setForeground(new java.awt.Color(200, 0, 0));
-        message_label.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
+        message_label2.setForeground(new java.awt.Color(200, 0, 0));
+        message_label2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jPanel2.add(message_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, 240, 30));
 
         rysunek_nazwa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,8 +382,8 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         });
         jPanel2.add(rysunek_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 160, 30));
 
-        liczba_sztuk1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
-        jPanel2.add(liczba_sztuk1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
+        liczba_sztuk_projektu.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+        jPanel2.add(liczba_sztuk_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
 
         jLabel19.setText("długość:");
         jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 20));
@@ -363,6 +402,10 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         jLabel24.setText("szerokość:");
         jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, 60, 20));
+
+        message_label1.setForeground(new java.awt.Color(200, 0, 0));
+        message_label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jPanel2.add(message_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 810));
 
@@ -542,10 +585,17 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private void dodaj_polp_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_polp_buttonActionPerformed
         if (polp_nazwa.getText().equals("") || szerokosc_polp.getText().equals("") || wysokosc_polp.getText().equals("") ||
             dlugosc_polp.getText().equals("") || liczba_sztuk_polp.getValue() == "0") {
-           message_label.setText("Wprowadz wszystkie wymagane dane półproduktu");
+            message_label2.setText("Wprowadz wszystkie wymagane dane półproduktu");
         } else {
             projekt.dodajPolprodukt(koszyk.size(), polp_rodzaj.getSelectedIndex()+1, polp_nazwa.getText(), szerokosc_polp.getText(), wysokosc_polp.getText(), dlugosc_polp.getText(), rysunek_polp_nazwa.getText());
-
+            JOptionPane optionPane = new JOptionPane();
+            optionPane.showMessageDialog(this, "Półprodukt(y) zostaly dodane do zamówienia", "Potwierdzenie", JOptionPane.INFORMATION_MESSAGE);
+            polp_nazwa.setText("");
+            szerokosc_polp.setText("");
+            wysokosc_polp.setText("");
+            dlugosc_polp.setText("");
+            rysunek_polp_nazwa.setText("");
+            liczba_sztuk_polp.setValue(0);
         }
     }//GEN-LAST:event_dodaj_polp_buttonActionPerformed
 
@@ -557,8 +607,10 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_polp_rodzajActionPerformed
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
-        new EkranKlienta().setVisible(true);
+        ekran_klienta.setVisible(true);
+        ekran_klienta.setKoszykProjektowKlienta(koszyk);
         this.setVisible(false);
+
     }//GEN-LAST:event_powrotButtonActionPerformed
 
     private void dlugosc_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dlugosc_polpActionPerformed
@@ -585,21 +637,33 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dlugosc_meblaActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void dodaj_do_koszykaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_do_koszykaActionPerformed
+        for(int i = 0; i < (int)liczba_sztuk_projektu.getValue(); i++) {
+            try {
+                koszyk.add(projekt);
+                System.out.print("dodano do koszyka");
+                clearFrameContent();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_dodaj_do_koszykaActionPerformed
 
     private void dodaj_projektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_projektActionPerformed
-        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk_polp.getValue() == 0 ||
+        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk_projektu.getValue() == 0 ||
             wysokosc_mebla.getText().equals("") || szerkosc_mebla.getText().equals("") || dlugosc_mebla.getText().equals("") || laczeniaBox.getSelectedIndex() == 0) {
             System.out.println("Nieprawidłowe dane");
-            message_label.setText("Wprowadz wszystkie wymagane dane");
+            message_label1.setText("Wprowadz wszystkie wymagane dane");
         } else {
-            message_label.setText("");
-            projekt = new ProjektKlienta(koszyk.size(), typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
-            wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
-
-            dodaj_polp_button.setEnabled(true);
+            try {
+                message_label1.setText("");
+                projekt = new ProjektKlienta(koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
+                wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
+                dodaj_polp_button.setEnabled(true);
+                dodaj_do_koszyka.setEnabled(true);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         
         // projekt = new ProjektKlienta();
@@ -651,12 +715,12 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dlugosc_mebla;
     private javax.swing.JTextField dlugosc_polp;
+    private javax.swing.JButton dodaj_do_koszyka;
     private javax.swing.JButton dodaj_polp_button;
     private javax.swing.JButton dodaj_projekt;
     private javax.swing.JButton dodaj_rysunek_polp;
     private javax.swing.JButton dodaj_rysunek_projektu;
     private javax.swing.JComboBox<String> drewnoBox;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -686,9 +750,10 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JComboBox<String> laczeniaBox;
-    private javax.swing.JSpinner liczba_sztuk1;
     private javax.swing.JSpinner liczba_sztuk_polp;
-    private javax.swing.JLabel message_label;
+    private javax.swing.JSpinner liczba_sztuk_projektu;
+    private javax.swing.JLabel message_label1;
+    private javax.swing.JLabel message_label2;
     private javax.swing.JComboBox<String> okleinaBox;
     private javax.swing.JComboBox<String> piankaTapicerskaBox;
     private javax.swing.JComboBox<String> plytaMeblowaBox;

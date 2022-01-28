@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.table.DefaultTableModel;
 import Dodatkowe.dodanyProjekt;
+import Dodatkowe.ProjektKlienta;
 import javax.swing.DefaultComboBoxModel;
 /**
  *
@@ -18,6 +19,8 @@ public class EkranKlienta extends javax.swing.JFrame {
     int id_klienta;
     java.lang.String login_klienta;
     int licznik = 0;
+
+    Ekran_projektu_klienta ekran_projektu_klienta;
     
     /*public class dodanyProjekt{
         
@@ -40,12 +43,17 @@ public class EkranKlienta extends javax.swing.JFrame {
         public void setOpcjonalneCzesci(String OpcjonalneCzesci){this.OpcjonalneCzesci = OpcjonalneCzesci;}
         
     }*/
-    
+    ArrayList<ProjektKlienta> koszyk_projektow_klienta;
     ArrayList<dodanyProjekt> koszyk;
     
     public void setKoszyk(ArrayList<dodanyProjekt> k){
         this.koszyk = k;
     }
+
+    public void setKoszykProjektowKlienta(ArrayList<ProjektKlienta> k){
+        this.koszyk_projektow_klienta = k;
+    }
+
     
     public void DbWyswietlKatalog(String temp, String filtr){
         Object[] tab;
@@ -71,7 +79,7 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog\n" +
                     "GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab3 USING (Id_Proj_katalog)\n" +
                     "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla\n" +
-                    filtr+"WHERE typ_mebla.Nazwa = "+temp;
+                    filtr+"WHERE typ_mebla.Nazwa = "+ temp;
             ResultSet rs=stmt.executeQuery(zapytanie);  
             while(rs.next()){
                 tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4)};
@@ -119,6 +127,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         login_klienta = "Nieznany";  
         DbWyswietlKatalog(" ", " -- ");
         koszyk = new ArrayList<>();
+        koszyk_projektow_klienta = new ArrayList<ProjektKlienta>();
     
     }
     
@@ -433,14 +442,19 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     }//GEN-LAST:event_historiaZamowienButtonActionPerformed
 
     private void wlasnyProjektButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wlasnyProjektButtonActionPerformed
-        new Ekran_projektu_klienta().setVisible(true);
+        Ekran_projektu_klienta ekran_projektu_klienta = new Ekran_projektu_klienta();
+        ekran_projektu_klienta.setVisible(true);
+        ekran_projektu_klienta.setEkranKlienta(this);
+        ekran_projektu_klienta.setKoszyk(koszyk_projektow_klienta);
         this.setVisible(false);
     }//GEN-LAST:event_wlasnyProjektButtonActionPerformed
 
     private void koszykButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koszykButtonActionPerformed
         Ekran_szczegolow_zamowienia ekranSZ = new Ekran_szczegolow_zamowienia();
         ekranSZ.setKoszyk(koszyk);
+        ekranSZ.setKoszykProjektuKlienta(koszyk_projektow_klienta);
         ekranSZ.koszykDoTabeli();
+        ekranSZ.koszykProjektowKlientaDoTabeli();
         ekranSZ.setVisible(true);
         ekranSZ.setEkranKlienta(this);
         

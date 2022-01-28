@@ -5,6 +5,7 @@
 package Ekrany;
 
 import Dodatkowe.dodanyProjekt;
+import Dodatkowe.ProjektKlienta;
 import java.awt.Frame;
 import java.sql.Connection;
 
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     
+    ArrayList<ProjektKlienta> koszyk_proj_klient;
     ArrayList<dodanyProjekt> koszyk;
     EkranKlienta klient;
     
@@ -127,6 +129,10 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         }catch(Exception e){ System.out.println(e);}
     }
     
+    public void setKoszykProjektuKlienta(ArrayList<ProjektKlienta> k){
+        this.koszyk_proj_klient = k;
+    }
+
     public void setKoszyk(ArrayList<dodanyProjekt> k){
         this.koszyk = k;
     }
@@ -135,9 +141,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         this.klient = kl;
     }
     
-    
-
-
     /**
      * Creates new form Ekran_szczegolow_zamowienia
      */
@@ -146,8 +149,53 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         
     }
     
+    public void koszykProjektowKlientaDoTabeli() {
+        DefaultTableModel model = (DefaultTableModel) tabela_proj_klienta.getModel();
+
+        for (int i = 0; i < koszyk_proj_klient.size(); i++) {
+            int nr_projektu = koszyk_proj_klient.get(i).getId();
+            int id_typ = koszyk_proj_klient.get(i).getIdTypu();
+            int id_laczenia = koszyk_proj_klient.get(i).getIdLaczenia();
+            String dlugosc = koszyk_proj_klient.get(i).getDlugosc();
+            String szerokosc = koszyk_proj_klient.get(i).getSzerokosc();
+            String wysokosc = koszyk_proj_klient.get(i).getWysokosc();
+
+            String laczenia;
+            String typ;
+
+            switch (id_typ) {
+                case 1:{ typ = "Stół"; break;} 
+                case 2: {typ = "Krzesło"; break;
+                } case 3: { typ = "Fotel"; break;
+                } case 4: {typ = "Łóżko"; break;
+                } case 5: {typ = "Sofa";break;
+                } case 6: {typ = "Buirko"; break;
+                } case 7: {typ = "Szafa"; break;
+                } case 8: {typ = "Komoda"; break;
+                } case 9: {typ = "Szafka nocna"; break;
+                } case 10: {typ = "Narożnik"; break;
+                } case 11: {typ = "Regał"; break;
+                } case 12: {typ = "Kredens"; break;}
+                default: { typ = "brak";}
+            }
+
+            switch (id_laczenia) {
+                case 1: {laczenia = "wkręty"; break;}
+                case 2: {laczenia = "klej"; break;}
+                case 3: {laczenia = "wciskowe"; break;}
+                case 4: {laczenia = "kołki"; break;}
+                case 5: {laczenia = "mimośrody"; break;}
+                case 6: {laczenia = "gwintowe"; break;}
+                default: {laczenia = "brak"; } 
+            }
+
+            Object[] row = {nr_projektu, typ, laczenia, dlugosc, szerokosc, wysokosc};
+            model.addRow(row);
+        }
+    }
+
     public void koszykDoTabeli(){
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel) tabela_projekty_z_katalogu.getModel();
         
         for (int i=0; i < koszyk.size(); i++){
             String nr = koszyk.get(i).getId();
@@ -180,10 +228,17 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         powrotButton = new javax.swing.JButton();
-        usunButton = new javax.swing.JButton();
         zlozZamowienieButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabela_projekty_z_katalogu = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabela_proj_klienta = new javax.swing.JTable();
+        zlozZamowienieButton1 = new javax.swing.JButton();
+        usunButton1 = new javax.swing.JButton();
+        usun_polpButton = new javax.swing.JButton();
+        usun_projekt_klientaButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,15 +274,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         });
         jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 100, 30));
 
-        usunButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        usunButton.setText("Usuń produkt");
-        usunButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usunButtonActionPerformed(evt);
-            }
-        });
-        jPanel2.add(usunButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 150, 50));
-
         zlozZamowienieButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         zlozZamowienieButton.setText("Złóż zamówienie");
         zlozZamowienieButton.addActionListener(new java.awt.event.ActionListener() {
@@ -235,9 +281,9 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 zlozZamowienieButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(zlozZamowienieButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 150, 50));
+        jPanel2.add(zlozZamowienieButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 150, 50));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_projekty_z_katalogu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -260,27 +306,129 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane2.setViewportView(tabela_projekty_z_katalogu);
+        if (tabela_projekty_z_katalogu.getColumnModel().getColumnCount() > 0) {
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(0).setResizable(false);
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(1).setResizable(false);
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 330, 270));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 350, 320));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 460, 460));
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nr", "Mebel", "Ilość", "Cena"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(0).setResizable(false);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable3.getColumnModel().getColumn(1).setResizable(false);
+            jTable3.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 510, 160));
+
+        tabela_proj_klienta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nr", "Typ", "Łączenia", "Długość", "Szerokość", "Wysokość"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tabela_proj_klienta);
+        if (tabela_proj_klienta.getColumnModel().getColumnCount() > 0) {
+            tabela_proj_klienta.getColumnModel().getColumn(0).setResizable(false);
+            tabela_proj_klienta.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tabela_proj_klienta.getColumnModel().getColumn(1).setResizable(false);
+            tabela_proj_klienta.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 510, 150));
+
+        zlozZamowienieButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        zlozZamowienieButton1.setText("Złóż zamówienie");
+        zlozZamowienieButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zlozZamowienieButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(zlozZamowienieButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 150, 50));
+
+        usunButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usunButton1.setText("Usuń produkt");
+        usunButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usunButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(usunButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 150, 50));
+
+        usun_polpButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usun_polpButton.setText("Usuń półprodukt");
+        usun_polpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usun_polpButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(usun_polpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 410, 150, 50));
+
+        usun_projekt_klientaButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usun_projekt_klientaButton2.setText("Usuń projekt");
+        usun_projekt_klientaButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usun_projekt_klientaButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(usun_projekt_klientaButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 410, 150, 50));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1090, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1148, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -298,14 +446,15 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_zlozZamowienieButtonActionPerformed
 
-    private void usunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunButtonActionPerformed
+    private void zlozZamowienieButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zlozZamowienieButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_zlozZamowienieButton1ActionPerformed
 
+    private void usunButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunButton1ActionPerformed
         
-        System.out.println(jTable2.getSelectedRow());
-        
-        koszyk.remove(jTable2.getSelectedRow());
         try{
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            koszyk.remove(tabela_projekty_z_katalogu.getSelectedRow());
+            DefaultTableModel model = (DefaultTableModel) tabela_projekty_z_katalogu.getModel();
             for(int i=1; i<10; i++){
                 model.removeRow(0);
             }
@@ -313,10 +462,16 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             e.getStackTrace();
         }
         
-        
-        
         koszykDoTabeli();
-    }//GEN-LAST:event_usunButtonActionPerformed
+    }//GEN-LAST:event_usunButton1ActionPerformed
+
+    private void usun_polpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usun_polpButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usun_polpButtonActionPerformed
+
+    private void usun_projekt_klientaButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usun_projekt_klientaButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usun_projekt_klientaButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,11 +514,18 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JButton powrotButton;
-    private javax.swing.JButton usunButton;
+    private javax.swing.JTable tabela_proj_klienta;
+    private javax.swing.JTable tabela_projekty_z_katalogu;
+    private javax.swing.JButton usunButton1;
+    private javax.swing.JButton usun_polpButton;
+    private javax.swing.JButton usun_projekt_klientaButton2;
     private javax.swing.JButton zlozZamowienieButton;
+    private javax.swing.JButton zlozZamowienieButton1;
     // End of variables declaration//GEN-END:variables
 }
