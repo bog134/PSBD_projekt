@@ -331,6 +331,16 @@ WHERE projekt_polproduktu.Id_Proj_klient=id
 GROUP BY (projekt_polproduktu.Nazwa)
 HAVING projekt_polproduktu.Nazwa = nazwa;
 
+--5. pobranie ceny danego materiału
+SELECT Cena
+FROM material
+WHERE Id_Materialu=id_mat;
+
+--6. pobranie ceny osobogodziny
+SELECT Cena
+FROM definicja_zadania
+WHERE Id_Def_zadania=1;
+
 -- zaaktulizowanie danych
 -- 1. zaaktulizowanie ilości materialow
 UPDATE material_proj_klienta
@@ -338,7 +348,7 @@ SET ilosc=x
 WHERE Id_Mat_Proj_klient = id_mat;
 
 -- 2. utworzenie definicji zadań 
-INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania) VALUES (id,opis);
+INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania) VALUES (id,opis,czas);
 
 -- 3. utworzenie ceny 
 INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow, Marza) VALUES 

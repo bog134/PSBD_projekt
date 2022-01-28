@@ -153,7 +153,24 @@ public class Ekran_Technologa {
         
         return pobierz_z_bazy_danych(zapytanie);
     }
-
+    static public ArrayList<String[]> pobranie_ceny_danego_materialu(String id_mat)
+    {       
+        String zapytanie = 
+                "SELECT Cena\n" +
+                "FROM material\n" +
+                "WHERE Id_Materialu=" + id_mat + ";"; 
+        
+        return pobierz_z_bazy_danych(zapytanie);
+    }    
+    static public ArrayList<String[]> pobranie_ceny_osobogodziny()
+    {       
+        String zapytanie = 
+                "SELECT Cena\n" +
+                "FROM definicja_zadania\n" +
+                "WHERE Id_Def_zadania=35;"; 
+        
+        return pobierz_z_bazy_danych(zapytanie);
+    }
     
     static private void dodaj_do_bazy_danych(String zapytanie)
     {        
@@ -173,10 +190,10 @@ public class Ekran_Technologa {
 
         dodaj_do_bazy_danych(zapytanie);
     } 
-    static public void utworzenie_definicji_zadań(String id, String opis)
+    static public void utworzenie_definicji_zadań(String id, String opis, String czas)
     {       
         String zapytanie = 
-                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania) VALUES (" + id + "," + "'" + opis + "');"; 
+                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania) VALUES (" + id + "," + "'" + opis + "'" + czas + ");"; 
 
         dodaj_do_bazy_danych(zapytanie);
     }
