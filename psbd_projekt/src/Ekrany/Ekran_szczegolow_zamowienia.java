@@ -195,7 +195,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     }
 
     public void koszykDoTabeli(){
-        DefaultTableModel model = (DefaultTableModel) tabela_polp.getModel();
+        DefaultTableModel model = (DefaultTableModel) tabela_projekty_z_katalogu.getModel();
         
         for (int i=0; i < koszyk.size(); i++){
             String nr = koszyk.get(i).getId();
@@ -230,7 +230,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         powrotButton = new javax.swing.JButton();
         zlozZamowienieButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabela_polp = new javax.swing.JTable();
+        tabela_projekty_z_katalogu = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -283,7 +283,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         });
         jPanel2.add(zlozZamowienieButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 150, 50));
 
-        tabela_polp.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_projekty_z_katalogu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -306,15 +306,15 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tabela_polp);
-        if (tabela_polp.getColumnModel().getColumnCount() > 0) {
-            tabela_polp.getColumnModel().getColumn(0).setResizable(false);
-            tabela_polp.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tabela_polp.getColumnModel().getColumn(1).setResizable(false);
-            tabela_polp.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane2.setViewportView(tabela_projekty_z_katalogu);
+        if (tabela_projekty_z_katalogu.getColumnModel().getColumnCount() > 0) {
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(0).setResizable(false);
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(1).setResizable(false);
+            tabela_projekty_z_katalogu.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 510, 160));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 350, 320));
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -347,7 +347,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             jTable3.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 330, 310));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 510, 160));
 
         tabela_proj_klienta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -380,7 +380,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             tabela_proj_klienta.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 510, 140));
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 510, 150));
 
         zlozZamowienieButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         zlozZamowienieButton1.setText("Złóż zamówienie");
@@ -407,7 +407,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 usun_polpButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(usun_polpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 410, 150, 50));
+        jPanel2.add(usun_polpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 410, 150, 50));
 
         usun_projekt_klientaButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usun_projekt_klientaButton2.setText("Usuń projekt");
@@ -416,23 +416,19 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 usun_projekt_klientaButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(usun_projekt_klientaButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 410, 150, 50));
+        jPanel2.add(usun_projekt_klientaButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 410, 150, 50));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1220, 660));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1090, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1148, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -513,8 +509,8 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable3;
     private javax.swing.JButton powrotButton;
-    private javax.swing.JTable tabela_polp;
     private javax.swing.JTable tabela_proj_klienta;
+    private javax.swing.JTable tabela_projekty_z_katalogu;
     private javax.swing.JButton usunButton1;
     private javax.swing.JButton usun_polpButton;
     private javax.swing.JButton usun_projekt_klientaButton2;

@@ -79,7 +79,7 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog\n" +
                     "GROUP BY projekt_z_katalogu.Id_Proj_katalog) tab3 USING (Id_Proj_katalog)\n" +
                     "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_z_katalogu.Id_Typu_mebla\n" +
-                    filtr+"WHERE typ_mebla.Nazwa = "+temp;
+                    filtr+"WHERE typ_mebla.Nazwa = "+ temp;
             ResultSet rs=stmt.executeQuery(zapytanie);  
             while(rs.next()){
                 tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4)};

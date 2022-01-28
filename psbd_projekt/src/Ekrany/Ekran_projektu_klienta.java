@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import Dodatkowe.*;
 
@@ -26,6 +27,33 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
     EkranKlienta ekran_klienta;
 
+
+    public void clearFrameContent() {
+        typMeblaBox.setSelectedIndex(0);
+        szerkosc_mebla.setText("");
+        wysokosc_mebla.setText("");
+        dlugosc_mebla.setText("");
+
+        tkaninaObiciowaBox.setSelectedIndex(0);
+        plytaMeblowaBox.setSelectedIndex(0);
+        drewnoBox.setSelectedIndex(0);
+        piankaTapicerskaBox.setSelectedIndex(0);
+        okleinaBox.setSelectedIndex(0);
+        laczeniaBox.setSelectedIndex(0);
+        rysunek_nazwa.setText("");
+        liczba_sztuk_projektu.setValue(0);
+
+        polp_nazwa.setText("");
+        szerokosc_polp.setText("");
+        wysokosc_polp.setText("");
+        dlugosc_polp.setText("");
+        rysunek_polp_nazwa.setText("");
+        liczba_sztuk_polp.setValue(0);
+
+
+        dodaj_do_koszyka.setEnabled(false);
+        dodaj_polp_button.setEnabled(false);
+    }
 
     /**z
      * Creates new form Ekran_projektu_klienta
@@ -324,6 +352,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         dodaj_do_koszyka.setText("Dodaj projekt do koszyka");
+        dodaj_do_koszyka.setEnabled(false);
         dodaj_do_koszyka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dodaj_do_koszykaActionPerformed(evt);
@@ -556,11 +585,17 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private void dodaj_polp_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_polp_buttonActionPerformed
         if (polp_nazwa.getText().equals("") || szerokosc_polp.getText().equals("") || wysokosc_polp.getText().equals("") ||
             dlugosc_polp.getText().equals("") || liczba_sztuk_polp.getValue() == "0") {
-           message_label2.setText("Wprowadz wszystkie wymagane dane półproduktu");
-           
+            message_label2.setText("Wprowadz wszystkie wymagane dane półproduktu");
         } else {
             projekt.dodajPolprodukt(koszyk.size(), polp_rodzaj.getSelectedIndex()+1, polp_nazwa.getText(), szerokosc_polp.getText(), wysokosc_polp.getText(), dlugosc_polp.getText(), rysunek_polp_nazwa.getText());
-
+            JOptionPane optionPane = new JOptionPane();
+            optionPane.showMessageDialog(this, "Półprodukt(y) zostaly dodane do zamówienia", "Potwierdzenie", JOptionPane.INFORMATION_MESSAGE);
+            polp_nazwa.setText("");
+            szerokosc_polp.setText("");
+            wysokosc_polp.setText("");
+            dlugosc_polp.setText("");
+            rysunek_polp_nazwa.setText("");
+            liczba_sztuk_polp.setValue(0);
         }
     }//GEN-LAST:event_dodaj_polp_buttonActionPerformed
 
@@ -607,6 +642,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
             try {
                 koszyk.add(projekt);
                 System.out.print("dodano do koszyka");
+                clearFrameContent();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -624,6 +660,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
                 projekt = new ProjektKlienta(koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
                 wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
                 dodaj_polp_button.setEnabled(true);
+                dodaj_do_koszyka.setEnabled(true);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
