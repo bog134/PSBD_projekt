@@ -384,17 +384,17 @@ INSERT INTO MATERIAL_PROJ_KATALOG (Id_Mat_Proj_katalog, Id_Materialu, Id_Proj_ka
 (81, 9, 24, 2),
 (82, 18, 24, 2);
 
-INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
-(1, 1, '2021-06-15', '2021-06-25'),
-(2, 1, '2021-10-10', '2021-10-20'),
-(3, 1, '2021-02-10', '2021-02-20'),
-(4, 1, '2021-09-06', '2021-09-16'),
-(5, 1, '2021-01-03', '2021-01-13'),
-(6, 0, '2022-01-15', NULL),
-(7, 0, '2022-01-04', NULL),
-(8, 0, '2022-01-20', NULL),
-(9, 0, '2022-01-04', NULL),
-(10, 0, '2022-01-09', NULL);
+INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Id_Dostawcy, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
+(1, 1, 1, '2021-06-15', '2021-06-25'),
+(2, 2, 1, '2021-10-10', '2021-10-20'),
+(3, 3, 1, '2021-02-10', '2021-02-20'),
+(4, 4, 1, '2021-09-06', '2021-09-16'),
+(5, 5, 1, '2021-01-03', '2021-01-13'),
+(6, 6, 0, '2022-01-15', NULL),
+(7, 1, 0, '2022-01-04', NULL),
+(8, 2, 0, '2022-01-20', NULL),
+(9, 3, 0, '2022-01-04', NULL),
+(10, 4, 0, '2022-01-09', NULL);
 
 INSERT INTO MATERIAL_ZAMOW_KOMP (Id_Mat_zam, Id_Materialu, NrZamowienia, Ilosc) VALUES
 (1, 1, 5, 32),
@@ -474,26 +474,26 @@ INSERT INTO PROJEKT_POLPRODUKTU(Id_Proj_polprod, Id_Proj_klient, Id_Proj_katalog
 (19, 11, NULL, 3, 'FRONT RZEZBIONY', 400, 20, 400, 25, 'front_rzezb.png');
 
 
-INSERT INTO POLPRODUKT(Id_Polprod, Id_Proj_polprod, Id_Mebla) VALUES
-(1, 1, 16),
-(2, 2, 17),
-(3, 3, 5),
-(4, 4, 18),
-(5, 5, 2),
-(6, 6, 33),
-(7, 7, 22),
-(8, 8, 23),
-(9, 9, 24),
-(10, 10, 25),
-(11, 11, 26),
-(12, 12, 27),
-(13, 13, 32),
-(14, 14, 33),
-(15, 15, 16),
-(16, 16, 32),
-(17, 17, 9),
-(18, 18, 12),
-(19, 19, 31);
+INSERT INTO POLPRODUKT(Id_Polprod, Id_Proj_polprod, Id_Mebla, NrZamowienia) VALUES
+(1, 1, 16,1),
+(2, 2, 17,2),
+(3, 3, 5,3),
+(4, 4, 18,4),
+(5, 5, 2,5),
+(6, 6, 33,6),
+(7, 7, 22,7),
+(8, 8, 23,8),
+(9, 9, 24,9),
+(10, 10, 25,10),
+(11, 11, 26,1),
+(12, 12, 27,2),
+(13, 13, 32,3),
+(14, 14, 33,4),
+(15, 15, 16,5),
+(16, 16, 32,6),
+(17, 17, 9,7),
+(18, 18, 12,8),
+(19, 19, 31,9);
 
 INSERT INTO MATERIAL_MEBEL(Id_Mat_mebel, Id_Materialu, Id_Mebla) VALUES
 (1, 10, 1),
