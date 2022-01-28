@@ -96,15 +96,16 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         dodaj_do_koszyka = new javax.swing.JButton();
         dodaj_projekt = new javax.swing.JButton();
         liczba_sztuk_polp = new javax.swing.JSpinner();
-        message_label = new javax.swing.JLabel();
+        message_label2 = new javax.swing.JLabel();
         rysunek_nazwa = new javax.swing.JTextField();
-        liczba_sztuk1 = new javax.swing.JSpinner();
+        liczba_sztuk_projektu = new javax.swing.JSpinner();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        message_label1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -341,9 +342,9 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         liczba_sztuk_polp.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
         jPanel2.add(liczba_sztuk_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 660, 160, 30));
 
-        message_label.setForeground(new java.awt.Color(200, 0, 0));
-        message_label.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
+        message_label2.setForeground(new java.awt.Color(200, 0, 0));
+        message_label2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jPanel2.add(message_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, 240, 30));
 
         rysunek_nazwa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,8 +353,8 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         });
         jPanel2.add(rysunek_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 160, 30));
 
-        liczba_sztuk1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
-        jPanel2.add(liczba_sztuk1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
+        liczba_sztuk_projektu.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+        jPanel2.add(liczba_sztuk_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
 
         jLabel19.setText("długość:");
         jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 20));
@@ -372,6 +373,10 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         jLabel24.setText("szerokość:");
         jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, 60, 20));
+
+        message_label1.setForeground(new java.awt.Color(200, 0, 0));
+        message_label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jPanel2.add(message_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 810));
 
@@ -551,7 +556,8 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private void dodaj_polp_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_polp_buttonActionPerformed
         if (polp_nazwa.getText().equals("") || szerokosc_polp.getText().equals("") || wysokosc_polp.getText().equals("") ||
             dlugosc_polp.getText().equals("") || liczba_sztuk_polp.getValue() == "0") {
-           message_label.setText("Wprowadz wszystkie wymagane dane półproduktu");
+           message_label2.setText("Wprowadz wszystkie wymagane dane półproduktu");
+           
         } else {
             projekt.dodajPolprodukt(koszyk.size(), polp_rodzaj.getSelectedIndex()+1, polp_nazwa.getText(), szerokosc_polp.getText(), wysokosc_polp.getText(), dlugosc_polp.getText(), rysunek_polp_nazwa.getText());
 
@@ -597,23 +603,24 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     }//GEN-LAST:event_dlugosc_meblaActionPerformed
 
     private void dodaj_do_koszykaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_do_koszykaActionPerformed
-        try {
-            koszyk.add(projekt);
-            System.out.print("dodano do koszyka");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        for(int i = 0; i < (int)liczba_sztuk_projektu.getValue(); i++) {
+            try {
+                koszyk.add(projekt);
+                System.out.print("dodano do koszyka");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
     }//GEN-LAST:event_dodaj_do_koszykaActionPerformed
 
     private void dodaj_projektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_projektActionPerformed
-        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk1.getValue() == 0 ||
+        if (typMeblaBox.getSelectedIndex() == 0 || rysunek_nazwa.getText().equals("") || (Integer)liczba_sztuk_projektu.getValue() == 0 ||
             wysokosc_mebla.getText().equals("") || szerkosc_mebla.getText().equals("") || dlugosc_mebla.getText().equals("") || laczeniaBox.getSelectedIndex() == 0) {
             System.out.println("Nieprawidłowe dane");
-            message_label.setText("Wprowadz wszystkie wymagane dane");
+            message_label1.setText("Wprowadz wszystkie wymagane dane");
         } else {
             try {
-                message_label.setText("");
+                message_label1.setText("");
                 projekt = new ProjektKlienta(koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
                 wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
                 dodaj_polp_button.setEnabled(true);
@@ -706,9 +713,10 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JComboBox<String> laczeniaBox;
-    private javax.swing.JSpinner liczba_sztuk1;
     private javax.swing.JSpinner liczba_sztuk_polp;
-    private javax.swing.JLabel message_label;
+    private javax.swing.JSpinner liczba_sztuk_projektu;
+    private javax.swing.JLabel message_label1;
+    private javax.swing.JLabel message_label2;
     private javax.swing.JComboBox<String> okleinaBox;
     private javax.swing.JComboBox<String> piankaTapicerskaBox;
     private javax.swing.JComboBox<String> plytaMeblowaBox;
