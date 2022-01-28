@@ -34,28 +34,87 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         
     }
     
-    public void DbHistoriaZamowien(){
-        
-        Object[] tab;
+    public int DbCzasRealizacji(String id){
+        int czasRealizacji = 0;
+        int czasZlozeniaZamowienia = 0;
         
         try{  
             Connection con=DriverManager.getConnection(  
             "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
             Statement stmt=con.createStatement();
             String zapytanie = 
-                    "SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu FROM zamowienie_na_meble\n" +
-                    "LEFT JOIN stan_realizacji ON stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji\n" +
-                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta;
-            ResultSet rs=stmt.executeQuery(zapytanie);  
+                    "SELECT zamowienie_na_meble.Czas_realizacji_Data_zlozenia FROM firma.zamowienie_na_meble\n" +
+                    "WHERE Id_Stanu_Realizacji = 1 AND zamowienie_na_meble.Id_Zamowienia = "+id;
+            ResultSet rs=stmt.executeQuery(zapytanie);
             while(rs.next()){
-                tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3)};
-                System.out.println(rs.getObject(1)+"  "+rs.getObject(2)+"  "+rs.getObject(3));  
+                czasZlozeniaZamowienia = rs.getInt(1);
+            }
+            
+            
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+        
+        return czasRealizacji;
+    }
+    
+    public void DbHistoriaZamowien(){
+        
+        Object[] tab;
+        String filtr = " ", filtr2 = " ", filtr3 = " ";
+        
+        if((jTextField3.getText().equals("Od")||jTextField3.getText().equals(""))&&(jTextField2.getText().equals("Do")||jTextField2.getText().equals(""))){
+            filtr = " -- ";
+            filtr2 = " ";
+        }else if((jTextField3.getText().equals("Od")||jTextField3.getText().equals(""))){
+            filtr = " /* ";
+            filtr2 = " */ ";
+        }else if((jTextField2.getText().equals("Do")||jTextField2.getText().equals(""))){
+            filtr = " ";
+            filtr2 = " -- ";
+        }else{
+            filtr = " ";
+            filtr2 = " ";
+        }
+        
+        if(jComboBox1.getSelectedItem().toString().equals(" ")){
+            filtr3 = " -- ";
+        }else{
+            filtr3 = " ";
+        }
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia, stan_realizacji.Nazwa_Stanu, ROUND(COALESCE(SUM(definicja_zadania.Czas_wykonania),0)/3600,1) FROM zamowienie_na_meble\n" +
+                    "LEFT JOIN stan_realizacji ON stan_realizacji.Id_Stanu_realizacji = zamowienie_na_meble.Id_Stanu_Realizacji\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Zamowienia = zamowienie_na_meble.Id_Zamowienia\n" +
+                    "LEFT JOIN projekt_z_katalogu ON projekt_z_katalogu.Id_Proj_katalog = mebel.Id_Proj_katalog\n" +
+                    "LEFT JOIN definicja_zadania ON definicja_zadania.Id_Proj_katalog = projekt_z_katalogu.Id_Proj_katalog\n" +
+                    "WHERE zamowienie_na_meble.Id_Klienta = "+IdKlienta+" "+filtr+" AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia > DATE("+'"'+jTextField3.getText()+'"'+") "+filtr2+" AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia < DATE("+'"'+jTextField2.getText()+'"'+") \n" +
+                    "GROUP BY zamowienie_na_meble.Id_Zamowienia\n"+
+                    "" +filtr3+ "HAVING stan_realizacji.Nazwa_Stanu LIKE "+'"'+ jComboBox1.getSelectedItem().toString()+'"';
+            ResultSet rs=stmt.executeQuery(zapytanie);
+            while(rs.next()){
+                tab = new Object[]{rs.getObject(1), rs.getObject(2), rs.getObject(3), rs.getObject(4)};
+                //System.out.println(rs.getObject(1)+"  "+rs.getObject(2)+"  "+rs.getObject(3));  
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 model.addRow(tab);
             }
             
             con.close(); 
         }catch(Exception e){ System.out.println(e);}
+        
+        int rowCount = jTable1.getModel().getRowCount();
+        for(int i=0; i<rowCount; i++){
+            int column = 0;
+            String nr = jTable1.getModel().getValueAt(rowCount, column).toString();
+            int data = DbCzasRealizacji(nr);
+            jTable1.getModel().setValueAt(data, rowCount, column);
+        }
+        
     }
     
     
@@ -117,6 +176,19 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             
             con.close(); 
         }catch(Exception e){ System.out.println(e);}
+        
+        int liczbarzedow = jTable2.getModel().getRowCount();
+        double koszt = 0;
+        
+        for(int i=0; i<liczbarzedow; i++){
+            int column = 2;
+            int row = i;
+            koszt = koszt + Double.valueOf(jTable2.getModel().getValueAt(row, column).toString());
+            
+        }
+        cenaLabel.setText("Koszt zamówienia: "+koszt);
+        
+        
     }
     
     public void DbAkceptuj(){
@@ -183,9 +255,11 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         szukajButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        cenaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,7 +275,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nr.", "Data złożenia", "Status zamowienia", "Sumaryczna Cena"
+                "Nr.", "Data złożenia", "Status zamowienia", "Przewidywany czas realizacji [h]"
             }
         ) {
             Class[] types = new Class [] {
@@ -225,6 +299,16 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(5);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+        }
 
         jScrollPane2.setViewportView(jScrollPane1);
 
@@ -376,13 +460,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("-");
 
-        jTextField4.setText("Nazwa zawiera");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
         szukajButton.setText("Szukaj");
         szukajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -392,6 +469,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
         jLabel4.setText("Data:");
 
+        jLabel5.setText("Status zamowienia:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "W realizacji", "Gotowe do odebrania", "Oczekuje na zatwierdzenie", "Wyceniono", "Odrzucono", "Odebrano" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -399,9 +480,12 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -414,8 +498,8 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                                     .addComponent(szukajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,13 +511,16 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(szukajButton, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(szukajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 210, 140));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 210, 180));
+        getContentPane().add(cenaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 730, 210, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -517,10 +604,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void reklamacjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reklamacjaButtonActionPerformed
         Arkusz_Reklamacyjny arkusz = new Arkusz_Reklamacyjny();
@@ -643,10 +726,13 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anulujButton;
+    private javax.swing.JLabel cenaLabel;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -659,7 +745,6 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton powrotButton;
     private javax.swing.JButton reklamacjaButton;
     private javax.swing.JButton szukajButton;
