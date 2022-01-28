@@ -451,7 +451,18 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     }//GEN-LAST:event_zlozZamowienieButton1ActionPerformed
 
     private void usunButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usunButton1ActionPerformed
-        // TODO add your handling code here:
+        
+        try{
+            koszyk.remove(tabela_projekty_z_katalogu.getSelectedRow());
+            DefaultTableModel model = (DefaultTableModel) tabela_projekty_z_katalogu.getModel();
+            for(int i=1; i<10; i++){
+                model.removeRow(0);
+            }
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+        
+        koszykDoTabeli();
     }//GEN-LAST:event_usunButton1ActionPerformed
 
     private void usun_polpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usun_polpButtonActionPerformed
