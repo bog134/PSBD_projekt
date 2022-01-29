@@ -83,10 +83,16 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             Connection con=DriverManager.getConnection(  
             "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
             Statement stmt=con.createStatement();
-            String zapytanie = 
+            String zapytanie;
+            if(koszyk_proj_klient.isEmpty()){
+                zapytanie = 
                     "INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Klienta, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES\n" +
                     "("+klient.id_klienta+", 1,CURTIME() , NULL);";
-            
+            }else{
+                zapytanie = 
+                    "INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Klienta, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES\n" +
+                    "("+klient.id_klienta+", 3,CURTIME() , NULL);";
+            }
            
             stmt.executeUpdate(zapytanie);
             
