@@ -459,7 +459,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         tabela_proj_klienta = new javax.swing.JTable();
         usunButton1 = new javax.swing.JButton();
         usun_polpButton = new javax.swing.JButton();
-        wyswietl_polp = new javax.swing.JButton();
         usun_projekt_klientaButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
@@ -596,6 +595,11 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabela_proj_klienta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabela_proj_klientaMousePressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabela_proj_klienta);
         if (tabela_proj_klienta.getColumnModel().getColumnCount() > 0) {
             tabela_proj_klienta.getColumnModel().getColumn(0).setResizable(false);
@@ -623,15 +627,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             }
         });
         jPanel2.add(usun_polpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, 150, 50));
-
-        wyswietl_polp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        wyswietl_polp.setText("Wyświetl Półprodukty");
-        wyswietl_polp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wyswietl_polpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(wyswietl_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, 180, 50));
 
         usun_projekt_klientaButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usun_projekt_klientaButton3.setText("Usuń projekt");
@@ -708,13 +703,13 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         usunPolprodukt();
     }//GEN-LAST:event_usun_polpButtonActionPerformed
 
-    private void wyswietl_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyswietl_polpActionPerformed
-        wyswietlPolP();
-    }//GEN-LAST:event_wyswietl_polpActionPerformed
-
     private void usun_projekt_klientaButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usun_projekt_klientaButton3ActionPerformed
         usunProjektKlienta();
     }//GEN-LAST:event_usun_projekt_klientaButton3ActionPerformed
+
+    private void tabela_proj_klientaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_proj_klientaMousePressed
+        wyswietlPolP();
+    }//GEN-LAST:event_tabela_proj_klientaMousePressed
 
     /**
      * @param args the command line arguments
@@ -770,7 +765,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private javax.swing.JButton usunButton1;
     private javax.swing.JButton usun_polpButton;
     private javax.swing.JButton usun_projekt_klientaButton3;
-    private javax.swing.JButton wyswietl_polp;
     private javax.swing.JButton zlozZamowienieButton;
     // End of variables declaration//GEN-END:variables
 }

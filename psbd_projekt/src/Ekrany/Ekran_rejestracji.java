@@ -20,6 +20,24 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void clearContent() {
+        imie_textF.setText("");
+        Nazwisko_textF.setText("");
+        email_textF.setText("");
+        ulica_textF.setText("");
+        login_textF.setText("");
+        nr_domu_textF.setText("");
+        nr_mieszkania_textF.setText("");
+        kod_pocztowy_textF.setText("");
+        miaso__textF.setText("");
+        nr_telefonu_textF.setText("");
+        kraj__textF.setText("");
+
+        password.setText("");
+        password1.setText("");
+    }
+
+
 
     private boolean sprawdz_login(String login) {
         boolean login_poprawny = false;
@@ -272,6 +290,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
                         nr_domu_textF.getText(), nr_mieszkania_textF.getText(), login_textF.getText(), password.getPassword());
                          
                         message_label.setForeground(new java.awt.Color(52, 191, 89));
+                        clearContent();
                         message_label.setText("Zarejestrowano");                       
                     } else {
                         message_label.setForeground(new java.awt.Color(204, 0, 0));

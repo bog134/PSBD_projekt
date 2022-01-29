@@ -25,7 +25,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
      */
     public Ekran_glowny() {
         initComponents();
-        hasloTextField.setVisible(false);
+        // hasloTextField.setVisible(false);
 
     }
 
@@ -177,7 +177,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
                 hasloTextFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(hasloTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 760, 220, 30));
+        jPanel1.add(hasloTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 760, 330, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 800));
 
@@ -197,8 +197,8 @@ public class Ekran_glowny extends javax.swing.JFrame {
         String login = loginTextField.getText();
         char input[] = password.getPassword();
         String haslo = new String(input);
-
         hasloTextField.setText(haslo);
+
         if (logowanie(login, haslo) == true) {
             ekran_klienta = new EkranKlienta();
             ekran_klienta.setCustomer(id_klienta, login);
