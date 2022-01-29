@@ -173,15 +173,15 @@ INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Typu_mebla, Id_Laczenia, Wymiary
 (10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
 (11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
 
-INSERT INTO CENA (Id_Ceny, Id_Proj_klient, Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza) VALUES
-(1, 4, 5, 820, 2010, 4020),
-(2, 5, 5, 1005, 2342, 2020),
-(3, 6, 5, 1005, 4342, 1020),
-(4, 7, 5, 1005, 3342, 3020),
-(5, 8, 9, 200, 551, 700),
-(6, 9, 5, 500, 2300, 900),
-(7, 10, 9, 400, 400, 300),
-(8, 11, 9, 460, 410, 200);
+INSERT INTO CENA (Id_Ceny, Id_Proj_klient, Id_Pracownika, Koszt_robocizny, Koszt_materialow, Marza,Koszt_polproduktow) VALUES
+(1, 4, 5, 820, 2010, 4020, 500),
+(2, 5, 5, 1005, 2342, 2020, 600),
+(3, 6, 5, 1005, 4342, 1020, 400),
+(4, 7, 5, 1005, 3342, 3020, 300),
+(5, 8, 9, 200, 551, 700, 200),
+(6, 9, 5, 500, 2300, 900, 100),
+(7, 10, 9, 400, 400, 300, 200),
+(8, 11, 9, 460, 410, 200, 300);
 
 INSERT INTO MATERIAL_PROJ_KLIENTA (Id_Mat_Proj_klient, Id_Materialu, Id_Proj_klient, Ilosc) VALUES
 (1, 7, 1, NULL),
@@ -455,7 +455,7 @@ INSERT INTO MEBEL (Id_Mebla, Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog, Id_
 INSERT INTO PROJEKT_POLPRODUKTU (Id_Proj_polprod, Id_Proj_klient, Id_Proj_katalog, Id_Rodzaju_polproduktu, Id_Dostawcy, Nazwa, Rozmiar_Wysokosc, Rozmiar_Szerokosc, Rozmiar_Dlugosc, Cena, Nazwa_pliku_rysunku) VALUES
 (1, NULL, 7, 1, 4, 'FUTURA NV', 60, 1000, 2000, 270, 'futura.dwg'),
 (2, NULL, 8, 1, 4, 'FUTURA NV', 60, 1400, 2000, 305, 'futura2.dwg'),
-(3, 3, NULL, 1, 4, 'NATURA', 55, 700, 2000, 152, 'natura.jpg'),
+(3, 3, NULL, 1, 4, 'NATURA', 55, 700, 2000,NULL, 'natura.jpg'),
 (4, NULL, 9, 1, 4, 'NATURA NV', 55, 1200, 2000, 215, 'natura2.jpg'),
 (5, NULL, 2, 2, 6, 'RAMA STOLU STALOWA', 450, 600, 900, 215, 'rama_stol.png'),
 (6, NULL, 24, 2, 6, 'RAMA KREDENSU STALOWA', 600, 300, 600, 250, 'rama_kredens.dwg'),
