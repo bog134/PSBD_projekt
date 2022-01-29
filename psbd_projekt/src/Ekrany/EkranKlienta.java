@@ -260,7 +260,6 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         opcjBox = new javax.swing.JComboBox<>();
         dodajDoKoszykaButton = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         tkaninaBox = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -428,7 +427,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel9.setText("Płyta meblowa:");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 164, 41));
 
-        opcjBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        opcjBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         opcjBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         opcjBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -443,21 +442,13 @@ public class EkranKlienta extends javax.swing.JFrame {
                 dodajDoKoszykaButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(dodajDoKoszykaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 164, 41));
-
-        jButton10.setText("Odrzuć");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 164, 41));
+        jPanel2.add(dodajDoKoszykaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 340, 41));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Tkanina obiciowa:");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 164, 41));
 
-        tkaninaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tkaninaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         tkaninaBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tkaninaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,7 +461,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel11.setText("Opcjonalna część:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 164, 41));
 
-        plytaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        plytaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         plytaBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         plytaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,7 +470,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         });
         jPanel2.add(plytaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 164, 41));
 
-        drewnoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        drewnoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         drewnoBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         drewnoBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,7 +483,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel12.setText("Typ drewna");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 164, 41));
 
-        piankaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        piankaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         piankaBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         piankaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,7 +500,7 @@ public class EkranKlienta extends javax.swing.JFrame {
         jLabel14.setText("Typ okleiny:");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 164, 41));
 
-        okleinaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        okleinaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         okleinaBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         okleinaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -663,10 +654,6 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
         updateLiczbewKoszyku();
     }//GEN-LAST:event_dodajDoKoszykaButtonActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
     private void opcjBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcjBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_opcjBoxActionPerformed
@@ -796,7 +783,6 @@ kategorie_comb_box.addMouseListener(new java.awt.event.MouseAdapter() {
     private javax.swing.JComboBox<String> drewnoBox;
     private javax.swing.JButton historiaZamowienButton;
     private javax.swing.JLabel ikona_wozka_sklepowego;
-    private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
