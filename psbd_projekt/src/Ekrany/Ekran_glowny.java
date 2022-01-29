@@ -25,7 +25,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
      */
     public Ekran_glowny() {
         initComponents();
-        // hasloTextField.setVisible(false);
+        hasloTextField.setVisible(false);
 
     }
 

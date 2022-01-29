@@ -177,6 +177,35 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 id_buff_proj = rs.getInt(1);
                 }
 
+                if (koszyk_proj_klient.get(i).getIdDrewna() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdDrewna() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdPlyty() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdPlyty() + ", " + id_buff_proj + ", NULL)";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdTkaninyy() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdPianki() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdPianki() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdOkleiny() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdOkleiny() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
 
                 for (int k = 0; k < koszyk_proj_klient.get(i).getIlosc(); k++) {
                     zapytanie ="INSERT INTO MEBEL (Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog, Id_Opcj_czesci, Wykonany) VALUES\n" +
@@ -194,19 +223,11 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdDrewna() + "," + id_buff_meb + ");";
                         stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdDrewna() + ", " + id_buff_proj + ", NULL);";
-                        stmt.executeUpdate(zapytanie);
                     }
 
                     if (koszyk_proj_klient.get(i).getIdPlyty() != 0) {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdPlyty() + "," + id_buff_meb + ");";
-                        stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdPlyty() + ", " + id_buff_proj + ", NULL)";
                         stmt.executeUpdate(zapytanie);
                     }
 
@@ -214,29 +235,17 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + "," + id_buff_meb + ");";
                         stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + ", " + id_buff_proj + ", NULL);";
-                        stmt.executeUpdate(zapytanie);
                     }
 
                     if (koszyk_proj_klient.get(i).getIdPianki() != 0) {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdPianki() + "," + id_buff_meb + ");";
                         stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdPianki() + ", " + id_buff_proj + ", NULL);";
-                        stmt.executeUpdate(zapytanie);
                     }
 
                     if (koszyk_proj_klient.get(i).getIdOkleiny() != 0) {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdOkleiny() + "," + id_buff_meb + ");";
-                        stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdOkleiny() + ", " + id_buff_proj + ", NULL);";
                         stmt.executeUpdate(zapytanie);
                     }
 
