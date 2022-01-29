@@ -62,7 +62,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     }
     
     public String DbCzasRealizacji2(String id){
-        String czasRealizacji_rob = null;
+        String czasRealizacji_rob = "0";
         String czasRealizacji_format = null;
         String czasZlozeniaZamowienia = null;
         
@@ -114,7 +114,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             con.close(); 
         }catch(Exception e){ System.out.println(e);}
         
-        System.out.println(czasRealizacji_rob);
+        //System.out.println(czasRealizacji_rob);
         
         //zmiana formatu wyswietlania czasu
         
@@ -126,7 +126,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             czasRealizacji_odwr = ch+czasRealizacji_odwr;
         }
         
-        System.out.println(czasRealizacji_odwr);
+        //System.out.println(czasRealizacji_odwr);
         
         if(czasRealizacji_odwr.equals("000000")){
             czasRealizacji_format = "Oczekiwanie na zlozenie zamowienia na materialy";

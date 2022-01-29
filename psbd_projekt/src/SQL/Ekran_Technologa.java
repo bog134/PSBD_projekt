@@ -167,7 +167,7 @@ public class Ekran_Technologa {
         String zapytanie = 
                 "SELECT Cena\n" +
                 "FROM definicja_zadania\n" +
-                "WHERE Id_Def_zadania=35;"; 
+                "WHERE Id_Def_zadania=1;"; 
         
         return pobierz_z_bazy_danych(zapytanie);
     }

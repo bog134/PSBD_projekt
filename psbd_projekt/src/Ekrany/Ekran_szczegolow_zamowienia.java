@@ -52,6 +52,31 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         return id;
     }
     
+    public int DbznajdzIdMaterialu(String nazwa, String id_m){
+        int id = 0;
+        
+        nazwa = '"' + nazwa+ '"';
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            String zapytanie = 
+                    "SELECT material.Id_Materialu FROM firma.material\n" +
+                    "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Materialu = material.Id_Materialu\n"+
+                    "WHERE Nazwa = "+nazwa+" && Id_Proj_katalog ="+id_m;
+
+            ResultSet rs=stmt.executeQuery(zapytanie);  
+            while(rs.next()){
+               id = rs.getInt(1);
+            }
+          
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+        
+        return id;
+    }
+    
     public void DbskladanieZamowienia(){
                
         try{  
@@ -89,13 +114,21 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 
                 ArrayList<Integer> temp = new ArrayList<>();
                 
-                zapytanie = "SELECT Id_Materialu FROM firma.material_proj_katalog\n" +
+                for(int j=0; j<5; j++){
+                    if(koszyk.get(i).getMaterial().get(j).equals(" ")){
+                        continue;
+                    }else{
+                        temp.add(DbznajdzIdMaterialu(koszyk.get(i).getMaterial().get(j), koszyk.get(i).getId()));
+                    }
+                }
+                
+                /*zapytanie = "SELECT Id_Materialu FROM firma.material_proj_katalog\n" +
                             "WHERE Id_Proj_katalog =" +koszyk.get(i).getId();
                 rs=stmt.executeQuery(zapytanie);
                 while(rs.next()){
                     temp.add(rs.getInt(1));
                     
-                }
+                }*/
                 
                 for(int j=0; j<temp.size(); j++){
                     zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
