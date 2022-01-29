@@ -197,11 +197,11 @@ public class Ekran_Technologa {
 
         dodaj_do_bazy_danych(zapytanie);
     }
-    static public void utworzenie_ceny (String id_techn, String id, String robocizna, String materialy, String marza)
+    static public void utworzenie_ceny (String id_techn, String id, String robocizna, String materialy, String marza, String polprodukty)
     {       
         String zapytanie = 
-                "INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow, Marza) VALUES \n" +
-                "(" + id_techn + "," + id + "," + robocizna + "," + materialy + "," + marza + ");"; 
+                "INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow, Marza, Koszt_polproduktow) VALUES \n" +
+                "(" + id_techn + "," + id + "," + robocizna + "," + materialy + "," + marza + "," + polprodukty + ");"; 
 
         dodaj_do_bazy_danych(zapytanie);
     }
