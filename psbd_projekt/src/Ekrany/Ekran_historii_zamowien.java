@@ -32,6 +32,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     public void  setCustomer(int id, String login){
         this.IdKlienta = id;
         this.login_klienta = login;
+        szukajButton.doClick();
         
     }
     
