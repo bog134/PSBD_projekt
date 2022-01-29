@@ -14,6 +14,7 @@ import java.sql.*;
 
 public class Ekran_glowny extends javax.swing.JFrame {
     Ekrany.EkranKlienta ekran_klienta;
+    Ekran_Technologa ekran_technologa;
 
     int id_klienta = 3;
     int id_technologa = 0;
@@ -202,7 +203,9 @@ public class Ekran_glowny extends javax.swing.JFrame {
             ekran_klienta.setVisible(true);
             this.setVisible(false);
         } else if (logowanie_technologa(login, haslo) == true) {
-            new Ekran_Technologa().setVisible(true);
+            ekran_technologa = new Ekran_Technologa();
+            ekran_technologa.setVisible(true);
+            ekran_technologa.setIdTechnologa(id_technologa);
             this.setVisible(false);
         } else {
             message_label.setText("Nieprawidłowe dane logowania");

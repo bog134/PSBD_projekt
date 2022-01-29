@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Ekran_Technologa extends javax.swing.JFrame{
 
-    private String id_techn="2";
+    private String id_techn;
     private String id;
     private ArrayList<String[]> lista_projektow_dane;
     private ArrayList<String[]> lista_materialow;
@@ -26,6 +26,10 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         initComponents();
         lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
         wyswietlenie_listy_projektow_klienta();
+    }
+
+    public void setIdTechnologa(Integer id) {
+        this.id_techn = id.toString();
     }
     
     private void wyswietlenie_listy_projektow_klienta()
