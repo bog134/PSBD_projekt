@@ -41,7 +41,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                     "SELECT Id_Opcj_czesci FROM firma.opcjonalna_czesc\n" +
                     "WHERE Nazwa = "+nazwa+" && Id_Proj_katalog ="+id_k;
 
-            ResultSet rs=stmt.executeQuery(zapytanie);  
+            ResultSet rs=stmt.executeQuery(zapytanie);
             while(rs.next()){
                id = rs.getString(1);
             }
