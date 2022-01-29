@@ -640,7 +640,14 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         for(int i=0; i<ksize; i++){
             koszyk.remove(0);
         }
+
+        ksize = koszyk_proj_klient.size();
+        for(int i = 0; i < ksize; i++){
+            koszyk_proj_klient.remove(0);
+        }
+
         klient.updateLiczbewKoszyku();
+
         this.setVisible(false);
     }//GEN-LAST:event_zlozZamowienieButtonActionPerformed
 

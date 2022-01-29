@@ -644,6 +644,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 koszyk.add(projekt);
                 JOptionPane optionPane = new JOptionPane();
                 optionPane.showMessageDialog(this, "Projekt został dodany do koszyka", "Potwierdzenie", JOptionPane.INFORMATION_MESSAGE);
+                ekran_klienta.updateLiczbewKoszyku();
                 clearFrameContent();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
