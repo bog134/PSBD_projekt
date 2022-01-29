@@ -264,17 +264,17 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
 
             switch (id_typ) {
                 case 1:{ typ = "Stół"; break;} 
-                case 2: {typ = "Krzesło"; break;
-                } case 3: { typ = "Fotel"; break;
-                } case 4: {typ = "Łóżko"; break;
-                } case 5: {typ = "Sofa";break;
-                } case 6: {typ = "Buirko"; break;
-                } case 7: {typ = "Szafa"; break;
-                } case 8: {typ = "Komoda"; break;
-                } case 9: {typ = "Szafka nocna"; break;
-                } case 10: {typ = "Narożnik"; break;
-                } case 11: {typ = "Regał"; break;
-                } case 12: {typ = "Kredens"; break;}
+                case 2: {typ = "Krzesło"; break;}
+                case 3: { typ = "Fotel"; break;}
+                case 4: {typ = "Łóżko"; break;} 
+                case 5: {typ = "Sofa";break;}
+                case 6: {typ = "Buirko"; break;}
+                case 7: {typ = "Szafa"; break;}
+                case 8: {typ = "Komoda"; break;}
+                case 9: {typ = "Szafka nocna"; break;}
+                case 10: {typ = "Narożnik"; break;}
+                case 11: {typ = "Regał"; break;}
+                case 12: {typ = "Kredens"; break;}
                 default: { typ = "brak";}
             }
 
