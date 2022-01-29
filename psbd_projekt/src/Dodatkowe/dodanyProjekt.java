@@ -4,19 +4,22 @@
  */
 package Dodatkowe;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Maciek
  */
 public final class dodanyProjekt {
-    String Id_projektu, Nazwa, Typ, Cena, Material, OpcjonalneCzesci;
+    String Id_projektu, Nazwa, Typ, Cena, OpcjonalneCzesci;
+    ArrayList<String> Materialy;
         
-        public dodanyProjekt(String Id_projektu, String Nazwa, String Typ, String Cena, String Material, String OpcjonalneCzesci){
+        public dodanyProjekt(String Id_projektu, String Nazwa, String Typ, String Cena, ArrayList<String> Materialy, String OpcjonalneCzesci){
             this.setId(Id_projektu);
             this.setNazwa(Nazwa);
             this.setTyp(Typ);
             this.setCena(Cena);
-            this.setMaterial(Material);
+            this.setMaterial(Materialy);
             this.setOpcjonalneCzesci(OpcjonalneCzesci);
         }
         
@@ -24,13 +27,13 @@ public final class dodanyProjekt {
         public void setNazwa(String Nazwa){this.Nazwa = Nazwa;}
         public void setTyp(String Typ){this.Typ = Typ;}
         public void setCena(String Cena){this.Cena = Cena;}
-        public void setMaterial(String Material){this.Material = Material;}
+        public void setMaterial(ArrayList<String> Materialy){this.Materialy = Materialy;}
         public void setOpcjonalneCzesci(String OpcjonalneCzesci){this.OpcjonalneCzesci = OpcjonalneCzesci;}
         
         public String getId(){return Id_projektu;}
         public String getNazwa(){return Nazwa;}
         public String getTyp(){return Typ;}
         public String getCena(){return Cena;}
-        public String getMaterial(){return Material;}
+        public ArrayList<String> getMaterial(){return Materialy;}
         public String getOpcjonalneCzesci(){return OpcjonalneCzesci;}
 }
