@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	Id_Proj_klient INT DEFAULT NULL,
 	Id_Proj_katalog INT DEFAULT NULL,	
 	Opis_zadania VARCHAR(200) NOT NULL, 
-	Koszt_osobogodziny DOUBLE NOT NULL,
+	Cena DOUBLE NOT NULL,
 	Czas_wykonania INT NOT NULL,	
 
 	PRIMARY KEY (Id_Def_zadania)
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
   	Id_Mat_mebel int(11) NOT NULL AUTO_INCREMENT,
   	Id_Materialu int(11) NOT NULL,
   	Id_Mebla int(11) NOT NULL,
-	Ilosc int(11) NOT NULL,
+	Ilosc int(11) DEFAULT NULL,
 	
 	PRIMARY KEY (Id_Mat_mebel)
 );
