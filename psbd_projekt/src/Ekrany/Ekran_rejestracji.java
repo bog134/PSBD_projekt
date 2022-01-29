@@ -78,8 +78,10 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     }  
 
     private boolean rejestracja(String imie, String nazwisko, String nr_telefonu, String email, String kraj, 
-        String kod_pocztowy, String miejscowosc, String ulica, String nr_domu, String nr_mieszkania, String login, String haslo) {
+        String kod_pocztowy, String miejscowosc, String ulica, String nr_domu, String nr_mieszkania, String login, char[] haslo) {
         boolean rejestracja_sie_powiodla = false;
+
+        String haslo_s = new String(haslo);
 
         try{  
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
@@ -88,7 +90,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
                         "INSERT INTO klient (Imie, Nazwisko, Numer_telefonu, Email, Adres_Kraj, " +
                         "Adres_AdresPocztowy, Adres_Miejscowosc, Adres_Ulica, Adres_NumerDomu, Adres_NumerMieszkania, Login, Haslo) " +
                         "VALUES ('" + imie + "', '" + nazwisko +"', '" + nr_telefonu + "', '" +
-                        email + "', '"  + kraj + "', '" + kod_pocztowy + "', '" + miejscowosc + "', '" + ulica + "', '" + nr_domu + "', '" + nr_mieszkania + "', '" + login + "', '" + haslo +"');\n";
+                        email + "', '"  + kraj + "', '" + kod_pocztowy + "', '" + miejscowosc + "', '" + ulica + "', '" + nr_domu + "', '" + nr_mieszkania + "', '" + login + "', '" + haslo_s +"');\n";
             
             stmt.executeUpdate(zapytanie); 
             con.close(); 
@@ -117,8 +119,6 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         imie_textF = new javax.swing.JTextField();
         email_textF = new javax.swing.JTextField();
         login_textF = new javax.swing.JTextField();
-        haslo_textF = new javax.swing.JTextField();
-        pow_haslo_textF = new javax.swing.JTextField();
         Nazwisko_textF = new javax.swing.JTextField();
         ulica_textF = new javax.swing.JTextField();
         nr_mieszkania_textF = new javax.swing.JTextField();
@@ -142,6 +142,8 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         nr_telefonu_textF = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         message_label = new javax.swing.JLabel();
+        password = new javax.swing.JPasswordField();
+        password1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -160,8 +162,6 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         jPanel2.add(imie_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 220, 40));
         jPanel2.add(email_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 220, 40));
         jPanel2.add(login_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 220, 40));
-        jPanel2.add(haslo_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 220, 40));
-        jPanel2.add(pow_haslo_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 220, 40));
         jPanel2.add(Nazwisko_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 220, 40));
         jPanel2.add(ulica_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 220, 40));
         jPanel2.add(nr_mieszkania_textF, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 100, 40));
@@ -231,6 +231,8 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         message_label.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         message_label.setToolTipText("");
         jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 520, 310, 30));
+        jPanel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 220, 40));
+        jPanel2.add(password1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 220, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 500, 720));
 
@@ -248,13 +250,15 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
         if (imie_textF.getText().equals("") || Nazwisko_textF.getText().equals("") || 
             email_textF.getText().equals("") || ulica_textF.getText().equals("") || 
             login_textF.getText().equals("") || nr_domu_textF.getText().equals("") ||
-            haslo_textF.getText().equals("") || kod_pocztowy_textF.getText().equals("") || 
-            pow_haslo_textF.getText().equals("") || miaso__textF.getText().equals("") || 
+            password.getPassword().length == 0 || kod_pocztowy_textF.getText().equals("") || 
+            password1.getPassword().length == 0 || miaso__textF.getText().equals("") || 
             nr_telefonu_textF.getText().equals("") || kraj__textF.getText().equals("")) {
                 message_label.setForeground(new java.awt.Color(204, 0, 0));
                 message_label.setText("Wprowadz wszystkie wymagane dane logowania");
         } else {
-            if ((pow_haslo_textF.getText().equals(haslo_textF.getText()) == false)) {
+            String pass1 = new String(password.getPassword());
+            String pass2 = new String(password1.getPassword());
+            if ((pass2.equals(pass1) == false)) {
                 message_label.setForeground(new java.awt.Color(204, 0, 0));
                 message_label.setText("Wprowadzone hasła różnią się od siebie");
             } else {
@@ -265,7 +269,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
                     if(sprawdz_email(email_textF.getText())){
                         rejestracja(imie_textF.getText(), Nazwisko_textF.getText(), nr_telefonu_textF.getText(), email_textF.getText(), 
                         kraj__textF.getText(), kod_pocztowy_textF.getText(), miaso__textF.getText(), ulica_textF.getText(), 
-                        nr_domu_textF.getText(), nr_mieszkania_textF.getText(), login_textF.getText(), haslo_textF.getText());
+                        nr_domu_textF.getText(), nr_mieszkania_textF.getText(), login_textF.getText(), password.getPassword());
                          
                         message_label.setForeground(new java.awt.Color(52, 191, 89));
                         message_label.setText("Zarejestrowano");                       
@@ -331,7 +335,6 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Nazwisko_textF;
     private javax.swing.JTextField email_textF;
-    private javax.swing.JTextField haslo_textF;
     private javax.swing.JTextField imie_textF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -358,7 +361,8 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
     private javax.swing.JTextField nr_domu_textF;
     private javax.swing.JTextField nr_mieszkania_textF;
     private javax.swing.JTextField nr_telefonu_textF;
-    private javax.swing.JTextField pow_haslo_textF;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JPasswordField password1;
     private javax.swing.JButton powrotButton;
     private javax.swing.JTextField ulica_textF;
     private javax.swing.JButton zarejestruj_button;

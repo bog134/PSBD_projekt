@@ -11,11 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import Dodatkowe.*;
-
-// INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Ceny, Id_Typu_mebla, Id_Laczenia, Wymiary_Szerokosc, Wymiary_Wysokosc, Wymiary_Dlugosc, Nazwa_pliku_rysunku) VALUES
-// (1, NULL, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
-
-
 /**
  *
  * @author Maciek
@@ -27,15 +22,42 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
     EkranKlienta ekran_klienta;
 
-    // private void printZawartoscKoszyka() {
-    //     for (int x = 0; x < koszyk.size(); x++) {
-    //         System.out.print();
-    //         projekt.getId()
+    private void projectFormEnable(Boolean state) {
+        typMeblaBox.setEnabled(state);
+
+        wysokosc_mebla.setEnabled(state);
+        szerkosc_mebla.setEnabled(state);
+        dlugosc_mebla.setEnabled(state);
 
 
-    //         for ()
-    //     }
-    // }
+        tkaninaObiciowaBox.setEnabled(state);
+        plytaMeblowaBox.setEnabled(state);
+        drewnoBox.setEnabled(state);
+        piankaTapicerskaBox.setEnabled(state);
+        okleinaBox.setEnabled(state);
+        laczeniaBox.setEnabled(state);
+        rysunek_nazwa.setEnabled(state);
+        liczba_sztuk_projektu.setEnabled(state);
+        dodaj_rysunek_projektu.setEnabled(state);
+
+
+        dodaj_projekt.setEnabled(state);
+    }
+
+    private void polproduktFormEnable(Boolean state) {
+        polp_nazwa.setEnabled(state);
+        szerokosc_polp.setEnabled(state);
+        wysokosc_polp.setEnabled(state);
+        dlugosc_polp.setEnabled(state);
+        polp_rodzaj.setEnabled(state);
+        dodaj_rysunek_polp.setEnabled(state);
+        dodaj_polp_button.setEnabled(state);
+
+        rysunek_polp_nazwa.setEnabled(state);
+        liczba_sztuk_polp.setEnabled(state);
+    }
+
+
 
 
     public void clearFrameContent() {
@@ -62,7 +84,8 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
 
         dodaj_do_koszyka.setEnabled(false);
-        dodaj_polp_button.setEnabled(false);
+        odrzuc_projekt.setEnabled(false);
+        polproduktFormEnable(false);
     }
 
     /**z
@@ -70,6 +93,8 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
      */
     public Ekran_projektu_klienta() {
         initComponents();
+        polproduktFormEnable(false);
+        odrzuc_projekt.setEnabled(false);
     }
 
     public void setKoszyk(ArrayList<ProjektKlienta> koszyk) {
@@ -145,6 +170,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         message_label1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        odrzuc_projekt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -362,14 +388,15 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     });
     jPanel2.add(dlugosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 80, 30));
 
-    dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-    dodaj_do_koszyka.setText("Dodaj projekt do koszyka");
+    dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    dodaj_do_koszyka.setText("Dodaj do koszyka");
+    dodaj_do_koszyka.setEnabled(false);
     dodaj_do_koszyka.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             dodaj_do_koszykaActionPerformed(evt);
         }
     });
-    jPanel2.add(dodaj_do_koszyka, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 720, 340, 40));
+    jPanel2.add(dodaj_do_koszyka, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 710, 210, 40));
 
     dodaj_projekt.setText("Dodaj projekt");
     dodaj_projekt.addActionListener(new java.awt.event.ActionListener() {
@@ -380,6 +407,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     jPanel2.add(dodaj_projekt, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 200, 30));
 
     liczba_sztuk_polp.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+    liczba_sztuk_polp.setEditor(new javax.swing.JSpinner.DefaultEditor(liczba_sztuk_polp));
     jPanel2.add(liczba_sztuk_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 620, 160, 30));
 
     message_label2.setForeground(new java.awt.Color(200, 0, 0));
@@ -394,6 +422,9 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     jPanel2.add(rysunek_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 160, 30));
 
     liczba_sztuk_projektu.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+    liczba_sztuk_projektu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    liczba_sztuk_projektu.setDoubleBuffered(true);
+    liczba_sztuk_projektu.setEditor(new javax.swing.JSpinner.DefaultEditor(liczba_sztuk_projektu));
     jPanel2.add(liczba_sztuk_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 160, 30));
 
     jLabel19.setText("długość:");
@@ -418,6 +449,15 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     message_label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
     jPanel2.add(message_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
     jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 540, 10));
+
+    odrzuc_projekt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+    odrzuc_projekt.setText("Odrzuć");
+    odrzuc_projekt.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            odrzuc_projektActionPerformed(evt);
+        }
+    });
+    jPanel2.add(odrzuc_projekt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 710, 180, 40));
 
     jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 770));
 
@@ -656,6 +696,8 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 optionPane.showMessageDialog(this, "Projekt został dodany do koszyka", "Potwierdzenie", JOptionPane.INFORMATION_MESSAGE);
                 ekran_klienta.updateLiczbewKoszyku();
                 clearFrameContent();
+                projectFormEnable(true);
+                polproduktFormEnable(false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -672,8 +714,10 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 projekt = new ProjektKlienta((int)liczba_sztuk_projektu.getValue() ,koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
                 wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText(), tkaninaObiciowaBox.getSelectedIndex(), plytaMeblowaBox.getSelectedIndex(),
                 drewnoBox.getSelectedIndex(), piankaTapicerskaBox.getSelectedIndex(), okleinaBox.getSelectedIndex());
-                dodaj_polp_button.setEnabled(true);
+                polproduktFormEnable(true);
                 dodaj_do_koszyka.setEnabled(true);
+                odrzuc_projekt.setEnabled(true);
+                projectFormEnable(false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -689,6 +733,14 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     private void tkaninaObiciowaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkaninaObiciowaBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tkaninaObiciowaBoxActionPerformed
+
+    private void odrzuc_projektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odrzuc_projektActionPerformed
+        clearFrameContent();
+        projectFormEnable(true);
+        polproduktFormEnable(false);
+        dodaj_do_koszyka.setEnabled(false);
+        odrzuc_projekt.setEnabled(false);
+    }//GEN-LAST:event_odrzuc_projektActionPerformed
 
     /**
      * @param args the command line arguments
@@ -768,6 +820,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JSpinner liczba_sztuk_projektu;
     private javax.swing.JLabel message_label1;
     private javax.swing.JLabel message_label2;
+    private javax.swing.JButton odrzuc_projekt;
     private javax.swing.JComboBox<String> okleinaBox;
     private javax.swing.JComboBox<String> piankaTapicerskaBox;
     private javax.swing.JComboBox<String> plytaMeblowaBox;
