@@ -83,10 +83,16 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             Connection con=DriverManager.getConnection(  
             "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
             Statement stmt=con.createStatement();
-            String zapytanie = 
+            String zapytanie;
+            if(koszyk_proj_klient.isEmpty()){
+                zapytanie = 
                     "INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Klienta, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES\n" +
                     "("+klient.id_klienta+", 1,CURTIME() , NULL);";
-            
+            }else{
+                zapytanie = 
+                    "INSERT INTO ZAMOWIENIE_NA_MEBLE (Id_Klienta, Id_Stanu_Realizacji, Czas_realizacji_Data_zlozenia, Czas_Realizacji_Data_zakonczenia) VALUES\n" +
+                    "("+klient.id_klienta+", 3,CURTIME() , NULL);";
+            }
            
             stmt.executeUpdate(zapytanie);
             
@@ -171,6 +177,35 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 id_buff_proj = rs.getInt(1);
                 }
 
+                if (koszyk_proj_klient.get(i).getIdDrewna() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdDrewna() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdPlyty() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdPlyty() + ", " + id_buff_proj + ", NULL)";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdTkaninyy() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdPianki() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdPianki() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
+
+                if (koszyk_proj_klient.get(i).getIdOkleiny() != 0) {
+                    zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
+                    "(" + koszyk_proj_klient.get(i).getIdOkleiny() + ", " + id_buff_proj + ", NULL);";
+                    stmt.executeUpdate(zapytanie);
+                }
 
                 for (int k = 0; k < koszyk_proj_klient.get(i).getIlosc(); k++) {
                     zapytanie ="INSERT INTO MEBEL (Id_Zamowienia, Id_Proj_klient, Id_Proj_katalog, Id_Opcj_czesci, Wykonany) VALUES\n" +
@@ -188,19 +223,11 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdDrewna() + "," + id_buff_meb + ");";
                         stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdDrewna() + ", " + id_buff_proj + ", NULL);";
-                        stmt.executeUpdate(zapytanie);
                     }
 
                     if (koszyk_proj_klient.get(i).getIdPlyty() != 0) {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdPlyty() + "," + id_buff_meb + ");";
-                        stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdPlyty() + ", " + id_buff_proj + ", NULL)";
                         stmt.executeUpdate(zapytanie);
                     }
 
@@ -208,29 +235,17 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + "," + id_buff_meb + ");";
                         stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + ", " + id_buff_proj + ", NULL);";
-                        stmt.executeUpdate(zapytanie);
                     }
 
                     if (koszyk_proj_klient.get(i).getIdPianki() != 0) {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdPianki() + "," + id_buff_meb + ");";
                         stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdPianki() + ", " + id_buff_proj + ", NULL);";
-                        stmt.executeUpdate(zapytanie);
                     }
 
                     if (koszyk_proj_klient.get(i).getIdOkleiny() != 0) {
                         zapytanie ="INSERT INTO MATERIAL_MEBEL (Id_Materialu, Id_Mebla) VALUES\n" +
                         "(" + koszyk_proj_klient.get(i).getIdOkleiny() + "," + id_buff_meb + ");";
-                        stmt.executeUpdate(zapytanie);
-    
-                        zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                        "(" + koszyk_proj_klient.get(i).getIdOkleiny() + ", " + id_buff_proj + ", NULL);";
                         stmt.executeUpdate(zapytanie);
                     }
 
@@ -459,7 +474,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         tabela_proj_klienta = new javax.swing.JTable();
         usunButton1 = new javax.swing.JButton();
         usun_polpButton = new javax.swing.JButton();
-        wyswietl_polp = new javax.swing.JButton();
         usun_projekt_klientaButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
@@ -596,6 +610,11 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabela_proj_klienta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabela_proj_klientaMousePressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabela_proj_klienta);
         if (tabela_proj_klienta.getColumnModel().getColumnCount() > 0) {
             tabela_proj_klienta.getColumnModel().getColumn(0).setResizable(false);
@@ -623,15 +642,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
             }
         });
         jPanel2.add(usun_polpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, 150, 50));
-
-        wyswietl_polp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        wyswietl_polp.setText("Wyświetl Półprodukty");
-        wyswietl_polp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wyswietl_polpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(wyswietl_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, 180, 50));
 
         usun_projekt_klientaButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usun_projekt_klientaButton3.setText("Usuń projekt");
@@ -708,13 +718,13 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         usunPolprodukt();
     }//GEN-LAST:event_usun_polpButtonActionPerformed
 
-    private void wyswietl_polpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wyswietl_polpActionPerformed
-        wyswietlPolP();
-    }//GEN-LAST:event_wyswietl_polpActionPerformed
-
     private void usun_projekt_klientaButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usun_projekt_klientaButton3ActionPerformed
         usunProjektKlienta();
     }//GEN-LAST:event_usun_projekt_klientaButton3ActionPerformed
+
+    private void tabela_proj_klientaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_proj_klientaMousePressed
+        wyswietlPolP();
+    }//GEN-LAST:event_tabela_proj_klientaMousePressed
 
     /**
      * @param args the command line arguments
@@ -770,7 +780,6 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private javax.swing.JButton usunButton1;
     private javax.swing.JButton usun_polpButton;
     private javax.swing.JButton usun_projekt_klientaButton3;
-    private javax.swing.JButton wyswietl_polp;
     private javax.swing.JButton zlozZamowienieButton;
     // End of variables declaration//GEN-END:variables
 }
