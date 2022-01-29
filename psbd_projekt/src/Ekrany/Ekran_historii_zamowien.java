@@ -241,10 +241,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             }
             
             zapytanie = 
-                    "SELECT COALESCE(mebel.Id_Proj_klient,0) AS a, mebel.Id_Mebla, typ_mebla.Nazwa, (cena.Koszt_robocizny + cena.Koszt_surowcow + cena.Marza) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
+                    "SELECT COALESCE(mebel.Id_Proj_klient,0) AS a, mebel.Id_Mebla, typ_mebla.Nazwa, (cena.Koszt_robocizny + cena.Koszt_surowcow + cena.Koszt_polproduktow + cena.Marza) AS Cena, zamowienie_na_meble.Id_Stanu_Realizacji FROM mebel\n" +
                     "LEFT JOIN projekt_klienta ON projekt_klienta.Id_Proj_klient = mebel.Id_Proj_klient\n" +
                     "LEFT JOIN typ_mebla ON typ_mebla.Id_Typu_mebla = projekt_klienta.Id_Typu_mebla\n" +
-                    "LEFT JOIN cena ON cena.Id_Ceny = projekt_klienta.Id_Ceny\n" +
+                    "LEFT JOIN cena ON cena.Id_Proj_klient = projekt_klienta.Id_Proj_klient\n" +
                     "LEFT JOIN zamowienie_na_meble ON zamowienie_na_meble.Id_Zamowienia = mebel.Id_Zamowienia\n" +
                     "WHERE mebel.Id_Zamowienia = "+value+"\n" +
                     "HAVING a >0 ";
