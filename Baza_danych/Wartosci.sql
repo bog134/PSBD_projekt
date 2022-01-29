@@ -594,10 +594,7 @@ INSERT INTO MATERIAL_PROJ_KATALOG (Id_Mat_Proj_katalog, Id_Materialu, Id_Proj_ka
 (291,13,24,13),
 (292,17,24,1),
 (293,18,24,15),
-(294,19,24,12),
-
-
-
+(294,19,24,12);
 
 
 INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Id_Dostawcy, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
