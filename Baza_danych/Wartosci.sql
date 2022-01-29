@@ -596,7 +596,6 @@ INSERT INTO MATERIAL_PROJ_KATALOG (Id_Mat_Proj_katalog, Id_Materialu, Id_Proj_ka
 (293,18,24,15),
 (294,19,24,12);
 
-
 INSERT INTO ZAMOWIENIE_NA_KOMPONENTY (NrZamowienia, Id_Dostawcy, Stan_realizacji, Czas_realizacji_Data_rozpoczecia, Czas_realizacji_Data_zakonczenia) VALUES
 (1, 1, 1, '2021-06-15', '2021-06-25'),
 (2, 2, 1, '2021-10-10', '2021-10-20'),
