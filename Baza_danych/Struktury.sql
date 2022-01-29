@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 	Id_Proj_klient INT DEFAULT NULL,
 	Id_Proj_katalog INT DEFAULT NULL,
 	Id_Rodzaju_polproduktu INT NOT NULL,
-	Id_Dostawcy int(11) NOT NULL,
+	Id_Dostawcy int(11) DEFAULT NULL,
 	Nazwa VARCHAR(45) NOT NULL,
 	Rozmiar_Wysokosc DOUBLE NOT NULL,
 	Rozmiar_Szerokosc DOUBLE NOT NULL,
