@@ -206,11 +206,10 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                     for (int j = 0; j < koszyk_proj_klient.get(i).getPolprodukty().size(); j++) {
                         zapytanie = "INSERT INTO PROJEKT_POLPRODUKTU(Id_Proj_klient, Id_Proj_katalog, Id_Rodzaju_polproduktu, Nazwa, Rozmiar_Wysokosc, Rozmiar_Szerokosc, Rozmiar_Dlugosc, Cena, Nazwa_pliku_rysunku) VALUES\n" +
                         "("+ id_buff_proj +", NULL, '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getIdRodzaju() + "', '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getNazwa() +  "', '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getWysokosc()
-                        + "', '"+ koszyk_proj_klient.get(i).getPolprodukty().get(j).getSzerokosc() +"', '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getDlugosc() + "', NULL, '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getRysunekNazwa() + "' )";
+                        + "', '"+ koszyk_proj_klient.get(i).getPolprodukty().get(j).getSzerokosc() +"', '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getDlugosc() + "', NULL, '" + koszyk_proj_klient.get(i).getPolprodukty().get(j).getRysunekNazwa() + "' );";
                         stmt.executeUpdate(zapytanie);
 
                         zapytanie = "SELECT last_insert_id()";
-                        stmt.executeUpdate(zapytanie);
 
                         rs=stmt.executeQuery(zapytanie);  
                         while(rs.next()){
@@ -219,7 +218,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
 
                         for (int x =0; x < koszyk_proj_klient.get(i).getPolprodukty().get(j).getIlosc(); x++) {
                             zapytanie = "INSERT INTO POLPRODUKT(Id_Proj_polprod, Id_Mebla, NrZamowienia) VALUES\n" +
-                            "(" + id_buff_proj_polp + ", " + id_buff_meb + ", " + id_buff + ");";
+                            "(" + id_buff_proj_polp + ", " + id_buff_meb + ", NULL);";
                             stmt.executeUpdate(zapytanie);
                         }
                     }

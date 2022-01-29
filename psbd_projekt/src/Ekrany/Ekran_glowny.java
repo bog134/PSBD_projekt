@@ -25,6 +25,8 @@ public class Ekran_glowny extends javax.swing.JFrame {
      */
     public Ekran_glowny() {
         initComponents();
+        hasloTextField.setVisible(false);
+
     }
 
     private boolean logowanie(String login, String haslo) {
@@ -94,7 +96,6 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         loginTextField = new javax.swing.JTextField();
-        hasloTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         zalogujButton = new javax.swing.JButton();
@@ -104,7 +105,9 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         message_label = new javax.swing.JLabel();
+        password = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
+        hasloTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -126,13 +129,6 @@ public class Ekran_glowny extends javax.swing.JFrame {
             }
         });
         jPanel2.add(loginTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 220, 30));
-
-        hasloTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hasloTextFieldActionPerformed(evt);
-            }
-        });
-        jPanel2.add(hasloTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 220, 30));
 
         jLabel2.setText("Nazwa użytkownika");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
@@ -165,6 +161,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
 
         message_label.setForeground(new java.awt.Color(255, 100, 100));
         jPanel2.add(message_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 200, 20));
+        jPanel2.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 220, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 300, 410));
 
@@ -175,6 +172,13 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 290, 300));
 
+        hasloTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hasloTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(hasloTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 760, 220, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 800));
 
         pack();
@@ -184,10 +188,6 @@ public class Ekran_glowny extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_loginTextFieldActionPerformed
 
-    private void hasloTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hasloTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hasloTextFieldActionPerformed
-
     private void rejestracjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejestracjaButtonActionPerformed
         new Ekran_rejestracji().setVisible(true);
         this.setVisible(false);
@@ -195,8 +195,10 @@ public class Ekran_glowny extends javax.swing.JFrame {
 
     private void zalogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujButtonActionPerformed
         String login = loginTextField.getText();
+        char input[] = password.getPassword();
+        String haslo = new String(input);
 
-        String haslo = hasloTextField.getText();
+        hasloTextField.setText(haslo);
         if (logowanie(login, haslo) == true) {
             ekran_klienta = new EkranKlienta();
             ekran_klienta.setCustomer(id_klienta, login);
@@ -222,6 +224,10 @@ public class Ekran_glowny extends javax.swing.JFrame {
             this.setVisible(false);
         } 
     }//GEN-LAST:event_zalogujButtonActionPerformed
+
+    private void hasloTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hasloTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hasloTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +278,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField loginTextField;
     private javax.swing.JLabel message_label;
+    private javax.swing.JPasswordField password;
     private javax.swing.JButton rejestracjaButton;
     private javax.swing.JButton zalogujButton;
     // End of variables declaration//GEN-END:variables
