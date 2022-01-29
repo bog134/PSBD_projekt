@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,6 +51,8 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         materialyjTextField2.setEnabled(false);
         marzajTextField3.setText("");
         marzajTextField3.setEnabled(false);
+        polproduktyTextField4.setText("");
+        polproduktyTextField4.setEnabled(false);
         
 
     }
@@ -74,7 +78,8 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         definicje_zadan_tabela.setEnabled(true);
         robociznajTextField1.setEnabled(true);
         materialyjTextField2.setEnabled(true);
-        marzajTextField3.setEnabled(true);   
+        marzajTextField3.setEnabled(true); 
+        polproduktyTextField4.setEnabled(true); 
         
     }
     private void wyswietlenie_projektow_polproduktow()
@@ -116,7 +121,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private void dodawanie_definicji_zadań()
     {        
         DefaultTableModel model = (DefaultTableModel) definicje_zadan_tabela.getModel();
-        Object[] data = new Object[1];
+        Object[] data = new Object[2];
         model.addRow(data);            
     }    
     class Keychecker extends KeyAdapter {
@@ -132,7 +137,32 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     }
 
 }
-    
+    private String obliczenie_materialow() throws Exception
+    {
+        float koszt=(float) 0.0;
+        DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
+        for(int i=0; i<lista_materialow.size(); i++)  {
+            ArrayList<String[]> lista_cena=SQL.Ekran_Technologa.pobranie_ceny_danego_materialu(lista_materialow.get(i)[0]);
+            float cena=Float.parseFloat(lista_cena.get(0)[0]);            
+            String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
+            koszt+=cena*Float.parseFloat(ilosc);
+            if (ilosc==null) throw new Exception("Nie wypelniono ilosci materialow");
+        }
+        return String.valueOf(koszt);
+    }
+    private String obliczenie_robocizny() throws Exception
+    {
+        ArrayList<String[]> lista_cena=SQL.Ekran_Technologa.pobranie_ceny_osobogodziny();
+        float cena=Float.parseFloat(lista_cena.get(0)[0]);
+        float koszt=(float) 0.0;
+        
+        DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
+        if (model.getRowCount()==0) throw new Exception("Nie wypelniono definicji zadan");
+        for(int i=0; i<model.getRowCount(); i++)  {
+            koszt += Integer.parseInt(String.valueOf(model.getValueAt(i, 1)))*cena;
+        }
+        return String.valueOf(koszt);
+    }
     
     private void zaaktualizowanie_ilości_materialow() throws Exception
     {
@@ -149,7 +179,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
         if (model.getRowCount()==0) throw new Exception("Nie wypelniono definicji zadan");
         for(int i=0; i<model.getRowCount(); i++)  {
-            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, NORMAL)));
+            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, 0)),String.valueOf(model.getValueAt(i, 1)));
         }
     }
     private void utworzenie_ceny () throws Exception
@@ -157,9 +187,10 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         String robocizna=robociznajTextField1.getText().toString();
         String materialy=materialyjTextField2.getText().toString();
         String marza=marzajTextField3.getText().toString();
+        String polprodukty = polproduktyTextField4.getText().toString();
         
-        if ("".equals(robocizna) || "".equals(materialy) || "".equals(marza)) throw new Exception("Nie wypelniono ceny");
-        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robocizna,materialy,marza);
+        if ("".equals(robocizna) || "".equals(materialy) || "".equals(marza) || "".equals(polprodukty)) throw new Exception("Nie wypelniono ceny");
+        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robocizna,materialy,marza,polprodukty);
     
     }
     private void czyszczenie()
@@ -247,14 +278,16 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jPanel8 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         definicje_zadan_tabela = new javax.swing.JTable();
+        jLabel23 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         robociznajTextField1 = new javax.swing.JTextField();
         materialyjTextField2 = new javax.swing.JTextField();
+        polproduktyTextField4 = new javax.swing.JTextField();
         marzajTextField3 = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -270,6 +303,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jLabel8 = new javax.swing.JLabel();
         polprodukty_jComboBox1 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        Ustal_cenejButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -643,24 +677,36 @@ public class Ekran_Technologa extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Definicja Zadań"
+                "Opis", "Czas wykonania"
             }
         ));
         jScrollPane4.setViewportView(definicje_zadan_tabela);
+
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("Definicja zadań");
+        jLabel23.setAutoscrolls(true);
+        jLabel23.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel23.setMaximumSize(new java.awt.Dimension(300, 18));
+        jLabel23.setMinimumSize(new java.awt.Dimension(200, 30));
+        jLabel23.setOpaque(true);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -680,23 +726,20 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jPanel9.add(jLabel20);
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("marża");
+        jLabel18.setText("polprodukty");
         jLabel18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel9.add(jLabel18);
+
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("marża");
+        jLabel24.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel9.add(jLabel24);
         jPanel9.add(robociznajTextField1);
         jPanel9.add(materialyjTextField2);
+        jPanel9.add(polproduktyTextField4);
         jPanel9.add(marzajTextField3);
 
-        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 730, 330, 60));
-
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Ustal Cenę");
-        jLabel21.setAutoscrolls(true);
-        jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel21.setMaximumSize(new java.awt.Dimension(300, 18));
-        jLabel21.setMinimumSize(new java.awt.Dimension(200, 30));
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 710, 330, 20));
+        getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 740, 330, 60));
 
         jPanel4.setBackground(new java.awt.Color(200, 200, 200));
 
@@ -793,6 +836,14 @@ public class Ekran_Technologa extends javax.swing.JFrame{
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, -1, 220));
 
+        Ustal_cenejButton1.setText("Ustal cenę");
+        Ustal_cenejButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ustal_cenejButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Ustal_cenejButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 710, 330, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -877,6 +928,19 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         wyswietlenie_listy_projektow_klienta();
     }//GEN-LAST:event_pokaz_wszystko_Szukaj_przycisk1ActionPerformed
 
+    private void Ustal_cenejButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ustal_cenejButton1ActionPerformed
+        try {
+            robociznajTextField1.setText(obliczenie_robocizny());
+            materialyjTextField2.setText(obliczenie_materialow());
+        } catch (Exception ex) {
+            if(ex.getMessage()==null)
+                JOptionPane.showMessageDialog(null, "Nie wypelniono wszystkich pol","", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, ex.getMessage(),"Tytul", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_Ustal_cenejButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -915,6 +979,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton OdrzucButton;
     private javax.swing.JButton Szukaj_przycisk;
+    private javax.swing.JButton Ustal_cenejButton1;
     private javax.swing.JButton ZaakceptujButton2;
     private javax.swing.JPanel dane_użytkownika;
     private javax.swing.JTextField data1_jTextField2;
@@ -934,8 +999,9 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -963,6 +1029,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private javax.swing.JLabel obraz_uzytkownika_label;
     private javax.swing.JTextField parametr_jTextField4;
     private javax.swing.JButton pokaz_wszystko_Szukaj_przycisk1;
+    private javax.swing.JTextField polproduktyTextField4;
     private javax.swing.JComboBox<String> polprodukty_jComboBox1;
     private javax.swing.JTextField robociznajTextField1;
     private javax.swing.JTextField rodzajjTextField9;

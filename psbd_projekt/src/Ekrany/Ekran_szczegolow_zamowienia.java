@@ -636,6 +636,11 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
     private void zlozZamowienieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zlozZamowienieButtonActionPerformed
         DbskladanieZamowienia();
         JOptionPane.showMessageDialog(new Frame(), "Zamowienie zlozone.", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        int ksize = koszyk.size();
+        for(int i=0; i<ksize; i++){
+            koszyk.remove(0);
+        }
+        klient.updateLiczbewKoszyku();
         this.setVisible(false);
     }//GEN-LAST:event_zlozZamowienieButtonActionPerformed
 
@@ -643,8 +648,10 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
         
         try{
             koszyk.remove(tabela_projekty_z_katalogu.getSelectedRow());
+            
             DefaultTableModel model = (DefaultTableModel) tabela_projekty_z_katalogu.getModel();
-            for(int i=1; i<10; i++){
+            int k = model.getRowCount();
+            for(int i=0; i<k; i++){
                 model.removeRow(0);
             }
         }catch(Exception e){
