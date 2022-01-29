@@ -13,14 +13,16 @@ package Dodatkowe;
 // (1, NULL, 1, 1, 900, 58, 2400, 'rysuneczek_stolu123.dwg'),
 
 
-public final class Polprodukt {
+public class Polprodukt {
 // INSERT INTO PROJEKT_POLPRODUKTU(Id_Proj_polprod, Id_Proj_klient, Id_Proj_katalog, Id_Rodzaju_polproduktu, Nazwa, Rozmiar_Wysokosc, Rozmiar_Szerokosc, Rozmiar_Dlugosc, Cena, Nazwa_pliku_rysunku) VALUES
 // (1, NULL, 7, 1, 'FUTURA NV', 60, 1000, 2000, 270, 'futura.dwg'),
 
+    int liczba;
     int id_polproduktu, id_rodzaju;
     String nazwa, szerokosc, wysokosc, dlugosc, rysunek_nazwa;
         
-        public Polprodukt(int id_projektu, int id_rodzaju, String nazwa, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa) {
+        public Polprodukt(int liczba, int id_projektu, int id_rodzaju, String nazwa, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa) {
+            this.liczba = liczba;
             setId(id_projektu);
             setIdRodzaju(id_rodzaju);
 
@@ -50,8 +52,10 @@ public final class Polprodukt {
         public void setDlugosc(String dlugosc) {this.dlugosc = dlugosc;}
         public void setRysunekNazwa(String rysunek_nazwa) {this.rysunek_nazwa = rysunek_nazwa;}
 
+        public int getIlosc() {return liczba;}
         public int getId() {return id_polproduktu;}
         public int getIdRodzaju() {return id_rodzaju;}
+        public String getNazwa() {return nazwa;}
         public String getSzerokosc() {return szerokosc;}
         public String getWysokosc() {return wysokosc;}
         public String getDlugosc() {return dlugosc;}
