@@ -6,6 +6,7 @@ package Ekrany;
 
 import java.awt.Frame;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +19,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     String StanZamowienia = null;
     String IdMebla = null;
     String IdZamowienia = null;
-    int IdKlienta = 3;
+    int IdKlienta = 4;
     String login_klienta = null;
 
     /**
@@ -42,6 +43,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             Connection con=DriverManager.getConnection(  
             "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
             Statement stmt=con.createStatement();
+            //pobranie informacji o dacie zlozenia zamowienia
             String zapytanie = 
                     "SELECT zamowienie_na_meble.Czas_realizacji_Data_zlozenia FROM firma.zamowienie_na_meble\n" +
                     "WHERE Id_Stanu_Realizacji = 1 AND zamowienie_na_meble.Id_Zamowienia = "+id;
@@ -50,12 +52,91 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
                 czasZlozeniaZamowienia = rs.getInt(1);
             }
             
+            //pobranie informacji o dacie pierwszego zamowienia po dacie zlozenia zamowienia (zakladam ze w tym zamowieniu sa komponenty do mebli z zamowienia klienta)
             
             
             con.close(); 
         }catch(Exception e){ System.out.println(e);}
         
         return czasRealizacji;
+    }
+    
+    public String DbCzasRealizacji2(String id){
+        String czasRealizacji_rob = null;
+        String czasRealizacji_format = null;
+        String czasZlozeniaZamowienia = null;
+        
+        
+        try{  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Statement stmt=con.createStatement();
+            
+            //pobranie informacji o id materialow wykorzystywanych w meblach z danego zamowienia na meble
+            ArrayList<String> idMat = new ArrayList<>();
+            String zapytanie = 
+                    "SELECT material_mebel.Id_Materialu FROM firma.material_mebel\n" +
+                    "LEFT JOIN mebel ON mebel.Id_Mebla = material_mebel.Id_Mebla\n" +
+                    "WHERE mebel.Id_Zamowienia = " +id;
+            ResultSet rs=stmt.executeQuery(zapytanie);
+            while(rs.next()){
+                idMat.add(rs.getString(1));
+            }
+            
+            //pobranie informacji o czasie zlozenia danego zamowienia na meble
+            
+            zapytanie = 
+                    "SELECT zamowienie_na_meble.Czas_realizacji_Data_zlozenia +0 FROM firma.zamowienie_na_meble\n" +
+                    "WHERE zamowienie_na_meble.Id_Zamowienia = "+id;
+            rs=stmt.executeQuery(zapytanie);
+            while(rs.next()){
+                czasZlozeniaZamowienia = rs.getString(1);
+            }
+            
+            //pobranie informacji o ostatnim zamowieniu na komponenty w ktorym znajduja sie te materialy wykonanym po danym zamowieniu na meble
+            int matSize = idMat.size();
+            for(int i=0; i<matSize; i++){
+                zapytanie = 
+                    "SELECT COALESCE(MIN(tab.roznica),0) FROM (\n" +
+                    "SELECT (zamowienie_na_komponenty.Czas_realizacji_Data_zakonczenia - "+czasZlozeniaZamowienia+") AS roznica FROM firma.material_zamow_komp\n" +
+                    "LEFT JOIN zamowienie_na_komponenty ON zamowienie_na_komponenty.NrZamowienia = material_zamow_komp.NrZamowienia\n" +
+                    "WHERE material_zamow_komp.Id_Materialu = "+idMat.get(i)+"\n" +
+                    "HAVING roznica > 0 ) tab";
+                rs=stmt.executeQuery(zapytanie);
+                while(rs.next()){
+                    czasRealizacji_rob = rs.getString(1);
+                }
+            }
+            
+            
+            
+            
+            con.close(); 
+        }catch(Exception e){ System.out.println(e);}
+        
+        System.out.println(czasRealizacji_rob);
+        
+        //zmiana formatu wyswietlania czasu
+        
+        char ch;
+        String czasRealizacji_odwr = "00000";
+        
+        for(int i=0; i<czasRealizacji_rob.length(); i++){
+            ch = czasRealizacji_rob.charAt(i);
+            czasRealizacji_odwr = ch+czasRealizacji_odwr;
+        }
+        
+        System.out.println(czasRealizacji_odwr);
+        
+        if(czasRealizacji_odwr.equals("000000")){
+            czasRealizacji_format = "Oczekiwanie na zlozenie zamowienia na materialy";
+        }else{
+            czasRealizacji_format = czasRealizacji_odwr.charAt(4)+" r "+czasRealizacji_odwr.charAt(3)+czasRealizacji_odwr.charAt(2)+" m "+czasRealizacji_odwr.charAt(1)+czasRealizacji_odwr.charAt(0)+" d";
+        }
+        
+        
+        
+        return czasRealizacji_format;
     }
     
     public void DbHistoriaZamowien(){
@@ -110,9 +191,10 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         int rowCount = jTable1.getModel().getRowCount();
         for(int i=0; i<rowCount; i++){
             int column = 0;
-            String nr = jTable1.getModel().getValueAt(rowCount, column).toString();
-            int data = DbCzasRealizacji(nr);
-            jTable1.getModel().setValueAt(data, rowCount, column);
+            String nr = jTable1.getModel().getValueAt(i, column).toString();
+            String data = DbCzasRealizacji2(nr);
+            column = 3;
+            jTable1.getModel().setValueAt(data, i, column);
         }
         
     }
@@ -187,6 +269,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             
         }
         cenaLabel.setText("Koszt zamówienia: "+koszt);
+        koszt = 0;
         
         
     }
@@ -275,7 +358,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nr.", "Data złożenia", "Status zamowienia", "Przewidywany czas realizacji [h]"
+                "Nr.", "Data złożenia", "Status zamowienia", "Czas realizacji"
             }
         ) {
             Class[] types = new Class [] {
@@ -307,7 +390,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(20);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
 
         jScrollPane2.setViewportView(jScrollPane1);
@@ -564,7 +647,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
     private void zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaakceptujButtonActionPerformed
         DbAkceptuj();
-        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zaakceptowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zaakceptowana", "Uwaga", JOptionPane.PLAIN_MESSAGE);
         
         reklamacjaButton.setEnabled(false);
         zaakceptujButton.setEnabled(false);
@@ -613,6 +696,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
     private void szukajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szukajButtonActionPerformed
         
+        
         reklamacjaButton.setEnabled(false);
         zaakceptujButton.setEnabled(false);
         anulujButton.setEnabled(false);
@@ -620,7 +704,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            for(int i=1; i<10; i++){
+            for(int i=1; i<100; i++){
                 model.removeRow(0);
             }
         }catch(Exception e){
@@ -629,7 +713,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         
         try{
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            for(int i=1; i<10; i++){
+            for(int i=1; i<100; i++){
                 model.removeRow(0);
             }
         }catch(Exception e){
@@ -648,7 +732,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         
         try{
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            for(int i=1; i<10; i++){
+            for(int i=1; i<100; i++){
                 model.removeRow(0);
             }
         }catch(Exception e){
@@ -664,7 +748,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
         column = 2;
         row = jTable1.getSelectedRow();
         StanZamowienia = jTable1.getModel().getValueAt(row, column).toString();
-        System.out.println(StanZamowienia);
+        //System.out.println(StanZamowienia);
         
         if(StanZamowienia.equals("Wyceniono")){
             jTextField1.setText("Twoje zamówienie zostało wycenione. Zaakceptować?");
