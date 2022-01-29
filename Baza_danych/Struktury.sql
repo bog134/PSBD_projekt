@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS CENA
 	Id_Proj_klient int(11) NOT NULL,
   	Id_Pracownika INT NOT NULL,
   	Koszt_robocizny DOUBLE NOT NULL,
-  	Koszt_materialow DOUBLE NOT NULL,
+  	Koszt_surowcow DOUBLE NOT NULL,
   	Marza DOUBLE NOT NULL,
 	Koszt_polproduktow DOUBLE NOT NULL,
 	

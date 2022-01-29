@@ -173,7 +173,7 @@ INSERT INTO PROJEKT_KLIENTA (Id_Proj_klient, Id_Typu_mebla, Id_Laczenia, Wymiary
 (10, 3, 1, 45, 1500, 65, 'fotel-atye.dwg'),
 (11, 9, 1, 50, 50, 40, 'fajne_biureczko.dwg');
 
-INSERT INTO CENA (Id_Ceny, Id_Proj_klient, Id_Pracownika, Koszt_robocizny, Koszt_materialow, Marza,Koszt_polproduktow) VALUES
+INSERT INTO CENA (Id_Ceny, Id_Proj_klient, Id_Pracownika, Koszt_robocizny, Koszt_surowcow, Marza, Koszt_polproduktow) VALUES
 (1, 4, 5, 820, 2010, 4020, 500),
 (2, 5, 5, 1005, 2342, 2020, 600),
 (3, 6, 5, 1005, 4342, 1020, 400),
