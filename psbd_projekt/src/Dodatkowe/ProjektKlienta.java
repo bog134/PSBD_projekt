@@ -17,12 +17,17 @@ import Dodatkowe.*;
 
 
 public class ProjektKlienta {
+    int liczba;
     int id_projektu, id_typu, id_laczenia;
+    int id_tkanina, id_plyta_meblowa, id_drewna, id_pianki, id_okleiny;
     String szerokosc, wysokosc, dlugosc, rysunek_nazwa;
 
     ArrayList<Polprodukt> polprodukty;
          
-    public ProjektKlienta(int id_projektu, int id_typu, int id_laczenia, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa) {
+    public ProjektKlienta(int liczba, int id_projektu, int id_typu, int id_laczenia, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa,
+                            int id_tkanina, int id_plyta_meblowa, int id_drewna, int id_pianki, int id_okleiny) {
+
+        this.liczba = liczba;
         this.id_projektu = id_projektu;
         this.id_typu = id_typu;
         this.id_laczenia = id_laczenia;
@@ -30,6 +35,11 @@ public class ProjektKlienta {
         this.wysokosc = wysokosc;
         this.dlugosc = dlugosc;
         this.rysunek_nazwa = rysunek_nazwa;
+        this.id_plyta_meblowa = id_plyta_meblowa;
+        this.id_drewna = id_drewna;
+        this.id_pianki = id_pianki;
+        this.id_okleiny = id_okleiny;
+        this.id_tkanina = id_tkanina;
 
         polprodukty = new ArrayList<Polprodukt>();
     }
@@ -47,12 +57,12 @@ public class ProjektKlienta {
             polprodukty = new ArrayList<Polprodukt>();
         }
      
-    public void dodajPolprodukt(int id_projektu, int id_rodzaju, String nazwa, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa) {
-        polprodukty.add(new Polprodukt(id_projektu, id_rodzaju, nazwa, szerokosc, wysokosc, dlugosc, rysunek_nazwa));
+    public void dodajPolprodukt(int liczba, int id_projektu, int id_rodzaju, String nazwa, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa) {
+        polprodukty.add(new Polprodukt(liczba, id_projektu, id_rodzaju, nazwa, szerokosc, wysokosc, dlugosc, rysunek_nazwa));
     }
 
-    public void getPolprodukty() {
-
+    public ArrayList<Polprodukt> getPolprodukty() {
+        return this.polprodukty;
     }
 
     public void setId(int id_projektu) {this.id_projektu = id_projektu;}
@@ -63,6 +73,7 @@ public class ProjektKlienta {
     public void setDlugosc(String dlugosc) {this.dlugosc = dlugosc;}
     public void setRysunekNazwa(String rysunek_nazwa) {this.rysunek_nazwa = rysunek_nazwa;}
 
+    public int getIlosc() {return liczba;}
     public int getId() {return id_projektu;}
     public int getIdTypu() {return id_typu;}
     public int getIdLaczenia() {return id_laczenia;}
@@ -70,4 +81,9 @@ public class ProjektKlienta {
     public String getWysokosc() {return wysokosc;}
     public String getDlugosc() {return dlugosc;}
     public String getRysunekNazwa() {return rysunek_nazwa;}
+    public int getIdPlyty() {return id_plyta_meblowa;}
+    public int getIdDrewna() {return id_drewna;}
+    public int getIdPianki() {return id_pianki;}
+    public int getIdOkleiny() {return id_okleiny;} 
+    public int getIdTkaninyy() {return id_tkanina;} 
 }

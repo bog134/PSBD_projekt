@@ -134,6 +134,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         message_label1 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,8 +145,8 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Dodawanie półproduktów");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 340, 30));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 540, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 340, 30));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, 540, 10));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Rodzaj drewna");
@@ -209,11 +210,11 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
                 dodaj_rysunek_projektuActionPerformed(evt);
             }
         });
-        jPanel2.add(dodaj_rysunek_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 50, 30));
+        jPanel2.add(dodaj_rysunek_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, 50, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Liczba sztuk");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 660, 110, 30));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 620, 100, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Łączenia");
@@ -236,191 +237,192 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Nazwa");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 70, 30));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 470, 100, 30));
 
         polp_nazwa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 polp_nazwaActionPerformed(evt);
             }
         });
-        jPanel2.add(polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, 220, 30));
+        jPanel2.add(polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 470, 220, 30));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Wymiary gabarytowe");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 180, 30));
+        jLabel14.setText("Wymiary");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 520, 100, 30));
 
-        polp_rodzaj.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stelaż", "Rama", "Front", "Dekory"}));
-        polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                polp_rodzajActionPerformed(evt);
-            }
-        });
-        jPanel2.add(polp_rodzaj, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 580, 220, 30));
+        polp_rodzaj.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stelaż", "Rama", "Front", "Dekory", "Rodzaj Klienta"
+            + ""}));
+polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        polp_rodzajActionPerformed(evt);
+    }
+    });
+    jPanel2.add(polp_rodzaj, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 220, 30));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setText("Rodzaj");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 580, 70, 30));
+    jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    jLabel15.setText("Rodzaj");
+    jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 560, 100, 30));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel16.setText("Rysunek");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, 80, 30));
+    jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    jLabel16.setText("Rysunek");
+    jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 590, 100, 30));
 
-        dodaj_rysunek_polp.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        dodaj_rysunek_polp.setText("+");
-        dodaj_rysunek_polp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dodaj_rysunek_polpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(dodaj_rysunek_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, 50, 30));
+    dodaj_rysunek_polp.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+    dodaj_rysunek_polp.setText("+");
+    dodaj_rysunek_polp.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dodaj_rysunek_polpActionPerformed(evt);
+        }
+    });
+    jPanel2.add(dodaj_rysunek_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 50, 30));
 
-        dodaj_polp_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        dodaj_polp_button.setText("Dodaj półprodukt");
-        dodaj_polp_button.setEnabled(false);
-        dodaj_polp_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dodaj_polp_buttonActionPerformed(evt);
-            }
-        });
-        jPanel2.add(dodaj_polp_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 700, 150, 30));
+    dodaj_polp_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    dodaj_polp_button.setText("Dodaj półprodukt");
+    dodaj_polp_button.setEnabled(false);
+    dodaj_polp_button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dodaj_polp_buttonActionPerformed(evt);
+        }
+    });
+    jPanel2.add(dodaj_polp_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 660, 150, 30));
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel17.setText("Rysunek");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 150, 30));
+    jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    jLabel17.setText("Rysunek");
+    jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 150, 30));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel18.setText("Liczba sztuk");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 150, 30));
+    jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    jLabel18.setText("Liczba sztuk");
+    jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 150, 30));
 
-        rysunek_polp_nazwa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rysunek_polp_nazwaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rysunek_polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 620, 160, 30));
+    rysunek_polp_nazwa.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            rysunek_polp_nazwaActionPerformed(evt);
+        }
+    });
+    jPanel2.add(rysunek_polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, 160, 30));
 
-        powrotButton.setText("Powrot");
-        powrotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                powrotButtonActionPerformed(evt);
-            }
-        });
-        jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 90, 30));
+    powrotButton.setText("Powrot");
+    powrotButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            powrotButtonActionPerformed(evt);
+        }
+    });
+    jPanel2.add(powrotButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 90, 30));
 
-        dlugosc_polp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dlugosc_polpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(dlugosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, 80, 30));
+    dlugosc_polp.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dlugosc_polpActionPerformed(evt);
+        }
+    });
+    jPanel2.add(dlugosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, 80, 30));
 
-        szerokosc_polp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                szerokosc_polpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(szerokosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 550, 80, 30));
+    szerokosc_polp.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            szerokosc_polpActionPerformed(evt);
+        }
+    });
+    jPanel2.add(szerokosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 520, 80, 30));
 
-        wysokosc_polp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wysokosc_polpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(wysokosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, 80, 30));
+    wysokosc_polp.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            wysokosc_polpActionPerformed(evt);
+        }
+    });
+    jPanel2.add(wysokosc_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 520, 80, 30));
 
-        szerkosc_mebla.setToolTipText("");
-        szerkosc_mebla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                szerkosc_meblaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(szerkosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 80, 30));
+    szerkosc_mebla.setToolTipText("");
+    szerkosc_mebla.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            szerkosc_meblaActionPerformed(evt);
+        }
+    });
+    jPanel2.add(szerkosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 80, 30));
 
-        wysokosc_mebla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wysokosc_meblaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(wysokosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 80, 30));
+    wysokosc_mebla.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            wysokosc_meblaActionPerformed(evt);
+        }
+    });
+    jPanel2.add(wysokosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 80, 30));
 
-        dlugosc_mebla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dlugosc_meblaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(dlugosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 80, 30));
+    dlugosc_mebla.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dlugosc_meblaActionPerformed(evt);
+        }
+    });
+    jPanel2.add(dlugosc_mebla, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 80, 30));
 
-        dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        dodaj_do_koszyka.setText("Dodaj projekt do koszyka");
-        dodaj_do_koszyka.setEnabled(false);
-        dodaj_do_koszyka.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dodaj_do_koszykaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(dodaj_do_koszyka, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 330, 40));
+    dodaj_do_koszyka.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+    dodaj_do_koszyka.setText("Dodaj projekt do koszyka");
+    dodaj_do_koszyka.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dodaj_do_koszykaActionPerformed(evt);
+        }
+    });
+    jPanel2.add(dodaj_do_koszyka, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 720, 340, 40));
 
-        dodaj_projekt.setText("Dodaj projekt");
-        dodaj_projekt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dodaj_projektActionPerformed(evt);
-            }
-        });
-        jPanel2.add(dodaj_projekt, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 200, 30));
+    dodaj_projekt.setText("Dodaj projekt");
+    dodaj_projekt.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dodaj_projektActionPerformed(evt);
+        }
+    });
+    jPanel2.add(dodaj_projekt, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 200, 30));
 
-        liczba_sztuk_polp.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
-        jPanel2.add(liczba_sztuk_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 660, 160, 30));
+    liczba_sztuk_polp.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+    jPanel2.add(liczba_sztuk_polp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 620, 160, 30));
 
-        message_label2.setForeground(new java.awt.Color(200, 0, 0));
-        message_label2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jPanel2.add(message_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, 240, 30));
+    message_label2.setForeground(new java.awt.Color(200, 0, 0));
+    message_label2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+    jPanel2.add(message_label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, 240, 30));
 
-        rysunek_nazwa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rysunek_nazwaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rysunek_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 160, 30));
+    rysunek_nazwa.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            rysunek_nazwaActionPerformed(evt);
+        }
+    });
+    jPanel2.add(rysunek_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 160, 30));
 
-        liczba_sztuk_projektu.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
-        jPanel2.add(liczba_sztuk_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 160, 30));
+    liczba_sztuk_projektu.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+    jPanel2.add(liczba_sztuk_projektu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 160, 30));
 
-        jLabel19.setText("długość:");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 20));
+    jLabel19.setText("długość:");
+    jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 20));
 
-        jLabel20.setText("szerokość:");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, 20));
+    jLabel20.setText("szerokość:");
+    jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, 20));
 
-        jLabel21.setText("wysokość:");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, 20));
+    jLabel21.setText("wysokość:");
+    jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, 20));
 
-        jLabel22.setText("długość:");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, -1, 20));
+    jLabel22.setText("długość:");
+    jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 500, -1, 20));
 
-        jLabel23.setText("wysokość:");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 530, -1, 20));
+    jLabel23.setText("wysokość:");
+    jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 500, -1, 20));
 
-        jLabel24.setText("szerokość:");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, 60, 20));
+    jLabel24.setText("szerokość:");
+    jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, 60, 20));
 
-        message_label1.setForeground(new java.awt.Color(200, 0, 0));
-        message_label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jPanel2.add(message_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
+    message_label1.setForeground(new java.awt.Color(200, 0, 0));
+    message_label1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+    jPanel2.add(message_label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 240, 30));
+    jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 540, 10));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 810));
+    jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, 770));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void dodaj_rysunek_projektuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_rysunek_projektuActionPerformed
@@ -587,7 +589,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
             dlugosc_polp.getText().equals("") || liczba_sztuk_polp.getValue() == "0") {
             message_label2.setText("Wprowadz wszystkie wymagane dane półproduktu");
         } else {
-            projekt.dodajPolprodukt(koszyk.size(), polp_rodzaj.getSelectedIndex()+1, polp_nazwa.getText(), szerokosc_polp.getText(), wysokosc_polp.getText(), dlugosc_polp.getText(), rysunek_polp_nazwa.getText());
+            projekt.dodajPolprodukt((int)liczba_sztuk_polp.getValue(), koszyk.size(), polp_rodzaj.getSelectedIndex()+1, polp_nazwa.getText(), szerokosc_polp.getText(), wysokosc_polp.getText(), dlugosc_polp.getText(), rysunek_polp_nazwa.getText());
             JOptionPane optionPane = new JOptionPane();
             optionPane.showMessageDialog(this, "Półprodukt(y) zostaly dodane do zamówienia", "Potwierdzenie", JOptionPane.INFORMATION_MESSAGE);
             polp_nazwa.setText("");
@@ -638,15 +640,15 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     }//GEN-LAST:event_dlugosc_meblaActionPerformed
 
     private void dodaj_do_koszykaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_do_koszykaActionPerformed
-        for(int i = 0; i < (int)liczba_sztuk_projektu.getValue(); i++) {
             try {
                 koszyk.add(projekt);
-                System.out.print("dodano do koszyka");
+                JOptionPane optionPane = new JOptionPane();
+                optionPane.showMessageDialog(this, "Projekt został dodany do koszyka", "Potwierdzenie", JOptionPane.INFORMATION_MESSAGE);
+                ekran_klienta.updateLiczbewKoszyku();
                 clearFrameContent();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        }
     }//GEN-LAST:event_dodaj_do_koszykaActionPerformed
 
     private void dodaj_projektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodaj_projektActionPerformed
@@ -657,8 +659,9 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         } else {
             try {
                 message_label1.setText("");
-                projekt = new ProjektKlienta(koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
-                wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText());
+                projekt = new ProjektKlienta((int)liczba_sztuk_projektu.getValue() ,koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
+                wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText(), tkaninaObiciowaBox.getSelectedIndex(), plytaMeblowaBox.getSelectedIndex(),
+                drewnoBox.getSelectedIndex(), piankaTapicerskaBox.getSelectedIndex(), okleinaBox.getSelectedIndex());
                 dodaj_polp_button.setEnabled(true);
                 dodaj_do_koszyka.setEnabled(true);
             } catch (Exception e) {
@@ -749,6 +752,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JComboBox<String> laczeniaBox;
     private javax.swing.JSpinner liczba_sztuk_polp;
     private javax.swing.JSpinner liczba_sztuk_projektu;

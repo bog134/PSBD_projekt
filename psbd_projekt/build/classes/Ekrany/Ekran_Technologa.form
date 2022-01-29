@@ -778,6 +778,17 @@
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="polprodukty"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel24">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="mar&#x17c;a"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -789,6 +800,8 @@
         <Component class="javax.swing.JTextField" name="robociznajTextField1">
         </Component>
         <Component class="javax.swing.JTextField" name="materialyjTextField2">
+        </Component>
+        <Component class="javax.swing.JTextField" name="polproduktyTextField4">
         </Component>
         <Component class="javax.swing.JTextField" name="marzajTextField3">
         </Component>

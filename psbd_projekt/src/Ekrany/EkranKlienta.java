@@ -139,7 +139,7 @@ public class EkranKlienta extends javax.swing.JFrame {
     
     public void updateLiczbewKoszyku(){
         
-        l_rzeczy_w_koszyku.setText("Koszyk: "+String.valueOf(koszyk.size()));
+        l_rzeczy_w_koszyku.setText("Koszyk: " + String.valueOf(koszyk.size() + koszyk_projektow_klienta.size()));
     }
 
 

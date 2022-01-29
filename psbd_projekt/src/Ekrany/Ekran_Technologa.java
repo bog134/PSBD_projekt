@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Ekran_Technologa extends javax.swing.JFrame{
 
-    private String id_techn="2";
+    private String id_techn;
     private String id;
     private ArrayList<String[]> lista_projektow_dane;
     private ArrayList<String[]> lista_materialow;
@@ -26,6 +26,10 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         initComponents();
         lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
         wyswietlenie_listy_projektow_klienta();
+    }
+
+    public void setIdTechnologa(Integer id) {
+        this.id_techn = id.toString();
     }
     
     private void wyswietlenie_listy_projektow_klienta()
@@ -51,6 +55,8 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         materialyjTextField2.setEnabled(false);
         marzajTextField3.setText("");
         marzajTextField3.setEnabled(false);
+        polproduktyTextField4.setText("");
+        polproduktyTextField4.setEnabled(false);
         
 
     }
@@ -76,7 +82,8 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         definicje_zadan_tabela.setEnabled(true);
         robociznajTextField1.setEnabled(true);
         materialyjTextField2.setEnabled(true);
-        marzajTextField3.setEnabled(true);   
+        marzajTextField3.setEnabled(true); 
+        polproduktyTextField4.setEnabled(true); 
         
     }
     private void wyswietlenie_projektow_polproduktow()
@@ -184,9 +191,10 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         String robocizna=robociznajTextField1.getText().toString();
         String materialy=materialyjTextField2.getText().toString();
         String marza=marzajTextField3.getText().toString();
+        String polprodukty = polproduktyTextField4.getText().toString();
         
-        if ("".equals(robocizna) || "".equals(materialy) || "".equals(marza)) throw new Exception("Nie wypelniono ceny");
-        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robocizna,materialy,marza);
+        if ("".equals(robocizna) || "".equals(materialy) || "".equals(marza) || "".equals(polprodukty)) throw new Exception("Nie wypelniono ceny");
+        SQL.Ekran_Technologa.utworzenie_ceny(id_techn, id,robocizna,materialy,marza,polprodukty);
     
     }
     private void czyszczenie()
@@ -279,8 +287,10 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         robociznajTextField1 = new javax.swing.JTextField();
         materialyjTextField2 = new javax.swing.JTextField();
+        polproduktyTextField4 = new javax.swing.JTextField();
         marzajTextField3 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -720,11 +730,17 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jPanel9.add(jLabel20);
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("marża");
+        jLabel18.setText("polprodukty");
         jLabel18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel9.add(jLabel18);
+
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("marża");
+        jLabel24.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel9.add(jLabel24);
         jPanel9.add(robociznajTextField1);
         jPanel9.add(materialyjTextField2);
+        jPanel9.add(polproduktyTextField4);
         jPanel9.add(marzajTextField3);
 
         getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 740, 330, 60));
@@ -989,6 +1005,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1016,6 +1033,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private javax.swing.JLabel obraz_uzytkownika_label;
     private javax.swing.JTextField parametr_jTextField4;
     private javax.swing.JButton pokaz_wszystko_Szukaj_przycisk1;
+    private javax.swing.JTextField polproduktyTextField4;
     private javax.swing.JComboBox<String> polprodukty_jComboBox1;
     private javax.swing.JTextField robociznajTextField1;
     private javax.swing.JTextField rodzajjTextField9;

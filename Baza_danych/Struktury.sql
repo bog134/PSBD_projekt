@@ -97,8 +97,9 @@ CREATE TABLE IF NOT EXISTS CENA
 	Id_Proj_klient int(11) NOT NULL,
   	Id_Pracownika INT NOT NULL,
   	Koszt_robocizny DOUBLE NOT NULL,
-  	Koszt_surowcow DOUBLE NOT NULL,
+  	Koszt_materialow DOUBLE NOT NULL,
   	Marza DOUBLE NOT NULL,
+	Koszt_polproduktow DOUBLE NOT NULL,
 	
   	PRIMARY KEY (Id_Ceny)
 );
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	Id_Proj_klient INT DEFAULT NULL,
 	Id_Proj_katalog INT DEFAULT NULL,	
 	Opis_zadania VARCHAR(200) NOT NULL, 
-	Koszt_osobogodziny DOUBLE NOT NULL,
+	Cena DOUBLE NOT NULL,
 	Czas_wykonania INT NOT NULL,	
 
 	PRIMARY KEY (Id_Def_zadania)
@@ -118,15 +119,15 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 CREATE TABLE IF NOT EXISTS PROJEKT_POLPRODUKTU
 ( 
 	Id_Proj_polprod INT NOT NULL AUTO_INCREMENT,
-	Id_Proj_klient INT NULL,
-	Id_Proj_katalog INT NULL,
+	Id_Proj_klient INT DEFAULT NULL,
+	Id_Proj_katalog INT DEFAULT NULL,
 	Id_Rodzaju_polproduktu INT NOT NULL,
 	Id_Dostawcy int(11) NOT NULL,
 	Nazwa VARCHAR(45) NOT NULL,
 	Rozmiar_Wysokosc DOUBLE NOT NULL,
 	Rozmiar_Szerokosc DOUBLE NOT NULL,
 	Rozmiar_Dlugosc DOUBLE NOT NULL, 
-	Cena DOUBLE NOT NULL,
+	Cena DOUBLE DEFAULT NULL,
 	Nazwa_pliku_rysunku VARCHAR(45) NOT NULL,
 
 	PRIMARY KEY (Id_Proj_polprod)
@@ -182,7 +183,7 @@ CREATE TABLE IF NOT EXISTS MATERIAL_MEBEL
   	Id_Mat_mebel int(11) NOT NULL AUTO_INCREMENT,
   	Id_Materialu int(11) NOT NULL,
   	Id_Mebla int(11) NOT NULL,
-	Ilosc int(11) NOT NULL,
+	Ilosc int(11) DEFAULT NULL,
 	
 	PRIMARY KEY (Id_Mat_mebel)
 );
