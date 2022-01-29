@@ -5,6 +5,9 @@
 package Ekrany;
 
 import java.sql.ResultSet;
+
+import javax.swing.JOptionPane;
+
 import java.sql.*;  
 
 /**
@@ -291,7 +294,12 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
                          
                         message_label.setForeground(new java.awt.Color(52, 191, 89));
                         clearContent();
-                        message_label.setText("Zarejestrowano");                       
+                        message_label.setText("Zarejestrowano");
+                        JOptionPane optionPane = new JOptionPane();
+                        optionPane.showMessageDialog(this, "Użytkownik został zarejewstrowany", "Rejestracja poprawna", JOptionPane.INFORMATION_MESSAGE);
+
+                        new Ekran_glowny().setVisible(true);
+                        this.setVisible(false);
                     } else {
                         message_label.setForeground(new java.awt.Color(204, 0, 0));
                         message_label.setText("Użytkownik o podanym adresie email już istnieje");
