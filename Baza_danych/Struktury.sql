@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 	Id_Proj_klient INT DEFAULT NULL,
 	Id_Proj_katalog INT DEFAULT NULL,	
 	Opis_zadania VARCHAR(200) NOT NULL, 
-	Koszt_osobogodziny DOUBLE NOT NULL,
+	Cena DOUBLE NOT NULL,
 	Czas_wykonania INT NOT NULL,	
 
 	PRIMARY KEY (Id_Def_zadania)
