@@ -873,6 +873,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
             czyszczenie();
             lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
             SQL.Ekran_Technologa.odrzucenie_zamowienia_na_meble(id);
+            {JOptionPane.showMessageDialog(null,"Projekt został odrzucony","", JOptionPane.INFORMATION_MESSAGE);}
             id=null;
             lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
             wyswietlenie_listy_projektow_klienta();
@@ -905,6 +906,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         utworzenie_ceny();
         SQL.Ekran_Technologa.zaakceptowanie_zamowienia_na_meble(id);
         czyszczenie();
+        {JOptionPane.showMessageDialog(null,"Projekt został zaakceptowany","", JOptionPane.INFORMATION_MESSAGE);}
         id=null;
         lista_projektow_dane = SQL.Ekran_Technologa.wyswietlenie_listy_projektow_klienta();
         wyswietlenie_listy_projektow_klienta();
@@ -912,7 +914,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
             if(e.getMessage()==null)
                 JOptionPane.showMessageDialog(null, "Nie wypelniono wszystkich pol","", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(null, e.getMessage(),"Tytul", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, e.getMessage(),"", JOptionPane.INFORMATION_MESSAGE);
         }           
     }//GEN-LAST:event_ZaakceptujButton2zaakceptujButtonActionPerformed
 
@@ -940,7 +942,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
             if(ex.getMessage()==null)
                 JOptionPane.showMessageDialog(null, "Nie wypelniono wszystkich pol","", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(null, ex.getMessage(),"Tytul", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, ex.getMessage(),"", JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_Ustal_cenejButton1ActionPerformed
