@@ -27,6 +27,16 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
     EkranKlienta ekran_klienta;
 
+    // private void printZawartoscKoszyka() {
+    //     for (int x = 0; x < koszyk.size(); x++) {
+    //         System.out.print();
+    //         projekt.getId()
+
+
+    //         for ()
+    //     }
+    // }
+
 
     public void clearFrameContent() {
         typMeblaBox.setSelectedIndex(0);
