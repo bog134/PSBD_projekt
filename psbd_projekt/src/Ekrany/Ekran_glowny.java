@@ -64,7 +64,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
             String zapytanie = 
                  "SELECT Id_Pracownika\n" +
                  "FROM pracownik\n" +
-                 "WHERE Id_Stanowiska = 2 AND Login = '" + login + "' AND AND Haslo = '" + haslo + "';";
+                 "WHERE Id_Stanowiska = 2 AND Login = '" + login + "' AND Haslo = '" + haslo + "';";
             ResultSet rs = stmt.executeQuery(zapytanie);  
 
             if(rs.next() == false) {
@@ -194,8 +194,9 @@ public class Ekran_glowny extends javax.swing.JFrame {
 
     private void zalogujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zalogujButtonActionPerformed
         String login = loginTextField.getText();
+
         String haslo = hasloTextField.getText();
-        /*if (logowanie(login, haslo) == true) {
+        if (logowanie(login, haslo) == true) {
             ekran_klienta = new EkranKlienta();
             ekran_klienta.setCustomer(id_klienta, login);
             ekran_klienta.setVisible(true);
@@ -205,7 +206,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
             this.setVisible(false);
         } else {
             message_label.setText("Nieprawidłowe dane logowania");
-        }*/
+        }
 
 
         if(loginTextField.getText().equals("klient")){
