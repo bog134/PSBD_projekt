@@ -63,7 +63,7 @@ public class Ekran_Technologa {
     static public ArrayList<String[]> wyswietlenie_listy_projektow_klienta()
     {         
         String zapytanie = 
-                "SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +
+                "SELECT DISTINCT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +
                 "typ_mebla.Nazwa\n" +
                 "\n" +
                 "FROM projekt_klienta\n" +
@@ -71,15 +71,14 @@ public class Ekran_Technologa {
                 "JOIN zamowienie_na_meble USING (Id_Zamowienia)\n" +
                 "JOIN typ_mebla USING (Id_Typu_mebla)\n" +
                 "\n" +
-                "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 \n" +
-                "GROUP BY Id_Proj_klient;";
+                "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 \n"; 
         
         return pobierz_z_bazy_danych(zapytanie);
     }
     static public ArrayList<String[]> modyfikacja_listy_projektow_w_zaleznosci_od_filtra(String data1, String data2, String parametr)
     {      
         String zapytanie = 
-            "SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +
+            "SELECT DISTINCT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +
             "typ_mebla.Nazwa AS Typ_mebla\n" +
             "\n" +
             "FROM projekt_klienta\n" +
@@ -126,7 +125,7 @@ public class Ekran_Technologa {
     static public ArrayList<String[]> wyswietlenie_materialow(String id)
     {       
         String zapytanie = 
-                "SELECT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa\n" +
+                "SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa\n" +
                 "\n" +
                 "FROM material\n" +
                 "JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)\n" +

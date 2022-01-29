@@ -800,6 +800,11 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel8);
 
+        polprodukty_jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                polprodukty_jComboBox1MouseClicked(evt);
+            }
+        });
         polprodukty_jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 polprodukty_jComboBox1ActionPerformed(evt);
@@ -881,7 +886,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     }//GEN-LAST:event_odrzucButtonActionPerformed
 
     private void polprodukty_jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polprodukty_jComboBox1ActionPerformed
-        wyświetlenie_szczegółów_wybranego_półproduktu(polprodukty_jComboBox1.getSelectedItem().toString());
+
     }//GEN-LAST:event_polprodukty_jComboBox1ActionPerformed
 
     private void typ_jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typ_jTextField1ActionPerformed
@@ -921,7 +926,8 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private void lista_projektow_jTabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_projektow_jTabel2MouseClicked
         
         int row = lista_projektow_jTabel2.getSelectedRow();
-        id = lista_projektow_jTabel2.getModel().getValueAt(row,0).toString();      
+        id = lista_projektow_jTabel2.getModel().getValueAt(row,0).toString();
+        czyszczenie();
         wyswietlenie_szczegolow_projektu();
         wyswietlenie_projektow_polproduktow();
         wyswietlenie_materialow();
@@ -946,6 +952,10 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         }
         
     }//GEN-LAST:event_Ustal_cenejButton1ActionPerformed
+
+    private void polprodukty_jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_polprodukty_jComboBox1MouseClicked
+        wyświetlenie_szczegółów_wybranego_półproduktu(polprodukty_jComboBox1.getSelectedItem().toString());
+    }//GEN-LAST:event_polprodukty_jComboBox1MouseClicked
 
     /**
      * @param args the command line arguments
