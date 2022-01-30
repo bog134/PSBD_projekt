@@ -244,7 +244,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
         if (model.getRowCount()==0) throw new Exception("Nie wypelniono definicji zadan");
         for(int i=0; i<model.getRowCount(); i++)  {
-            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, 0)),String.valueOf(model.getValueAt(i, 1)));
+            SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, 0)),String.valueOf(model.getValueAt(i, 1)),id_techn);
         }
     }
     private void utworzenie_ceny () throws Exception

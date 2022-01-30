@@ -204,11 +204,11 @@ public class Ekran_Technologa {
 
         dodaj_do_bazy_danych(zapytanie);
     } 
-    static public void utworzenie_definicji_zadań(String id, String opis, String czas)
+    static public void utworzenie_definicji_zadań(String id, String opis, String czas, String id_techn)
     {       
         ArrayList<String[]> cena = pobranie_ceny_osobogodziny();
         String zapytanie = 
-                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Cena) VALUES (" + id + "," + "'" + opis + "'," + czas + "," + cena.get(0)[0] + ");"; 
+                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Cena) VALUES (" + id + "," + "'" + opis + "'," + czas + "," + cena.get(0)[0] + "," + id_techn + ");"; 
 
         dodaj_do_bazy_danych(zapytanie);
     }
