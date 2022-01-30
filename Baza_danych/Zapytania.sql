@@ -279,17 +279,17 @@ FROM projekt_klienta
 JOIN typ_mebla USING (Id_Typu_mebla)
 JOIN mebel USING (Id_Proj_klient)
 
-WHERE mebel.Id_Zamowienia=id_zam AND projekt_klienta.zaakceptowany = null;
+WHERE mebel.Id_Zamowienia=id_zam AND projekt_klienta.zaakceptowany is null;
 
 -- modyfikacja listy projektow w zależności od filtra
 
-SELECT projekt_klienta.Id_Proj_klient, typ_mebla.Nazwa
+SELECT DISTINCT projekt_klienta.Id_Proj_klient, typ_mebla.Nazwa
 
 FROM projekt_klienta
 JOIN typ_mebla USING (Id_Typu_mebla)
 JOIN mebel USING (Id_Proj_klient)
 
-WHERE mebel.Id_Zamowienia=id_zam AND projekt_klienta.zaakceptowany = null AND typ_mebla.Nazwa LIKE parametr; 
+WHERE mebel.Id_Zamowienia=id_zam AND projekt_klienta.zaakceptowany is null AND typ_mebla.Nazwa LIKE parametr@; 
 
 -- wyświetlenie szczegółow wybranego projektu klienta
 
@@ -362,7 +362,7 @@ INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow
 
 -- 4. zaakceptowanie projektu klienta
 UPDATE projekt_klienta
-SET zaakceptowanie=1
+SET zaakceptowany=1
 WHERE Id_Proj_klient = id;
 
 -- 5. zaakceptowanie zamowienia
