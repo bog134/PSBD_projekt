@@ -711,9 +711,11 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
         } else {
             try {
                 message_label1.setText("");
+
                 projekt = new ProjektKlienta((int)liczba_sztuk_projektu.getValue() ,koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
                 wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText(), tkaninaObiciowaBox.getSelectedIndex(), plytaMeblowaBox.getSelectedIndex(),
                 drewnoBox.getSelectedIndex(), piankaTapicerskaBox.getSelectedIndex(), okleinaBox.getSelectedIndex());
+
                 polproduktFormEnable(true);
                 dodaj_do_koszyka.setEnabled(true);
                 odrzuc_projekt.setEnabled(true);
