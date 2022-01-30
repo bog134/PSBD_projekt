@@ -43,9 +43,10 @@ public class EkranKlienta extends javax.swing.JFrame {
         public void setOpcjonalneCzesci(String OpcjonalneCzesci){this.OpcjonalneCzesci = OpcjonalneCzesci;}
         
     }*/
+
     ArrayList<ProjektKlienta> koszyk_projektow_klienta;
     ArrayList<dodanyProjekt> koszyk;
-    
+
     public void setKoszyk(ArrayList<dodanyProjekt> k){
         this.koszyk = k;
     }

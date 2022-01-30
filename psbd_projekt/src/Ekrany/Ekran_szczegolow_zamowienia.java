@@ -178,32 +178,33 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
                 }
 
                 if (koszyk_proj_klient.get(i).getIdDrewna() != 0) {
+                    System.out.println();
                     zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                    "(" + koszyk_proj_klient.get(i).getIdDrewna() + ", " + id_buff_proj + ", NULL);";
+                    "(" + (koszyk_proj_klient.get(i).getIdDrewna()/*+ 8*/) + ", " + id_buff_proj + ", NULL);";
                     stmt.executeUpdate(zapytanie);
                 }
 
                 if (koszyk_proj_klient.get(i).getIdPlyty() != 0) {
                     zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                    "(" + koszyk_proj_klient.get(i).getIdPlyty() + ", " + id_buff_proj + ", NULL)";
+                    "(" + (koszyk_proj_klient.get(i).getIdPlyty()/*+ 4*/) + ", " + id_buff_proj + ", NULL)";
                     stmt.executeUpdate(zapytanie);
                 }
 
                 if (koszyk_proj_klient.get(i).getIdTkaninyy() != 0) {
                     zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                    "(" + koszyk_proj_klient.get(i).getIdTkaninyy() + ", " + id_buff_proj + ", NULL);";
+                    "(" + (koszyk_proj_klient.get(i).getIdTkaninyy()/*+ 0*/) + ", " + id_buff_proj + ", NULL);";
                     stmt.executeUpdate(zapytanie);
                 }
 
                 if (koszyk_proj_klient.get(i).getIdPianki() != 0) {
                     zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                    "(" + koszyk_proj_klient.get(i).getIdPianki() + ", " + id_buff_proj + ", NULL);";
+                    "(" + (koszyk_proj_klient.get(i).getIdPianki()/*+ 13*/) + ", " + id_buff_proj + ", NULL);";
                     stmt.executeUpdate(zapytanie);
                 }
 
                 if (koszyk_proj_klient.get(i).getIdOkleiny() != 0) {
                     zapytanie = "INSERT INTO MATERIAL_PROJ_KLIENTA ( Id_Materialu, Id_Proj_klient, Ilosc) VALUES\n" +
-                    "(" + koszyk_proj_klient.get(i).getIdOkleiny() + ", " + id_buff_proj + ", NULL);";
+                    "(" + (koszyk_proj_klient.get(i).getIdOkleiny()/*+ 16*/) + ", " + id_buff_proj + ", NULL);";
                     stmt.executeUpdate(zapytanie);
                 }
 
@@ -675,6 +676,7 @@ public class Ekran_szczegolow_zamowienia extends javax.swing.JFrame {
 
     private void powrotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powrotButtonActionPerformed
         klient.setKoszyk(koszyk);
+        klient.setKoszykProjektowKlienta(koszyk_proj_klient);
         klient.updateLiczbewKoszyku();
         this.setVisible(false);
     }//GEN-LAST:event_powrotButtonActionPerformed

@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="580" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="583" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -143,11 +143,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JComboBox" name="drewnoBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot; &quot;,&quot;Deska d&#x119;bowa&quot;, &quot;Drewno bukowe&quot;, &quot;Drewno sosnowe&quot;, &quot;Drewno brzozowe&quot;, &quot;Drewno hebanowe&quot; })" type="code"/>
-                </Property>
-              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -194,12 +189,8 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JComboBox" name="okleinaBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot; &quot;,&quot;Fornir naturalny&quot;, &quot;Fornir modyfikowany&quot;, &quot;Okleina PCV&quot; })" type="code"/>
-                </Property>
-              </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;&gt;()"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
               <Constraints>
@@ -235,11 +226,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JComboBox" name="plytaMeblowaBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot; &quot;,&quot;P&#x142;yta wi&#xf3;rowa&quot;, &quot;P&#x142;yta pa&#x17a;dzierzowa&quot;, &quot;P&#x142;yta pil&#x15b;niowa&quot;, &quot;P&#x142;yta MDF&quot; })" type="code"/>
-                </Property>
-              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -309,11 +295,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JComboBox" name="piankaTapicerskaBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot; &quot;,&quot;Pianka poliuretanowa&quot;, &quot;Pianka wysokoelastyczna&quot;, &quot;Pianka polieterowa&quot;})" type="code"/>
-                </Property>
-              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
