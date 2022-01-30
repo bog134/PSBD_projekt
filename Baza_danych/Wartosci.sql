@@ -1112,7 +1112,7 @@ INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji, Id_Klienta) VALUES
 (1, "Trzeszczy blat.", 1),
 (6, "Gąbka jest twarda.", 3),
 (12, "Drzwi są źle spasowane i ocierają o boki szafy", 6),
-(13, "Siedzisko zapadło się po dwóch dniach użytkowania.", 10);
+(13, "Siedzisko zapadło się po dwóch dniach użytkowania.", 10),
 (16, "Materac jest za twardy.", 13),
 (18, "Urwały sie zawiasy.", 15);
 
