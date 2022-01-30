@@ -261,29 +261,35 @@ INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES
 -- 2b. Kliknięcie "Odrzuć" -> zamknięcie arkusza
 
 --################################Ekran Technologa################################
--- wyświetlenie listy projektów klienta
-SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,
-typ_mebla.Nazwa
-
-FROM projekt_klienta
-JOIN mebel USING (Id_Proj_klient)
-JOIN zamowienie_na_meble USING (Id_Zamowienia)
-JOIN typ_mebla USING (Id_Typu_mebla)
-
+--wyswietlenie listy zamowien 
+SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia
+FROM zamowienie_na_meble
 WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3;
 
--- modyfikacja listy projektów w zależności od filtra
+-- modyfikacja listy zamowien w zależności od filtra
+SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia
+FROM zamowienie_na_meble
+WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia 
+BETWEEN DATE(data1) AND DATE(data2);
 
-SELECT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,
-typ_mebla.Nazwa AS Typ_mebla
+-- wyświetlenie listy projektów klienta
+SELECT DISTINCT projekt_klienta.Id_Proj_klient, typ_mebla.Nazwa
 
 FROM projekt_klienta
-JOIN mebel USING (Id_Proj_klient)
-JOIN zamowienie_na_meble USING (Id_Zamowienia)
 JOIN typ_mebla USING (Id_Typu_mebla)
+JOIN mebel USING (Id_Proj_klient)
 
-WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia 
-BETWEEN DATE(data1) AND DATE(data2) OR typ_mebla.Nazwa LIKE parametr; --'Fo%';
+WHERE mebel.Id_Zamowienia=id_zam AND projekt_klienta.zaakceptowany is null;
+
+-- modyfikacja listy projektow w zależności od filtra
+
+SELECT DISTINCT projekt_klienta.Id_Proj_klient, typ_mebla.Nazwa
+
+FROM projekt_klienta
+JOIN typ_mebla USING (Id_Typu_mebla)
+JOIN mebel USING (Id_Proj_klient)
+
+WHERE mebel.Id_Zamowienia=id_zam AND projekt_klienta.zaakceptowany is null AND typ_mebla.Nazwa LIKE parametr@; 
 
 -- wyświetlenie szczegółow wybranego projektu klienta
 
@@ -310,7 +316,7 @@ JOIN projekt_klienta USING (Id_Proj_klient)
 WHERE projekt_klienta.Id_Proj_klient = id;
 
 -- 3. wyświetlenie materiałów
-SELECT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa
+SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa
 
 FROM material
 JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)
@@ -354,27 +360,21 @@ INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania) VAL
 INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow, Marza) VALUES 
 (id_techn,robocizna,materialy,marza);
 
--- 4.zaakceptowanie zamowienia na meble
-UPDATE zamowienie_na_meble
-SET Id_Stanu_Realizacji=4
-WHERE Id_Zamowienia =
-(
-	SELECT DISTINCT mebel.Id_Zamowienia
-	FROM mebel
-	JOIN projekt_klienta USING (Id_Proj_klient)
-	WHERE projekt_klienta.Id_Proj_klient=id
-);
+-- 4. zaakceptowanie projektu klienta
+UPDATE projekt_klienta
+SET zaakceptowany=1
+WHERE Id_Proj_klient = id;
 
--- 5. odrzucenie zamówienia na meble
+-- 5. zaakceptowanie zamowienia
 UPDATE zamowienie_na_meble
-SET Id_Stanu_Realizacji=5
-WHERE Id_Zamowienia =
-(
-	SELECT DISTINCT mebel.Id_Zamowienia
-	FROM mebel
-	JOIN projekt_klienta USING (Id_Proj_klient)
-	WHERE projekt_klienta.Id_Proj_klient=id
-);
+SET Id_Stanu_Realizacji = 4
+WHERE Id_Zamowienia = id_zam;
+
+-- 6. odrzucenie zamowienia
+UPDATE zamowienie_na_meble
+SET Id_Stanu_Realizacji = 5
+WHERE Id_Zamowienia = id_zam;
+
 
 
 
