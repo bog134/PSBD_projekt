@@ -137,11 +137,13 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Materialu = material.Id_Materialu\n" +
                     "WHERE material.Id_Rodzaju_materialu = 1 AND material_proj_katalog.Id_Proj_katalog = "+indeks;
             ResultSet rs=stmt.executeQuery(zapytanie);  
-            if(rs.next()){
+            while(rs.next()) {
                 listaT.add(rs.getString(1));
-            }else{
-                listaT.add(" ");
             }
+            if(listaT.isEmpty()){
+                listaT.add(" ");
+                tkaninaBox.setEnabled(false); 
+            } else {tkaninaBox.setEnabled(true);}
             tkaninaBox.setModel(new DefaultComboBoxModel<String>(listaT.toArray(new String[0])));
             
             ArrayList<String> listaP = new ArrayList<>();
@@ -151,11 +153,13 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Materialu = material.Id_Materialu\n" +
                     "WHERE material.Id_Rodzaju_materialu = 2 AND material_proj_katalog.Id_Proj_katalog = "+indeks;
             rs=stmt.executeQuery(zapytanie);  
-            if(rs.next()){
+            while(rs.next()) {
                 listaP.add(rs.getString(1));
-            }else{
-                listaP.add(" ");
             }
+            if(listaP.isEmpty()){
+                listaP.add(" ");
+                plytaBox.setEnabled(false); 
+            } else {plytaBox.setEnabled(true);}
             plytaBox.setModel(new DefaultComboBoxModel<String>(listaP.toArray(new String[0])));
             
             ArrayList<String> listaD = new ArrayList<>();
@@ -165,11 +169,13 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Materialu = material.Id_Materialu\n" +
                     "WHERE material.Id_Rodzaju_materialu = 3 AND material_proj_katalog.Id_Proj_katalog = "+indeks;
             rs=stmt.executeQuery(zapytanie);  
-            if(rs.next()){
+            while(rs.next()) {
                 listaD.add(rs.getString(1));
-            }else{
-                listaD.add(" ");
             }
+            if(listaD.isEmpty()){
+                listaD.add(" ");
+                drewnoBox.setEnabled(false); 
+            } else {drewnoBox.setEnabled(true);}
             drewnoBox.setModel(new DefaultComboBoxModel<String>(listaD.toArray(new String[0])));
             
             ArrayList<String> listaPi = new ArrayList<>();
@@ -179,11 +185,13 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Materialu = material.Id_Materialu\n" +
                     "WHERE material.Id_Rodzaju_materialu = 4 AND material_proj_katalog.Id_Proj_katalog = "+indeks;
             rs=stmt.executeQuery(zapytanie);  
-            if(rs.next()){
+            while(rs.next()) {
                 listaPi.add(rs.getString(1));
-            }else{
-                listaPi.add(" ");
             }
+            if(listaPi.isEmpty()){
+                listaPi.add(" ");
+                piankaBox.setEnabled(false); 
+            } else {piankaBox.setEnabled(true);}
             piankaBox.setModel(new DefaultComboBoxModel<String>(listaPi.toArray(new String[0])));
             
             ArrayList<String> listaO = new ArrayList<>();
@@ -192,12 +200,14 @@ public class EkranKlienta extends javax.swing.JFrame {
                     "SELECT Nazwa FROM material\n" +
                     "LEFT JOIN material_proj_katalog ON material_proj_katalog.Id_Materialu = material.Id_Materialu\n" +
                     "WHERE material.Id_Rodzaju_materialu = 5 AND material_proj_katalog.Id_Proj_katalog = "+indeks;
-            rs=stmt.executeQuery(zapytanie);  
-            if(rs.next()){
+            rs=stmt.executeQuery(zapytanie);
+            while(rs.next()) {
                 listaO.add(rs.getString(1));
-            }else{
-                listaO.add(" ");
             }
+            if(listaO.isEmpty()){
+                listaO.add(" ");
+                okleinaBox.setEnabled(false); 
+            } else {okleinaBox.setEnabled(true);}
             okleinaBox.setModel(new DefaultComboBoxModel<String>(listaO.toArray(new String[0])));
             
             con.close(); 

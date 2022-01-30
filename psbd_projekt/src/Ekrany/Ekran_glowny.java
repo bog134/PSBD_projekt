@@ -92,6 +92,7 @@ public class Ekran_glowny extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        hasloTextField = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -107,7 +108,12 @@ public class Ekran_glowny extends javax.swing.JFrame {
         message_label = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        hasloTextField = new javax.swing.JTextField();
+
+        hasloTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hasloTextFieldActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -171,13 +177,6 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 290, 300));
-
-        hasloTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hasloTextFieldActionPerformed(evt);
-            }
-        });
-        jPanel1.add(hasloTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 760, 330, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 800));
 
