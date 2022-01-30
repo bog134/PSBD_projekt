@@ -648,7 +648,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
 
     private void zaakceptujButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaakceptujButtonActionPerformed
         DbAkceptuj();
-        JOptionPane.showMessageDialog(new Frame(), "Reklamacja zaakceptowana", "Uwaga", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(new Frame(), "Zamówienie zaakceptowane", "Uwaga", JOptionPane.PLAIN_MESSAGE);
         
         reklamacjaButton.setEnabled(false);
         zaakceptujButton.setEnabled(false);
