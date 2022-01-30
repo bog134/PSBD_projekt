@@ -27,7 +27,7 @@ public class ProjektKlienta {
     public ProjektKlienta(int liczba, int id_projektu, int id_typu, int id_laczenia, String szerokosc, String wysokosc, String dlugosc, String rysunek_nazwa,
                             int id_tkanina, int id_plyta_meblowa, int id_drewna, int id_pianki, int id_okleiny) {
 
-        this.liczba = liczba
+        this.liczba = liczba;
         this.id_projektu = id_projektu;
         this.id_typu = id_typu;
         this.id_laczenia = id_laczenia;
