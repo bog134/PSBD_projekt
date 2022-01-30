@@ -263,6 +263,7 @@ CREATE TABLE IF NOT EXISTS PROJEKT_KLIENTA
   	Wymiary_Wysokosc int(11) NOT NULL,
   	Wymiary_Dlugosc int(11) NOT NULL,
   	Nazwa_pliku_rysunku varchar(40) NOT NULL,
+	Zaakceptowany bool DEFAULT NULL,
 	
 	PRIMARY KEY (Id_Proj_klient)
 );

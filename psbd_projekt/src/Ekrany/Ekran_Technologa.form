@@ -22,7 +22,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,54,0,0,3,47"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,34,0,0,3,44"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -39,19 +39,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lista_projektow" min="-2" pref="420" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" min="-2" pref="420" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="jPanel3" min="-2" pref="284" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="pokaz_wszystko_Szukaj_przycisk1" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lista_projektow" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lista_projektow1" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel10" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -61,13 +61,15 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="28" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lista_projektow" min="-2" pref="386" max="-2" attributes="0"/>
+                  <Component id="lista_projektow" min="-2" pref="177" max="-2" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                  <Component id="jPanel10" min="-2" pref="55" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pokaz_wszystko_Szukaj_przycisk1" min="-2" pref="61" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <Component id="jLabel2" min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lista_projektow1" min="-2" pref="169" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel3" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,7 +78,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Lista Projekt&#xf3;w"/>
+            <Property name="text" type="java.lang.String" value="Lista Zam&#xf3;wie&#x144;"/>
             <Property name="autoscrolls" type="boolean" value="true"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -98,13 +100,12 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="lista_projektow_jTabel2">
+            <Component class="javax.swing.JTable" name="lista_zamowien_jTabel2">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="0">
+                  <Table columnCount="2" rowCount="0">
                     <Column editable="true" title="Numer" type="java.lang.Object"/>
                     <Column editable="true" title="Data z&#x142;o&#x17c;enia" type="java.lang.Object"/>
-                    <Column editable="true" title="Typ mebla" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -115,12 +116,7 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Data z&#x142;o&#x17c;enia"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
@@ -131,7 +127,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lista_projektow_jTabel2MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lista_zamowien_jTabel2MouseClicked"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Ekran_Technologa_lista_projektow"/>
@@ -151,80 +147,34 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="parametr_jTextField4" min="-2" pref="178" max="-2" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <Component id="Szukaj_projektow_przycisk" min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="pokaz_wszystko_projektow_przycisk1" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" pref="74" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="parametr_jTextField4" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="data1_jTextField2" min="-2" pref="90" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="data2_jTextField2" min="-2" pref="80" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="Szukaj_przycisk" min="-2" pref="74" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="Szukaj_przycisk" min="-2" pref="61" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="data1_jTextField2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="data2_jTextField2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="parametr_jTextField4" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="parametr_jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Szukaj_projektow_przycisk" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="pokaz_wszystko_projektow_przycisk1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="data1_jTextField2">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Od"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="data1_jTextField2ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="data2_jTextField2">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Do"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="data2_jTextField2ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="-"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JTextField" name="parametr_jTextField4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nazwa zawiera"/>
@@ -233,29 +183,183 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="parametr_jTextField4ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Data:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="Szukaj_przycisk">
+            <Component class="javax.swing.JButton" name="Szukaj_projektow_przycisk">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Szukaj"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Szukaj_przyciskActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Szukaj_projektow_przyciskActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="pokaz_wszystko_projektow_przycisk1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Poka&#x17c; wszystko"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pokaz_wszystko_projektow_przycisk1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="pokaz_wszystko_Szukaj_przycisk1">
+        <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Poka&#x17c; wszystko"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Lista projekt&#xf3;w klienta w zam&#xf3;wieniu"/>
+            <Property name="autoscrolls" type="boolean" value="true"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
+            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pokaz_wszystko_Szukaj_przycisk1ActionPerformed"/>
-          </Events>
         </Component>
+        <Container class="javax.swing.JScrollPane" name="lista_projektow1">
+          <Properties>
+            <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="lista_projektow_jTabel3">
+              <Properties>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                  <Table columnCount="2" rowCount="0">
+                    <Column editable="true" title="Numer" type="java.lang.Object"/>
+                    <Column editable="true" title="Typ mebla" type="java.lang.Object"/>
+                  </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lista_projektow_jTabel3MouseClicked"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Ekran_Technologa_lista_projektow"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel10">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel25" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="data1_jTextField3" min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel21" min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="data2_jTextField3" min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="Szukaj_zamowien_przycisk1" min="-2" pref="74" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="pokaz_wszystko_zamowien_przycisk2" min="-2" pref="120" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="data1_jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="data2_jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Szukaj_zamowien_przycisk1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="pokaz_wszystko_zamowien_przycisk2" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="data1_jTextField3">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Od"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="data1_jTextField3ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="data2_jTextField3">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Do"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="data2_jTextField3ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="-"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel25">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Data:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="Szukaj_zamowien_przycisk1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Szukaj"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Szukaj_zamowien_przycisk1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="pokaz_wszystko_zamowien_przycisk2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Poka&#x17c; wszystko"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pokaz_wszystko_zamowien_przycisk2ActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="dane_u&#x17c;ytkownika">
@@ -269,11 +373,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="ZaakceptujButton2" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="OdrzucButton" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="ZaakceptujButton2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="zalogowano_jako" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
@@ -295,9 +400,9 @@
                       <Component id="zalogowano_jako" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="OdrzucButton" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="wylogujButton1" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="wylogujButton1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="OdrzucButton" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
               </Group>
@@ -360,11 +465,6 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel5">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="c8" green="c8" red="c8" type="rgb"/>
-        </Property>
-      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="460" y="110" width="340" height="210"/>
@@ -377,7 +477,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel16" pref="316" max="32767" attributes="0"/>
+                      <Component id="jLabel16" pref="320" max="32767" attributes="0"/>
                       <Component id="jScrollPane3" alignment="1" pref="316" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -391,7 +491,7 @@
                   <Component id="jLabel16" min="-2" pref="24" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="155" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -482,14 +582,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel6">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="c8" green="c8" red="c8" type="rgb"/>
-        </Property>
-      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="460" y="330" width="-1" height="180"/>
+          <AbsoluteConstraints x="460" y="310" width="340" height="180"/>
         </Constraint>
       </Constraints>
 
@@ -499,7 +594,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel7" pref="316" max="32767" attributes="0"/>
+                      <Component id="jPanel7" pref="320" max="32767" attributes="0"/>
                       <Component id="jLabel17" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -643,17 +738,18 @@
     <Container class="javax.swing.JPanel" name="jPanel8">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="460" y="520" width="340" height="180"/>
+          <AbsoluteConstraints x="460" y="490" width="340" height="180"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane4" pref="330" max="32767" attributes="0"/>
-                      <Component id="jLabel23" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
+                      <Component id="jLabel23" pref="320" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -663,9 +759,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabel23" min="-2" pref="24" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jScrollPane4" min="-2" pref="145" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane4" min="-2" pref="135" max="-2" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -734,88 +830,10 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel9">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="460" y="740" width="330" height="60"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-        <Property name="columns" type="int" value="3"/>
-        <Property name="rows" type="int" value="2"/>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel19">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="robocizna"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel20">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="materia&#x142;y"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel18">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="polprodukty"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel24">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="mar&#x17c;a"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="robociznajTextField1">
-        </Component>
-        <Component class="javax.swing.JTextField" name="materialyjTextField2">
-        </Component>
-        <Component class="javax.swing.JTextField" name="polproduktyTextField4">
-        </Component>
-        <Component class="javax.swing.JTextField" name="marzajTextField3">
-        </Component>
-      </SubComponents>
-    </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="c8" green="c8" red="c8" type="rgb"/>
-        </Property>
-      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="30" y="580" width="-1" height="220"/>
+          <AbsoluteConstraints x="11" y="580" width="430" height="220"/>
         </Constraint>
       </Constraints>
 
@@ -825,7 +843,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel2" pref="341" max="32767" attributes="0"/>
+                      <Component id="jPanel2" pref="410" max="32767" attributes="0"/>
                       <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -958,7 +976,6 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="polprodukty_jComboBox1MouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="polprodukty_jComboBox1ActionPerformed"/>
               </Events>
               <AuxValues>
@@ -994,18 +1011,116 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="Ustal_cenejButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ustal cen&#x119;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ustal_cenejButton1ActionPerformed"/>
-      </Events>
+    <Container class="javax.swing.JPanel" name="jPanel11">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="460" y="710" width="330" height="-1"/>
+          <AbsoluteConstraints x="460" y="670" width="340" height="110"/>
         </Constraint>
       </Constraints>
-    </Component>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jPanel9" pref="320" max="32767" attributes="0"/>
+                      <Component id="Ustal_cenejButton1" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Ustal_cenejButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel9" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="jPanel9">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="3"/>
+            <Property name="rows" type="int" value="2"/>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel19">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="robocizna"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel20">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="materia&#x142;y"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel18">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="polprodukty"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel24">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="mar&#x17c;a"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="robociznajTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="materialyjTextField2">
+            </Component>
+            <Component class="javax.swing.JTextField" name="polproduktyTextField4">
+            </Component>
+            <Component class="javax.swing.JTextField" name="marzajTextField3">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="Ustal_cenejButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ustal cen&#x119;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ustal_cenejButton1ActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

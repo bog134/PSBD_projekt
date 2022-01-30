@@ -59,38 +59,53 @@ public class Ekran_Technologa {
             System.out.println(row);
         }
     }
-    
-    static public ArrayList<String[]> wyswietlenie_listy_projektow_klienta()
+    /*---------*/
+    static public ArrayList<String[]> wyswietlenie_listy_zamowien()
     {         
         String zapytanie = 
-                "SELECT DISTINCT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +
-                "typ_mebla.Nazwa\n" +
+                "SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia\n" +
+                "FROM zamowienie_na_meble\n" +
+                "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3;"; 
+        
+        return pobierz_z_bazy_danych(zapytanie);
+    }
+    static public ArrayList<String[]> modyfikacja_listy_zamowien_w_zależności_od_filtra(String data1, String data2)
+    {         
+        String zapytanie = 
+                "SELECT zamowienie_na_meble.Id_Zamowienia, zamowienie_na_meble.Czas_realizacji_Data_zlozenia\n" +
+                "FROM zamowienie_na_meble\n" +
+                "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 AND zamowienie_na_meble.Czas_realizacji_Data_zlozenia \n" +
+                "BETWEEN DATE('" + data1  + "') AND DATE('" + data2 + "');"; 
+        
+        return pobierz_z_bazy_danych(zapytanie);
+    }
+    static public ArrayList<String[]> wyswietlenie_listy_projektow_klienta_w_zamowieniu (String id_zam)
+    {         
+        String zapytanie = 
+                "SELECT DISTINCT projekt_klienta.Id_Proj_klient, typ_mebla.Nazwa\n" +
                 "\n" +
                 "FROM projekt_klienta\n" +
-                "JOIN mebel USING (Id_Proj_klient)\n" +
-                "JOIN zamowienie_na_meble USING (Id_Zamowienia)\n" +
                 "JOIN typ_mebla USING (Id_Typu_mebla)\n" +
+                "JOIN mebel USING (Id_Proj_klient)\n" +
                 "\n" +
-                "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 \n"; 
+                "WHERE mebel.Id_Zamowienia=" + id_zam + " AND projekt_klienta.zaakceptowany is null;"; 
         
         return pobierz_z_bazy_danych(zapytanie);
     }
-    static public ArrayList<String[]> modyfikacja_listy_projektow_w_zaleznosci_od_filtra(String data1, String data2, String parametr)
-    {      
+    static public ArrayList<String[]> modyfikacja_listy_projektow_w_zależności_od_filtra (String id_zam, String parametr)
+    {         
         String zapytanie = 
-            "SELECT DISTINCT projekt_klienta.Id_Proj_klient, zamowienie_na_meble.Czas_realizacji_Data_zlozenia,\n" +
-            "typ_mebla.Nazwa AS Typ_mebla\n" +
-            "\n" +
-            "FROM projekt_klienta\n" +
-            "JOIN mebel USING (Id_Proj_klient)\n" +
-            "JOIN zamowienie_na_meble USING (Id_Zamowienia)\n" +
-            "JOIN typ_mebla USING (Id_Typu_mebla)\n" +
-            "\n" +
-            "WHERE zamowienie_na_meble.Id_Stanu_Realizacji=3 AND (zamowienie_na_meble.Czas_realizacji_Data_zlozenia \n" +
-            "BETWEEN DATE('" + data1+ "') AND DATE('" + data2+ "') OR typ_mebla.Nazwa LIKE '" + parametr + "%');";
+                "SELECT DISTINCT projekt_klienta.Id_Proj_klient, typ_mebla.Nazwa\n" +
+                "\n" +
+                "FROM projekt_klienta\n" +
+                "JOIN typ_mebla USING (Id_Typu_mebla)\n" +
+                "JOIN mebel USING (Id_Proj_klient)\n" +
+                "\n" +
+                "WHERE mebel.Id_Zamowienia= " + id_zam + " AND projekt_klienta.zaakceptowany is null AND typ_mebla.Nazwa LIKE ('" + parametr + "%')"; 
         
         return pobierz_z_bazy_danych(zapytanie);
     }
+    /*---------*/
     static public ArrayList<String[]> wyswietlenie_szczegolow_projektu(String id)
     {         
         String zapytanie = 
@@ -191,8 +206,9 @@ public class Ekran_Technologa {
     } 
     static public void utworzenie_definicji_zadań(String id, String opis, String czas)
     {       
+        ArrayList<String[]> cena = pobranie_ceny_osobogodziny();
         String zapytanie = 
-                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania) VALUES (" + id + "," + "'" + opis + "'" + czas + ");"; 
+                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Cena) VALUES (" + id + "," + "'" + opis + "'," + czas + "," + cena.get(0)[0] + ");"; 
 
         dodaj_do_bazy_danych(zapytanie);
     }
@@ -204,36 +220,34 @@ public class Ekran_Technologa {
 
         dodaj_do_bazy_danych(zapytanie);
     }
-    static public void zaakceptowanie_zamowienia_na_meble(String id)
+    /*---------*/
+    static public void zaakceptowanie_projektu_klienta(String id)
     {       
         String zapytanie = 
-                "UPDATE zamowienie_na_meble\n" +
-                "SET Id_Stanu_Realizacji=4\n" +
-                "WHERE Id_Zamowienia =\n" +
-                "(\n" +
-                "	SELECT DISTINCT mebel.Id_Zamowienia\n" +
-                "	FROM mebel\n" +
-                "	JOIN projekt_klienta USING (Id_Proj_klient)\n" +
-                "	WHERE projekt_klienta.Id_Proj_klient=" + id + "\n" +
-                ");"; 
+                "UPDATE projekt_klienta\n" +
+                "SET zaakceptowany=1\n" +
+                "WHERE projekt_klienta.Id_Proj_klient=" + id; 
 
         dodaj_do_bazy_danych(zapytanie);
     }
-    static public void odrzucenie_zamowienia_na_meble(String id)
+    static public void zaakceptowanie_zamowienia(String id_zam)
     {       
         String zapytanie = 
                 "UPDATE zamowienie_na_meble\n" +
-                "SET Id_Stanu_Realizacji=5\n" +
-                "WHERE Id_Zamowienia =\n" +
-                "(\n" +
-                "	SELECT DISTINCT mebel.Id_Zamowienia\n" +
-                "	FROM mebel\n" +
-                "	JOIN projekt_klienta USING (Id_Proj_klient)\n" +
-                "	WHERE projekt_klienta.Id_Proj_klient=" + id + "\n" +
-                ");"; 
+                "SET Id_Stanu_Realizacji = 4\n" +
+                "WHERE Id_Zamowienia =" + id_zam; 
 
         dodaj_do_bazy_danych(zapytanie);
     }
-}  
+    static public void odrzucenie_zamowienia(String id_zam)
+    {       
+        String zapytanie = 
+                "UPDATE zamowienie_na_meble\n" +
+                "SET Id_Stanu_Realizacji = 5\n" +
+                "WHERE Id_Zamowienia = " + id_zam;
+
+        dodaj_do_bazy_danych(zapytanie);
+    }
+}    /*---------*/
     
 
