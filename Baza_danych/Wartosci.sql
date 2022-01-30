@@ -1108,13 +1108,13 @@ INSERT INTO ZADANIE (Id_Zadania, Id_Pracownika, Id_Mebla, Id_Def_zadania) VALUES
 (146, 1, 31, 146),
 (147, 3, 31, 147);
 
-INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES
-(1, "Trzeszczy blat."),
-(6, "Gąbka jest twarda."),
-(12, "Drzwi są źle spasowane i ocierają o boki szafy"),
-(13, "Siedzisko zapadło się po dwóch dniach użytkowania.");
-(16, "Materac jest za twardy."),
-(18, "Urwały sie zawiasy.");
+INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji, Id_Klienta) VALUES
+(1, "Trzeszczy blat.", 1),
+(6, "Gąbka jest twarda.", 3),
+(12, "Drzwi są źle spasowane i ocierają o boki szafy", 6),
+(13, "Siedzisko zapadło się po dwóch dniach użytkowania.", 10);
+(16, "Materac jest za twardy.", 13),
+(18, "Urwały sie zawiasy.", 15);
 
 INSERT INTO MATERIAL_DOSTAWCA (Id_Mat_dost, Id_Materialu, Id_Dostawcy) VALUES
 (1, 1, 1),
