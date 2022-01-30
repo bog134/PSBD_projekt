@@ -300,7 +300,7 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 150, 30));
         jPanel2.add(drewnoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 220, 30));
 
-        typMeblaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Stol", "Krzeslo", "Fotel", "Lozko", "Sofa", "Biurko", "Szafa", "Komoda", "Szafka nocna", "Naroznik", "Regal", "Kredens" }));
+        typMeblaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Stół", "Krzesło", "Fotel", "Łóżko", "Sofa", "Biurko", "Szafa", "Komoda", "Szafka nocna", "Narożnik", "Regał", "Kredens" }));
         typMeblaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typMeblaBoxActionPerformed(evt);
@@ -424,7 +424,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     });
     jPanel2.add(rysunek_polp_nazwa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, 160, 30));
 
-    powrotButton.setText("Powrot");
+    powrotButton.setText("Powrót");
     powrotButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             powrotButtonActionPerformed(evt);
@@ -586,7 +586,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
 
     private void typMeblaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typMeblaBoxActionPerformed
         if (evt.getSource()==typMeblaBox){
-            if(typMeblaBox.getSelectedItem()=="Stol"){
+            if(typMeblaBox.getSelectedIndex()==1){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(true);
@@ -599,7 +599,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 piankaTapicerskaBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedItem()=="Krzeslo"){
+            }else if(typMeblaBox.getSelectedIndex()==2){
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(true);
@@ -609,29 +609,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
 
                 plytaMeblowaBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
-            }else if(typMeblaBox.getSelectedItem()=="Fotel"){
-                tkaninaObiciowaBox.setEnabled(true);
-                plytaMeblowaBox.setEnabled(false);
-                drewnoBox.setEnabled(false);
-                piankaTapicerskaBox.setEnabled(true);
-                okleinaBox.setEnabled(false);
-
-                plytaMeblowaBox.setSelectedIndex(0);
-                drewnoBox.setSelectedIndex(0);
-                okleinaBox.setSelectedIndex(0);
-
-            }else if(typMeblaBox.getSelectedItem()=="Lozko"){
-                tkaninaObiciowaBox.setEnabled(true);
-                plytaMeblowaBox.setEnabled(false);
-                drewnoBox.setEnabled(true);
-                piankaTapicerskaBox.setEnabled(false);
-                okleinaBox.setEnabled(false);
-
-                plytaMeblowaBox.setSelectedIndex(0);
-                piankaTapicerskaBox.setSelectedIndex(0);
-                okleinaBox.setSelectedIndex(0);
-
-            }else if(typMeblaBox.getSelectedItem()=="Sofa"){
+            }else if(typMeblaBox.getSelectedIndex()==3){
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(false);
@@ -642,7 +620,29 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 drewnoBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedItem()=="Biurko"){
+            }else if(typMeblaBox.getSelectedIndex()==4){
+                tkaninaObiciowaBox.setEnabled(true);
+                plytaMeblowaBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
+                piankaTapicerskaBox.setEnabled(false);
+                okleinaBox.setEnabled(false);
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                piankaTapicerskaBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
+            }else if(typMeblaBox.getSelectedIndex()==5){
+                tkaninaObiciowaBox.setEnabled(true);
+                plytaMeblowaBox.setEnabled(false);
+                drewnoBox.setEnabled(false);
+                piankaTapicerskaBox.setEnabled(true);
+                okleinaBox.setEnabled(false);
+
+                plytaMeblowaBox.setSelectedIndex(0);
+                drewnoBox.setSelectedIndex(0);
+                okleinaBox.setSelectedIndex(0);
+
+            }else if(typMeblaBox.getSelectedIndex()==6){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(true);
@@ -652,7 +652,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 tkaninaObiciowaBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedItem()=="Szafa"){
+            }else if(typMeblaBox.getSelectedIndex()==6){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(false);
@@ -662,7 +662,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 tkaninaObiciowaBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedItem()=="Komoda"){
+            }else if(typMeblaBox.getSelectedIndex()==7){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(false);
@@ -673,7 +673,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 drewnoBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedItem()=="Szafka nocna"){
+            }else if(typMeblaBox.getSelectedIndex()==8){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(false);
@@ -684,7 +684,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 drewnoBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
                 
-            }else if(typMeblaBox.getSelectedItem()=="Naroznik"){
+            }else if(typMeblaBox.getSelectedIndex()==9){
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(false);
@@ -695,7 +695,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 drewnoBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedItem()=="Regal"){
+            }else if(typMeblaBox.getSelectedIndex()==10){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(false);
@@ -706,7 +706,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 drewnoBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
                 
-            }else if(typMeblaBox.getSelectedItem()=="Kredens"){
+            }else if(typMeblaBox.getSelectedIndex()==11){
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(true);

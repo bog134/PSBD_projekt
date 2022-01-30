@@ -128,7 +128,6 @@ public class Ekran_glowny extends javax.swing.JFrame {
         jLabel1.setText("Logowanie");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 260, 40));
 
-        loginTextField.setText("klient");
         loginTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginTextFieldActionPerformed(evt);
@@ -211,17 +210,15 @@ public class Ekran_glowny extends javax.swing.JFrame {
         } else {
             message_label.setText("Nieprawidłowe dane logowania");
         }
-
-
-        if(loginTextField.getText().equals("klient")){
-            ekran_klienta = new EkranKlienta();
-            ekran_klienta.setCustomer(id_klienta, login_klienta);
-            ekran_klienta.setVisible(true);
-            this.setVisible(false);
-        }else if(loginTextField.getText().equals("technolog")){
-            new Ekran_Technologa().setVisible(true);
-            this.setVisible(false);
-        } 
+        // if(loginTextField.getText().equals("klient")){
+        //     ekran_klienta = new EkranKlienta();
+        //     ekran_klienta.setCustomer(id_klienta, login_klienta);
+        //     ekran_klienta.setVisible(true);
+        //     this.setVisible(false);
+        // }else if(loginTextField.getText().equals("technolog")){
+        //     new Ekran_Technologa().setVisible(true);
+        //     this.setVisible(false);
+        // } 
     }//GEN-LAST:event_zalogujButtonActionPerformed
 
     private void hasloTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hasloTextFieldActionPerformed
