@@ -692,6 +692,7 @@ public class Ekran_historii_zamowien extends javax.swing.JFrame {
     private void reklamacjaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reklamacjaButtonActionPerformed
         Arkusz_Reklamacyjny arkusz = new Arkusz_Reklamacyjny();
         arkusz.setIdMebla(IdMebla);
+        arkusz.setCustomer(IdKlienta, login_klienta);
         arkusz.setVisible(true);
     }//GEN-LAST:event_reklamacjaButtonActionPerformed
 
