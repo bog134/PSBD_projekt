@@ -20,6 +20,8 @@ public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
     
     String IdMebla = null;
     String opisReklamacji = null;
+    int IdKlienta = 4;
+    String login_klienta = null;
 
     /**
      * Creates new form Arkusz_Reklamacyjny
@@ -32,21 +34,25 @@ public class Arkusz_Reklamacyjny extends javax.swing.JFrame {
         IdMebla = set;
     }
     
+    public void  setCustomer(int id, String login){
+        this.IdKlienta = id;
+        this.login_klienta = login;
+        
+    }
+    
     public void DbskladanieReklamacji(){
         
         try{  
-            Connection con=DriverManager.getConnection(  
-            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+            Connection con=DriverManager.getConnection( 
+            "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");
             Statement stmt=con.createStatement();
-            String zapytanie = 
-                    "INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES\n" +
-                    "("+IdMebla+", "+opisReklamacji+")";
+            String zapytanie =
+                    "INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji, Id_Klienta) VALUES\n" +
+                    "("+IdMebla+", "+opisReklamacji+", "+IdKlienta+")";
             
-            System.out.println("INSERT INTO REKLAMACJA (Id_Mebla, Opis_reklamacji) VALUES\n" +
-                    "("+IdMebla+", "+opisReklamacji+")");
             stmt.executeUpdate(zapytanie);
             
-            con.close(); 
+            con.close();
         }catch(Exception e){ System.out.println(e);}
     }
 
