@@ -143,9 +143,9 @@ public class Ekran_Technologa {
                 "SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa, material.Id_Materialu\n" +
                 "\n" +
                 "FROM material\n" +
-                "JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)\n" +
-                "JOIN wzor USING (Id_Wzoru)\n" +
-                "JOIN material_proj_klienta USING (Id_Materialu)\n" +
+                "LEFT JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)\n" +
+                "LEFT JOIN wzor USING (Id_Wzoru)\n" +
+                "LEFT JOIN material_proj_klienta USING (Id_Materialu)\n" +
                 "\n" +
                 "WHERE material_proj_klienta.Id_Proj_klient=" + id + ";"; 
         

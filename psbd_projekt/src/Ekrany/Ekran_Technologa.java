@@ -164,11 +164,14 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for (int i=0; i<lista_materialow.size(); i++)
         {
-            Object[] data = new Object[lista_materialow.get(0).length+1];
-            for(int j=0; j<lista_materialow.get(0).length-2; j++)
-            {
-                data[j]=lista_materialow.get(i)[j+1];
-            }
+//            Object[] data = new Object[lista_materialow.get(0).length+1];
+//            for(int j=0; j<lista_materialow.get(0).length-2; j++)
+//            {
+//                data[j]=lista_materialow.get(i)[j+1];
+//            }
+            Object[] data = new Object[1];
+            data[0]=lista_materialow.get(i)[1];
+            
             model.addRow(data);            
         }
          
@@ -211,7 +214,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
             float cena=Float.parseFloat(lista_cena.get(0)[0]);            
             String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
             koszt+=cena*Float.parseFloat(ilosc);
-            if (ilosc==null) throw new Exception("Nie wypelniono ilosci materialow");
+            if (ilosc=="null") throw new Exception("Nie wypelniono ilosci materialow");
         }
         return String.valueOf(koszt);
     }
@@ -234,7 +237,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for(int i=0; i<lista_materialow.size(); i++)  {
             String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
-            if (ilosc==null) throw new Exception("Nie wypelniono ilosci materialow");
+            if (ilosc=="null") throw new Exception("Nie wypelniono ilosci materialow");
             SQL.Ekran_Technologa.zaaktualizowanie_ilości_materialow(ilosc, lista_materialow.get(i)[0]);
         }
         
@@ -242,7 +245,9 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private void utworzenie_definicji_zadań() throws Exception
     {
         DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
-        if (model.getRowCount()==0) throw new Exception("Nie wypelniono definicji zadan");
+        String opis=String.valueOf(model.getValueAt(0, 0));
+        String czas=String.valueOf(model.getValueAt(0, 1));
+        if ("null".equals(opis) || "null".equals(czas)) throw new Exception("Nie wypelniono definicji zadan");
         for(int i=0; i<model.getRowCount(); i++)  {
             SQL.Ekran_Technologa.utworzenie_definicji_zadań(id,String.valueOf(model.getValueAt(i, 0)),String.valueOf(model.getValueAt(i, 1)),id_techn);
         }
@@ -707,14 +712,14 @@ public class Ekran_Technologa extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Nazwa", "Rodzaj", "Wzór", "Klasa", "Ilość"
+                "Nazwa", "Ilość"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -926,6 +931,16 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jLabel8);
 
+        polprodukty_jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                polprodukty_jComboBox1ItemStateChanged(evt);
+            }
+        });
+        polprodukty_jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                polprodukty_jComboBox1MousePressed(evt);
+            }
+        });
         polprodukty_jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 polprodukty_jComboBox1ActionPerformed(evt);
@@ -1038,6 +1053,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         
         int row = lista_zamowien_jTabel2.getSelectedRow();
         id_zam = lista_zamowien_jTabel2.getModel().getValueAt(row,0).toString();
+        czyszczenie();
         wyswietlenie_listy_projektow_klienta_w_zamowieniu ();
     }//GEN-LAST:event_lista_zamowien_jTabel2MouseClicked
 
@@ -1138,7 +1154,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
 
     private void odrzucButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odrzucButtonActionPerformed
         try {
-            if(id_zam==null || id==null) throw new Exception("Nie wybrano projektu");
+            if(id_zam=="null" || id=="null") throw new Exception("Nie wybrano projektu");
             czyszczenie();
             SQL.Ekran_Technologa.odrzucenie_zamowienia(id_zam);
             {JOptionPane.showMessageDialog(this,"Zamowienie zostało odrzucone","", JOptionPane.INFORMATION_MESSAGE);}
@@ -1153,6 +1169,14 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     private void nazwa_jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nazwa_jTextField8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nazwa_jTextField8ActionPerformed
+
+    private void polprodukty_jComboBox1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_polprodukty_jComboBox1MousePressed
+       
+    }//GEN-LAST:event_polprodukty_jComboBox1MousePressed
+
+    private void polprodukty_jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_polprodukty_jComboBox1ItemStateChanged
+        wyświetlenie_szczegółów_wybranego_półproduktu(); 
+    }//GEN-LAST:event_polprodukty_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments

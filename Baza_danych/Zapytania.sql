@@ -319,9 +319,9 @@ WHERE projekt_klienta.Id_Proj_klient = id;
 SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa, material.Id_Materialu
 
 FROM material
-JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)
-JOIN wzor USING (Id_Wzoru)
-JOIN material_proj_klienta USING (Id_Materialu)
+LEFT JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)
+LEFT JOIN wzor USING (Id_Wzoru)
+LEFT JOIN material_proj_klienta USING (Id_Materialu)
 
 WHERE material_proj_klienta.Id_Proj_klient=id;
 
