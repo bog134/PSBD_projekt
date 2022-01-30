@@ -1,17 +1,22 @@
 --który pracownik w danym okresie czasu ma najwięcej zgłoszeń reklamacyjnych 
-SELECT MAX(tab.Ilosc_reklamacji1) AS Ilosc_reklamacji, tab.Id_Pracownika, tab.Imie, tab.Nazwisko
-FROM 
+SELECT MAX(tab2.Ilosc_reklamacji) AS Ilosc_reklamacji, tab2.Id_Pracownika, tab2.Imie, tab2.Nazwisko
+FROM
 (
-    SELECT COUNT(reklamacja.Id_Reklamacji) AS Ilosc_reklamacji1, PRACOWNIK.Id_Pracownika, PRACOWNIK.Imie, PRACOWNIK.Nazwisko
-    FROM PRACOWNIK
-    JOIN ZADANIE USING(Id_Pracownika)
-    JOIN MEBEL USING (Id_Mebla)
-    JOIN REKLAMACJA USING (Id_Mebla)
-    JOIN ZAMOWIENIE_NA_MEBLE USING(Id_Zamowienia)
-	
-    WHERE ZAMOWIENIE_NA_MEBLE.Czas_Realizacji_Data_zakonczenia BETWEEN DATE(data1) AND DATE(data2)
-    GROUP BY PRACOWNIK.Id_Pracownika
-) AS tab;
+	SELECT COUNT(tab.Id_Reklamacji) AS Ilosc_reklamacji, tab.Id_Pracownika, tab.Imie, tab.Nazwisko
+	FROM 
+	(
+		SELECT DISTINCT reklamacja.Id_Reklamacji, PRACOWNIK.Id_Pracownika, PRACOWNIK.Imie, PRACOWNIK.Nazwisko
+		FROM PRACOWNIK
+		JOIN ZADANIE USING(Id_Pracownika)
+		JOIN MEBEL USING (Id_Mebla)
+		JOIN REKLAMACJA USING (Id_Mebla)
+		JOIN ZAMOWIENIE_NA_MEBLE USING(Id_Zamowienia)
+
+		WHERE ZAMOWIENIE_NA_MEBLE.Czas_Realizacji_Data_zakonczenia BETWEEN DATE(data1) AND DATE(data2)
+	) AS tab
+	GROUP BY Id_Pracownika
+)AS tab2
+
 
 -- który z dostawców dostarcza dany element najszybciej 
 -- polprodukt

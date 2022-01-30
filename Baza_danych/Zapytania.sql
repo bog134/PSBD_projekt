@@ -316,7 +316,7 @@ JOIN projekt_klienta USING (Id_Proj_klient)
 WHERE projekt_klienta.Id_Proj_klient = id;
 
 -- 3. wyświetlenie materiałów
-SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa
+SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa, material.Id_Materialu
 
 FROM material
 JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)

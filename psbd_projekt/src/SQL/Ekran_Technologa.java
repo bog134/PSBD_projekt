@@ -140,7 +140,7 @@ public class Ekran_Technologa {
     static public ArrayList<String[]> wyswietlenie_materialow(String id)
     {       
         String zapytanie = 
-                "SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa\n" +
+                "SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa, material.Id_Materialu\n" +
                 "\n" +
                 "FROM material\n" +
                 "JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)\n" +

@@ -165,7 +165,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         for (int i=0; i<lista_materialow.size(); i++)
         {
             Object[] data = new Object[lista_materialow.get(0).length+1];
-            for(int j=0; j<lista_materialow.get(0).length-1; j++)
+            for(int j=0; j<lista_materialow.get(0).length-2; j++)
             {
                 data[j]=lista_materialow.get(i)[j+1];
             }
@@ -207,7 +207,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         float koszt=(float) 0.0;
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for(int i=0; i<lista_materialow.size(); i++)  {
-            ArrayList<String[]> lista_cena=SQL.Ekran_Technologa.pobranie_ceny_danego_materialu(lista_materialow.get(i)[0]);
+            ArrayList<String[]> lista_cena=SQL.Ekran_Technologa.pobranie_ceny_danego_materialu(lista_materialow.get(i)[lista_materialow.get(0).length-1]);
             float cena=Float.parseFloat(lista_cena.get(0)[0]);            
             String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
             koszt+=cena*Float.parseFloat(ilosc);

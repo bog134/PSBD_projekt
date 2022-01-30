@@ -108,7 +108,8 @@ CREATE TABLE IF NOT EXISTS DEFINICJA_ZADANIA
 ( 
 	Id_Def_zadania INT NOT NULL AUTO_INCREMENT,
 	Id_Proj_klient INT DEFAULT NULL,
-	Id_Proj_katalog INT DEFAULT NULL,	
+	Id_Proj_katalog INT DEFAULT NULL,
+	Id_Pracownika INT DEFAULT NULL,	
 	Opis_zadania VARCHAR(200) NOT NULL, 
 	Cena DOUBLE NOT NULL,
 	Czas_wykonania INT NOT NULL,	
@@ -210,6 +211,7 @@ CREATE TABLE IF NOT EXISTS ZAMOWIENIE_NA_KOMPONENTY
 	Stan_realizacji BOOLEAN NOT NULL, 
    	Czas_realizacji_Data_rozpoczecia Date NOT NULL, 
 	Czas_realizacji_Data_zakonczenia Date DEFAULT NULL,
+	Id_Pracownika INT NOT NULL,	
 
 	PRIMARY KEY (NrZamowienia)
 );
@@ -307,6 +309,7 @@ CREATE TABLE IF NOT EXISTS ZADANIE
   	Id_Zadania int(11) NOT NULL AUTO_INCREMENT,
 	Id_Pracownika int(11) NOT NULL,
 	Id_Mebla int(11) NOT NULL,
+	Id_Def_zadania INT NOT NULL,
 	
 	PRIMARY KEY (Id_Zadania)
 );
@@ -325,6 +328,7 @@ CREATE TABLE IF NOT EXISTS REKLAMACJA
 (
   	Id_Reklamacji int(11) NOT NULL AUTO_INCREMENT,
 	Id_Mebla int(11) NOT NULL,
+	Id_Klienta int(11) NOT NULL,
 	Opis_reklamacji varchar(200),
 	
 	PRIMARY KEY (Id_Reklamacji)
@@ -405,7 +409,8 @@ ADD FOREIGN KEY (Id_Stanu_Realizacji) REFERENCES STAN_REALIZACJI(Id_Stanu_realiz
 ADD INDEX data_zlozenia_index (Czas_realizacji_Data_zlozenia);
 
 ALTER TABLE REKLAMACJA
-ADD FOREIGN KEY (Id_Mebla) REFERENCES MEBEL(Id_Mebla);
+ADD FOREIGN KEY (Id_Mebla) REFERENCES MEBEL(Id_Mebla),
+ADD FOREIGN KEY (Id_Klienta) REFERENCES KLIENT(Id_Klienta);
 
 ALTER TABLE MATERIAL_ZAMOW_KOMP
 ADD FOREIGN KEY (Id_Materialu) REFERENCES MATERIAL(Id_Materialu),
