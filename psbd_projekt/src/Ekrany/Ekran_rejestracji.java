@@ -296,7 +296,7 @@ public class Ekran_rejestracji extends javax.swing.JFrame {
                         clearContent();
                         message_label.setText("Zarejestrowano");
                         JOptionPane optionPane = new JOptionPane();
-                        optionPane.showMessageDialog(this, "Użytkownik został zarejewstrowany", "Rejestracja poprawna", JOptionPane.INFORMATION_MESSAGE);
+                        optionPane.showMessageDialog(this, "Użytkownik został zarejestrowany", "Rejestracja poprawna", JOptionPane.INFORMATION_MESSAGE);
 
                         new Ekran_glowny().setVisible(true);
                         this.setVisible(false);
