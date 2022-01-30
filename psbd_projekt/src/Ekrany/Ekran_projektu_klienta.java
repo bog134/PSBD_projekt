@@ -6,9 +6,15 @@ package Ekrany;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 
 import Dodatkowe.*;
 /**
@@ -16,6 +22,97 @@ import Dodatkowe.*;
  * @author Maciek
  */
 public class Ekran_projektu_klienta extends javax.swing.JFrame {
+
+    int l_rodzai_materialow = 5;
+
+    ArrayList<Object[]> tkanina; //id_rodz 1
+    ArrayList<Object[]> plyta; //id_rodz 2
+    ArrayList<Object[]> drewno; // id_rodz 3
+    ArrayList<Object[]> pianka; // id_rodz 4
+    ArrayList<Object[]> okleina; //id_rodz 5
+
+    private void pobierzMaterialy() {
+        tkanina = new ArrayList<>();
+        plyta = new ArrayList<>();
+        drewno = new ArrayList<>();
+        pianka = new ArrayList<>();
+        okleina = new ArrayList<>();
+
+        Object[] zero = {0, ""};
+
+        tkanina.add(zero);
+        plyta.add(zero);
+        drewno.add(zero);
+        pianka.add(zero);
+        okleina.add(zero);
+
+        for(int i = 1; i <= l_rodzai_materialow; i++) {
+            try{
+                Connection con = DriverManager.getConnection(  
+                "jdbc:mysql://localhost:3307/firma?serverTimezone=UTC","root","root");   
+                Statement stmt = con.createStatement();
+                String zapytanie = 
+                        "select  material.Id_Materialu, material.Nazwa\n" +  // material.Id_Rodzaju_materialu, rodzaj_materialu.Nazwa AS Rodzaj
+                        "from material\n" +
+                        "join rodzaj_materialu on rodzaj_materialu.Id_Rodzaju_materialu = material.Id_Rodzaju_materialu \n" +
+                        "where material.Id_Rodzaju_materialu = " + i + "; \n";
+    
+                ResultSet rs=stmt.executeQuery(zapytanie);
+    
+
+
+                while(rs.next()){
+                    Object[] ob = {rs.getInt(1), rs.getString(2)};
+                    if (i == 1) {
+                        tkanina.add(ob);
+                    } else if (i == 2) {
+                        plyta.add(ob);
+                    } else if (i == 3) {
+                        drewno.add(ob);
+                    } else if (i == 4) {
+                        pianka.add(ob);
+                    } else {
+                        okleina.add(ob);
+                    }
+                }         
+                con.close(); 
+            }catch(Exception e){ System.out.println(e);}  
+        }
+
+
+       ArrayList<String> nazwa = new ArrayList<String>();
+
+        for (int i = 0; i < tkanina.size(); i++) {
+            nazwa.add(tkanina.get(i)[1].toString());
+        }
+        tkaninaObiciowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(nazwa.toArray(new String[0])));
+
+        nazwa = new ArrayList<String>();
+        for (int i = 0; i < plyta.size(); i++) {
+            nazwa.add(plyta.get(i)[1].toString());
+        }
+        plytaMeblowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(nazwa.toArray(new String[0])));
+
+        nazwa = new ArrayList<String>();
+        for (int i = 0; i < drewno.size(); i++) {
+            nazwa.add(drewno.get(i)[1].toString());
+        }
+        drewnoBox.setModel(new javax.swing.DefaultComboBoxModel<>(nazwa.toArray(new String[0])));
+
+        nazwa = new ArrayList<String>();
+        for (int i = 0; i < pianka.size(); i++) {
+            nazwa.add(pianka.get(i)[1].toString());
+        }
+        piankaTapicerskaBox.setModel(new javax.swing.DefaultComboBoxModel<>(nazwa.toArray(new String[0])));
+
+        nazwa = new ArrayList<String>();
+        for (int i = 0; i < okleina.size(); i++) {
+            nazwa.add(okleina.get(i)[1].toString());
+        }
+        okleinaBox.setModel(new javax.swing.DefaultComboBoxModel<>(nazwa.toArray(new String[0])));
+    }
+
+
 
     ArrayList<ProjektKlienta> koszyk;
     ProjektKlienta projekt;
@@ -57,9 +154,6 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         liczba_sztuk_polp.setEnabled(state);
     }
 
-
-
-
     public void clearFrameContent() {
         typMeblaBox.setSelectedIndex(0);
         szerkosc_mebla.setText("");
@@ -88,11 +182,12 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         polproduktFormEnable(false);
     }
 
-    /**z
+    /**
      * Creates new form Ekran_projektu_klienta
      */
     public Ekran_projektu_klienta() {
         initComponents();
+        pobierzMaterialy();
         polproduktFormEnable(false);
         odrzuc_projekt.setEnabled(false);
     }
@@ -203,8 +298,6 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Płyta meblowa");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 150, 30));
-
-        drewnoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Deska dębowa", "Drewno bukowe", "Drewno sosnowe", "Drewno brzozowe", "Drewno hebanowe" }));
         jPanel2.add(drewnoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 220, 30));
 
         typMeblaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Stol", "Krzeslo", "Fotel", "Lozko", "Sofa", "Biurko", "Szafa", "Komoda", "Szafka nocna", "Naroznik", "Regal", "Kredens" }));
@@ -222,8 +315,6 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
             }
         });
         jPanel2.add(tkaninaObiciowaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 220, 30));
-
-        okleinaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Fornir naturalny", "Fornir modyfikowany", "Okleina PCV" }));
         jPanel2.add(okleinaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 220, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -233,8 +324,6 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Pianka tapicerska");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 150, 30));
-
-        plytaMeblowaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Płyta wiórowa", "Płyta paździerzowa", "Płyta pilśniowa", "Płyta MDF" }));
         jPanel2.add(plytaMeblowaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 220, 30));
 
         dodaj_rysunek_projektu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -258,8 +347,6 @@ public class Ekran_projektu_klienta extends javax.swing.JFrame {
 
         laczeniaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Wkręty", "Klej", "Wciskowe", "Kołki", "Mimośrody i trzpienie", "Gwintowane" }));
         jPanel2.add(laczeniaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 220, 30));
-
-        piankaTapicerskaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ","Pianka poliuretanowa", "Pianka wysokoelastyczna", "Pianka polieterowa"}));
         jPanel2.add(piankaTapicerskaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 220, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -465,7 +552,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,10 +798,17 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
         } else {
             try {
                 message_label1.setText("");
+                int id_tkanina = (int)tkanina.get(tkaninaObiciowaBox.getSelectedIndex())[0];
+                int id_plyta = (int)plyta.get(plytaMeblowaBox.getSelectedIndex())[0];
+                int id_drewna = (int)drewno.get(drewnoBox.getSelectedIndex())[0];
+                int id_pianka = (int)pianka.get(piankaTapicerskaBox.getSelectedIndex())[0]; 
+                int id_okleina = (int)okleina.get(okleinaBox.getSelectedIndex())[0]; 
+
+
 
                 projekt = new ProjektKlienta((int)liczba_sztuk_projektu.getValue() ,koszyk.size()+1, typMeblaBox.getSelectedIndex(), laczeniaBox.getSelectedIndex(), szerkosc_mebla.getText(), 
-                wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText(), tkaninaObiciowaBox.getSelectedIndex(), plytaMeblowaBox.getSelectedIndex(),
-                drewnoBox.getSelectedIndex(), piankaTapicerskaBox.getSelectedIndex(), okleinaBox.getSelectedIndex());
+                wysokosc_mebla.getText(), dlugosc_mebla.getText(), rysunek_nazwa.getText(), id_tkanina, id_plyta,
+                id_drewna, id_pianka, id_okleina);
 
                 polproduktFormEnable(true);
                 dodaj_do_koszyka.setEnabled(true);
