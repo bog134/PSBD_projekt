@@ -140,7 +140,7 @@ public class Ekran_Technologa {
     static public ArrayList<String[]> wyswietlenie_materialow(String id)
     {       
         String zapytanie = 
-                "SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, rodzaj_materialu.Nazwa, wzor.Nazwa, material.Klasa, material.Id_Materialu\n" +
+                "SELECT DISTINCT material_proj_klienta.Id_Mat_Proj_klient, material.Nazwa, material.rozmiar, material.Id_Materialu\n" +
                 "\n" +
                 "FROM material\n" +
                 "LEFT JOIN rodzaj_materialu USING (Id_Rodzaju_materialu)\n" +
@@ -208,7 +208,7 @@ public class Ekran_Technologa {
     {       
         ArrayList<String[]> cena = pobranie_ceny_osobogodziny();
         String zapytanie = 
-                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Cena) VALUES (" + id + "," + "'" + opis + "'," + czas + "," + cena.get(0)[0] + "," + id_techn + ");"; 
+                "INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Cena, Id_Pracownika) VALUES (" + id + "," + "'" + opis + "'," + czas + "," + cena.get(0)[0] + "," + id_techn + ");"; 
 
         dodaj_do_bazy_danych(zapytanie);
     }

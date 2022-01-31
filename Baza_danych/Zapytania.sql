@@ -354,7 +354,7 @@ SET ilosc=x
 WHERE Id_Mat_Proj_klient = id_mat;
 
 -- 2. utworzenie definicji zadań 
-INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Id_Pracownika) VALUES (id,opis,czas,id_techn);
+INSERT INTO DEFINICJA_ZADANIA (Id_Proj_klient, Opis_zadania, Czas_wykonania, Cena, Id_Pracownika) VALUES (id,opis,czas,cena,id_techn);
 
 -- 3. utworzenie ceny 
 INSERT INTO CENA (Id_Pracownika, Id_Proj_klient, Koszt_robocizny, Koszt_surowcow, Marza) VALUES 

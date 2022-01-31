@@ -164,14 +164,9 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for (int i=0; i<lista_materialow.size(); i++)
         {
-//            Object[] data = new Object[lista_materialow.get(0).length+1];
-//            for(int j=0; j<lista_materialow.get(0).length-2; j++)
-//            {
-//                data[j]=lista_materialow.get(i)[j+1];
-//            }
-            Object[] data = new Object[1];
+            Object[] data = new Object[3];
             data[0]=lista_materialow.get(i)[1];
-            
+            data[2]=lista_materialow.get(i)[2];
             model.addRow(data);            
         }
          
@@ -181,8 +176,8 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         ArrayList<String[]> lista_szczegolow_polproduktu = SQL.Ekran_Technologa.wyświetlenie_szczegółów_wybranego_półproduktu(id, polprodukty_jComboBox1.getSelectedItem().toString());
         nazwa_jTextField8.setText(lista_szczegolow_polproduktu.get(0)[0]);
         rodzajjTextField9.setText(lista_szczegolow_polproduktu.get(0)[1]);
-        iloscPolproduktujTextField11.setText(lista_szczegolow_polproduktu.get(0)[2]);
-        wymiaryPolproduktujTextField10.setText(lista_szczegolow_polproduktu.get(0)[3]);
+        iloscPolproduktujTextField11.setText(lista_szczegolow_polproduktu.get(0)[3]);
+        wymiaryPolproduktujTextField10.setText(lista_szczegolow_polproduktu.get(0)[2]);
         rysunekPolproduktu_jTextField9.setText(lista_szczegolow_polproduktu.get(0)[4]);
         
     }
@@ -195,7 +190,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     class Keychecker extends KeyAdapter {
 
     @Override
-    public void keyPressed(KeyEvent evt) {
+    public void keyReleased(KeyEvent evt) {
 
         if(evt.getKeyCode() == KeyEvent.VK_DOWN) dodawanie_definicji_zadań();
         if(evt.getKeyCode() == KeyEvent.VK_UP) {
@@ -212,7 +207,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         for(int i=0; i<lista_materialow.size(); i++)  {
             ArrayList<String[]> lista_cena=SQL.Ekran_Technologa.pobranie_ceny_danego_materialu(lista_materialow.get(i)[lista_materialow.get(0).length-1]);
             float cena=Float.parseFloat(lista_cena.get(0)[0]);            
-            String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
+            String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-2));
             koszt+=cena*Float.parseFloat(ilosc);
             if (ilosc=="null") throw new Exception("Nie wypelniono ilosci materialow");
         }
@@ -225,7 +220,9 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         float koszt=(float) 0.0;
         
         DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
-        if (model.getRowCount()==0) throw new Exception("Nie wypelniono definicji zadan");
+        String opis=String.valueOf(model.getValueAt(0, 0));
+        String czas=String.valueOf(model.getValueAt(0, 1));
+        if ("null".equals(opis) || "null".equals(czas)) throw new Exception("Nie wypelniono definicji zadan");
         for(int i=0; i<model.getRowCount(); i++)  {
             koszt += Integer.parseInt(String.valueOf(model.getValueAt(i, 1)))*cena;
         }
@@ -236,7 +233,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
     {
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for(int i=0; i<lista_materialow.size(); i++)  {
-            String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-1));
+            String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-2));
             if (ilosc=="null") throw new Exception("Nie wypelniono ilosci materialow");
             SQL.Ekran_Technologa.zaaktualizowanie_ilości_materialow(ilosc, lista_materialow.get(i)[0]);
         }
@@ -712,14 +709,14 @@ public class Ekran_Technologa extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Nazwa", "Ilość"
+                "Nazwa", "Ilość", "Jednostka"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
