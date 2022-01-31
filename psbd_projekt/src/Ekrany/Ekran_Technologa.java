@@ -206,10 +206,11 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel) tabela_materialy.getModel();
         for(int i=0; i<lista_materialow.size(); i++)  {
             ArrayList<String[]> lista_cena=SQL.Ekran_Technologa.pobranie_ceny_danego_materialu(lista_materialow.get(i)[lista_materialow.get(0).length-1]);
-            float cena=Float.parseFloat(lista_cena.get(0)[0]);            
+            float cena=Float.parseFloat(lista_cena.get(0)[0]);  
             String ilosc= String.valueOf(model.getValueAt(i, model.getColumnCount()-2));
+            if ("null".equals(ilosc) || "".equals(ilosc) || ilosc==null) throw new Exception("Nie wypelniono ilosci materialow");
             koszt+=cena*Float.parseFloat(ilosc);
-            if (ilosc=="null") throw new Exception("Nie wypelniono ilosci materialow");
+            
         }
         return String.valueOf(koszt);
     }
@@ -222,7 +223,7 @@ public class Ekran_Technologa extends javax.swing.JFrame{
         DefaultTableModel model = (DefaultTableModel)definicje_zadan_tabela.getModel();
         String opis=String.valueOf(model.getValueAt(0, 0));
         String czas=String.valueOf(model.getValueAt(0, 1));
-        if ("null".equals(opis) || "null".equals(czas)) throw new Exception("Nie wypelniono definicji zadan");
+        if ("null".equals(opis) || "null".equals(czas)|| "".equals(opis) || "".equals(czas)) throw new Exception("Nie wypelniono definicji zadan");
         for(int i=0; i<model.getRowCount(); i++)  {
             koszt += Integer.parseInt(String.valueOf(model.getValueAt(i, 1)))*cena;
         }
