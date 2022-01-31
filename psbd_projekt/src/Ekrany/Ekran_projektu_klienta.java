@@ -586,7 +586,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
 
     private void typMeblaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typMeblaBoxActionPerformed
         if (evt.getSource()==typMeblaBox){
-            if(typMeblaBox.getSelectedIndex()==1){
+            if(typMeblaBox.getSelectedIndex()==1){ //stół
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(true);
@@ -599,7 +599,7 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 piankaTapicerskaBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==2){
+            }else if(typMeblaBox.getSelectedIndex()==2){//Krzesło
                 tkaninaObiciowaBox.setEnabled(true);
                 plytaMeblowaBox.setEnabled(false);
                 drewnoBox.setEnabled(true);
@@ -609,40 +609,39 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
 
                 plytaMeblowaBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
-            }else if(typMeblaBox.getSelectedIndex()==3){
+            }else if(typMeblaBox.getSelectedIndex()==3){//Fotel
                 tkaninaObiciowaBox.setEnabled(true);
-                plytaMeblowaBox.setEnabled(false);
+                plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(false);
                 piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
 
-                plytaMeblowaBox.setSelectedIndex(0);
+
                 drewnoBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==4){
+            }else if(typMeblaBox.getSelectedIndex()==4){//Łóżko
                 tkaninaObiciowaBox.setEnabled(true);
-                plytaMeblowaBox.setEnabled(false);
+                plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(false);
 
-                plytaMeblowaBox.setSelectedIndex(0);
+
                 piankaTapicerskaBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==5){
+            }else if(typMeblaBox.getSelectedIndex()==5){//Sofa
                 tkaninaObiciowaBox.setEnabled(true);
-                plytaMeblowaBox.setEnabled(false);
-                drewnoBox.setEnabled(false);
+                plytaMeblowaBox.setEnabled(true);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
 
-                plytaMeblowaBox.setSelectedIndex(0);
-                drewnoBox.setSelectedIndex(0);
+
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==6){
+            }else if(typMeblaBox.getSelectedIndex()==6){//Biurko
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(true);
@@ -652,71 +651,64 @@ polp_rodzaj.addActionListener(new java.awt.event.ActionListener() {
                 tkaninaObiciowaBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==6){
+            }else if(typMeblaBox.getSelectedIndex()==7){//Szafa
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                drewnoBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
 
                 tkaninaObiciowaBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==7){
+            }else if(typMeblaBox.getSelectedIndex()==8){//Komoda
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                drewnoBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
 
                 tkaninaObiciowaBox.setSelectedIndex(0);
-                drewnoBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==8){
+            }else if(typMeblaBox.getSelectedIndex()==9){ //szafka nocna
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                drewnoBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
 
                 tkaninaObiciowaBox.setSelectedIndex(0);
-                drewnoBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
                 
-            }else if(typMeblaBox.getSelectedIndex()==9){
+            }else if(typMeblaBox.getSelectedIndex()==10){//Narożnik
                 tkaninaObiciowaBox.setEnabled(true);
-                plytaMeblowaBox.setEnabled(false);
-                drewnoBox.setEnabled(false);
+                plytaMeblowaBox.setEnabled(true);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(true);
                 okleinaBox.setEnabled(false);
 
-                plytaMeblowaBox.setSelectedIndex(0);
-                drewnoBox.setSelectedIndex(0);
                 okleinaBox.setSelectedIndex(0);
 
-            }else if(typMeblaBox.getSelectedIndex()==10){
+            }else if(typMeblaBox.getSelectedIndex()==11){//Regał
                 tkaninaObiciowaBox.setEnabled(false);
                 plytaMeblowaBox.setEnabled(true);
-                drewnoBox.setEnabled(false);
+                drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
                 okleinaBox.setEnabled(true);
 
                 tkaninaObiciowaBox.setSelectedIndex(0);
-                drewnoBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
                 
-            }else if(typMeblaBox.getSelectedIndex()==11){
+            }else if(typMeblaBox.getSelectedIndex()==12){//Kredens
                 tkaninaObiciowaBox.setEnabled(false);
-                plytaMeblowaBox.setEnabled(false);
+                plytaMeblowaBox.setEnabled(true);
                 drewnoBox.setEnabled(true);
                 piankaTapicerskaBox.setEnabled(false);
-                okleinaBox.setEnabled(false);
+                okleinaBox.setEnabled(true);
 
                 tkaninaObiciowaBox.setSelectedIndex(0);
-                plytaMeblowaBox.setSelectedIndex(0);
                 piankaTapicerskaBox.setSelectedIndex(0);
-                okleinaBox.setSelectedIndex(0);
             }
         }
     }//GEN-LAST:event_typMeblaBoxActionPerformed
