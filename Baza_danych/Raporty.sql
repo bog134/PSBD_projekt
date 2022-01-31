@@ -28,7 +28,7 @@ FROM
     JOIN ZAMOWIENIE_NA_KOMPONENTY USING (Id_dostawcy)
     JOIN POLPRODUKT USING (NrZamowienia)
 
-    WHERE ZAMOWIENIE_NA_KOMPONENTY.Czas_realizacji_Data_zakonczenia IS NOT NULL AND POLPRODUKT.Id_Proj_polprod=id_proj_polproduktu
+    WHERE ZAMOWIENIE_NA_KOMPONENTY.Czas_realizacji_Data_zakonczenia IS NOT NULL AND POLPRODUKT.Id_Proj_polprod=id_proj_polproduktu --15
     GROUP BY polprodukt.Id_Proj_polprod,dostawca.Id_Dostawcy
 ) AS tab;
 
@@ -41,6 +41,6 @@ FROM
     JOIN ZAMOWIENIE_NA_KOMPONENTY USING (Id_dostawcy)
     JOIN MATERIAL_ZAMOW_KOMP USING (NrZamowienia)
 
-    WHERE ZAMOWIENIE_NA_KOMPONENTY.Czas_realizacji_Data_zakonczenia IS NOT NULL AND material_zamow_komp.Id_Materialu=id_materialu
+    WHERE ZAMOWIENIE_NA_KOMPONENTY.Czas_realizacji_Data_zakonczenia IS NOT NULL AND material_zamow_komp.Id_Materialu=id_materialu --1
     GROUP BY material_zamow_komp.Id_Materialu,dostawca.Id_Dostawcy
 ) AS tab;
